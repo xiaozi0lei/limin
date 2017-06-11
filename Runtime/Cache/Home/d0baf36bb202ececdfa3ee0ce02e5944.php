@@ -27,9 +27,10 @@ var public = '__PUBLIC__';
 var mobile = '<?php echo ($wapon); ?>';
 var root_path='<?php echo (__ROOT__); ?>';
 </script>
-<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
 <script type="text/javascript" src="../Public/js/jquery.min.js"></script>
 <script type="text/javascript" src="../Public/js/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="../Public/js/ddsmoothmenu.js"></script>
 <script type="text/javascript">
 ddsmoothmenu.init({
 	mainmenuid: "MainMenu", //menu DIV id

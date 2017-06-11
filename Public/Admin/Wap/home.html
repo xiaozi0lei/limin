@@ -1,0 +1,50 @@
+  <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+<style>
+html{
+height:100%;
+}
+</style>
+<div class="rightCon1 fl">
+     <div class="conTitle">主页配置</div>
+    
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Wap/doSaveHome')}" method="post">
+<table width="100%" height="230" border="0" cellpadding="0" cellspacing="1"  class="list_table">
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.indexannum}:</span></td>
+    <td width="80%" class="spacing3"><input class="input_middle" name="wap_art_num" value="{$wap_art_num|default=10}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.indexpronnum}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="wap_pro_num" value="{$wap_pro_num|default=10}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.indexpnnum}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="wap_pic_num" value="{$wap_pic_num|default=10}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.indexdnum}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="wap_down_num" value="{$wap_down_num|default=10}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.indexjnnum}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="wap_jon_num" value="{$wap_jon_num|default=10}" /></td>
+   </tr>
+   <tr>
+        <td class="title_text">&nbsp;</td>
+
+    <td width="" class="spacing3"><input type="submit" class="form-text" value="{$Think.lang.save}" /></td>
+   </tr>
+ 
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

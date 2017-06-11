@@ -1,0 +1,139 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+<script src="__PUBLIC__/DatePicker/WdatePicker.js"></script>
+
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">搜索引擎概况</div>
+     <div class="conNav">
+        <ul>
+        <li <if condition="ACTION_NAME=='summary'">class="active"</if>><a href="{:U('Admin/Alexa/summary')}{$language}"><span>流量概况</span></a></li>
+        <li <if condition="ACTION_NAME=='eng'">class="active"</if>><a href="{:U('Admin/Alexa/eng',array('tab'=>1))}{$language}"><span>搜索引擎概况</span></a></li>
+        <li <if condition="ACTION_NAME=='access'">class="active"</if>><a href="{:U('Admin/Alexa/access',array('tab'=>1))}{$language}"><span>访问分析</span></a></li>
+        <li <if condition="ACTION_NAME=='referer'">class="active"</if>><a href="{:U('Admin/Alexa/referer',array('tab'=>1))}{$language}"><span>来源分析</span></a></li>
+		</ul>
+     </div>
+	 
+	<div id="menu_tab" >
+		<ul>
+		<li>
+		<span <if condition="$_GET['tab']==1">class="active"</if>><a href="{:U('Admin/alexa/eng',array('st'=>$st,'et'=>$et,'tab'=>1))}" >关键词</a></span></li>
+		<li><span <if condition="$_GET['tab']==2">class="active"</if>><a href="{:U('Admin/alexa/eng',array('st'=>$st,'et'=>$et,'tab'=>2))}" >搜索引擎</a></span> </li> 
+		</ul>
+		
+	</div>
+	
+	 <div>
+	 	<if condition="$tab==1">
+	<table width="100%"  border="0" cellpadding="0" cellspacing="1" class="list_table" style="margin-top:40px;">
+  <tr >
+    <th height="" colspan="6" scope="col" id="thid">
+	从 {:date('Y-m-d',$st)} 到 {:date('Y-m-d',$et)}
+	<strong id="a_day">
+	
+			<a href="{:U('Admin/alexa/access',array('st'=>$dtime,'et'=>$dtime,'dtab'=>'j','tab'=>$tab))}"  class="dd <if condition="$_GET['dtab']=='j'">onday</if>" title="今日">今日</a>
+			<a href="{:U('Admin/alexa/access',array('st'=>$ztime,'et'=>$ztime,'dtab'=>'z','tab'=>$tab))}" class="dd <if condition="$_GET['dtab']=='z'">onday</if>" title="昨日">昨日</a>
+			<a href="{:U('Admin/alexa/access',array('st'=>$xtime,'et'=>$dtime,'dtab'=>'q','tab'=>$tab))}" class="dd <if condition="$_GET['dtab']=='q'">onday</if>" title="最近7天">最近7天</a>
+			<a href="{:U('Admin/alexa/access',array('st'=>$timeq30,'et'=>$dtime,'dtab'=>'s','tab'=>$tab))}" class="dd <if condition="$_GET['dtab']=='s'">onday</if>" title="最近30天">最近30天</a>
+			<a href="{:U('Admin/alexa/access',array('st'=>$timed1,'et'=>$dtime,'dtab'=>'b','tab'=>$tab))}" class="dd <if condition="$_GET['dtab']=='b'">onday</if>" title="本月">本月</a>&nbsp;-&nbsp;选择日期
+			<form name="myform" action="{:U('Admin/alexa/access')}" method="POST" target="_self" class="stet" style="display:inline;">
+				<input name="stt" value="<php>echo !empty($_POST['stt'])?$_POST['stt']:date('Y-m-d',$dtime)</php>" class="txt Wdate" onclick="WdatePicker()" style="width:90px; font-size:12px;" type="text"> 至
+				<input name="ett" value="<php>echo !empty($_POST['ett'])?$_POST['ett']:date('Y-m-d',$dtime)</php>" class="txt Wdate" onclick="WdatePicker()" style="width:90px; font-size:12px;" type="text">
+				<input name="submit" value="提交" type="submit">
+			</form>
+		
+	
+	</strong>
+	</th>
+    </tr>
+  
+  <tr class="list_tr">
+    <td class="list_td">排名</td>
+    <td class="list_td">关键词</td>
+    <td class="list_td">搜索次数↓</td>
+    <td class="list_td">独立访客</td>
+    <td class="list_td">IP</td>
+    <td class="list_td">人均浏览次数</td>
+  </tr>
+  
+  <volist name="visit" id="visit">
+  <tr class="list_tr">
+    <td class="list_td">{$visit['order']}</td>
+    <td class="list_td">{$key}</td>
+    <td class="list_td">{$visit['pv']}</td>
+    <td class="list_td">{$visit['alone']}</td>
+    <td class="list_td">{$visit['ip']}</td>
+    <td class="list_td">{$visit['per']}</td>
+  </tr>
+  </volist>
+
+  <tr>
+    <td class="list_td">&nbsp;</td>
+    <td colspan="5" class="list_td">{$page}</td>
+    </tr>
+  
+ </table>
+<else/>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="1" class="list_table">
+  <tr>
+    <th height="23" colspan="3" scope="col" id="thid">
+	从 {:date('Y-m-d',$st)} 到 {:date('Y-m-d',$et)}
+	<strong id="a_day">
+	
+			<a href="{:U('Admin/alexa/access',array('st'=>$dtime,'et'=>$dtime,'dtab'=>'j','tab'=>$tab))}"  class="dd <if condition="$_GET['dtab']=='j'">onday</if>" title="今日">今日</a>
+			<a href="{:U('Admin/alexa/access',array('st'=>$ztime,'et'=>$ztime,'dtab'=>'z','tab'=>$tab))}" class="dd <if condition="$_GET['dtab']=='z'">onday</if>" title="昨日">昨日</a>
+			<a href="{:U('Admin/alexa/access',array('st'=>$xtime,'et'=>$dtime,'dtab'=>'q','tab'=>$tab))}" class="dd <if condition="$_GET['dtab']=='q'">onday</if>" title="最近7天">最近7天</a>
+			<a href="{:U('Admin/alexa/access',array('st'=>$timeq30,'et'=>$dtime,'dtab'=>'s','tab'=>$tab))}" class="dd <if condition="$_GET['dtab']=='s'">onday</if>" title="最近30天">最近30天</a>
+			<a href="{:U('Admin/alexa/access',array('st'=>$timed1,'et'=>$dtime,'dtab'=>'b','tab'=>$tab))}" class="dd <if condition="$_GET['dtab']=='b'">onday</if>" title="本月">本月</a>&nbsp;-&nbsp;<span>选择日期</span>
+			<form name="myform" action="{:U('Admin/alexa/access')}" method="POST" target="_self" class="stet" style="display:inline;">
+				<input name="stt" value="<php>echo !empty($_POST['stt'])?$_POST['stt']:date('Y-m-d',$dtime)</php>" class="txt Wdate" onclick="WdatePicker()" style="width:90px; font-size:12px;" type="text"> 至
+				<input name="ett" value="<php>echo !empty($_POST['ett'])?$_POST['ett']:date('Y-m-d',$dtime)</php>" class="txt Wdate" onclick="WdatePicker()" style="width:90px; font-size:12px;" type="text">
+				<input name="submit" value="提交" type="submit">
+			</form>
+	</strong>	</th>
+    </tr>
+  
+  <tr class="list_tr">
+    <td colspan="3" class="list_td"><div style="height:270px;" id="charttd"><div id='chartContainer'></div></div></td>
+	
+	<script language="JavaScript" src="__PUBLIC__/Chart/js/FusionCharts.js"></script>
+<script type="text/javascript">
+	var wdth = $('#charttd').width()-20;
+	var heth = '270';
+   var chart = new FusionCharts("__PUBLIC__/Chart/swf/FCF_Pie2D.swf", "ChartId", wdth, heth);
+   chart.setDataURL("{:U('Admin/Alexa/engdata',array('yqnum'=>$yqnum))}");		   
+   chart.render("chartContainer");
+</script>
+    </tr>
+   
+   
+   <tr class="list_tr" style="background-color:#1F75B7; font-weight:bold; color:#FFFFFF;">
+    <td class="list_td">排名</td>
+    <td class="list_td">域名</td>
+    <td class="list_td">浏览量</td>
+    </tr>
+  <volist name="visit" id="visit">
+ 
+  <tr class="list_tr">
+    <td class="list_td">{$visit['order']}</td>
+    <td class="list_td">{:enginetype($key)}</td>
+    <td class="list_td">{$visit['pv']}</td>
+    </tr>
+  </volist>
+
+  <tr>
+    <td class="list_td">&nbsp;</td>
+    <td colspan="2" class="list_td">{$page}</td>
+    </tr>
+</table>
+</if>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

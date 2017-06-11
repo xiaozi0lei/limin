@@ -1,0 +1,64 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">购物</div>
+     <div class="conNav">
+       <ul>
+        <li <if condition="ACTION_NAME=='orderall'">class="active"</if> ><a href="{:U('Admin/Shop/orderAll',array('tab'=>1))}{$language}"><span>订单</span></a></li>
+        <li <if condition="ACTION_NAME=='setting'">class="active"</if>><a href="{:U('Admin/Shop/setting')}{$language}"><span>设置</span></a></li>
+		<li <if condition="ACTION_NAME=='paysetting'">class="active"</if>><a href="{:U('Admin/Shop/paysetting')}{$language}"><span>支付设置</span></a></li>
+        
+
+       </ul>
+     </div>
+
+	 
+	 <div>
+	 	<form action="{:U('Admin/Shop/doSavePaySeting')}" method="post">
+<table width="100%" height="361" border="0" cellpadding="0" cellspacing="1"   class="list_table">
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">支付宝支付:</span></td>
+    <td width="80%" class="spacing3"><input type="radio" value="1" <if condition="$alipay==1">checked="checked"</if>  name="alipay"/>开启 <input type="radio" value="0" name="alipay" <if condition="empty($alipay)">checked="checked"</if> />关闭  &nbsp;&nbsp;&nbsp;<a href="https://b.alipay.com/order/productDetail.htm?productId=2012111200373124" target="_blank">点击申请>></a></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">支付宝收款账号:</span></td>
+    <td width="" class="spacing3"><input type="text" name="ali_seller"  value="{$ali_seller}"/> </td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">PID:</span></td>
+    <td width="" class="spacing3"><input type="text" name="ali_pid" value="{$ali_pid}"/></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">KEY:</span></td>
+    <td width="" class="spacing3"><input type="text" name="ali_key" value="{$ali_key}"/></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">银行卡支付:</span></td>
+    <td width="" class="spacing3"><input type="radio" name="bankpay" value="1"  <if condition="$bankpay==1">checked="checked"</if>/>开启 <input type="radio" name="bankpay" value="0" <if condition="empty($bankpay)">checked="checked"</if>/>关闭 &nbsp;&nbsp;&nbsp;<a href="http://www.chinabank.com.cn/gateway/foropening.html" target="_blank">点击申请>></a></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">商户号码:</span></td>
+    <td width="" class="spacing3"><input type="text" name="bank_id" value="{$bank_id}"/></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">MD5密钥:</span></td>
+    <td width="" class="spacing3"><input type="text" name="bank_md5" value="{$bank_md5}"/></td>
+   </tr>
+  
+   <tr>
+    <td width="" class="title_text">&nbsp;</td>
+    <td width="" class="spacing3"><input type="submit" class="form-text" value="{$Think.lang.save}" /></td>
+   </tr>
+</table>
+</form>
+	 
+	 </div>
+	
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

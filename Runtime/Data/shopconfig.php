@@ -1,0 +1,1 @@
+<?php	return array ( 'shop_swich' => '1', 'shop_mobile' => '13780907866', 'shop_email' => '653392968@qq.com', 'order_style' => 'right_bottom', 'order_color' => 'blue', 'dio' => 'blue', 'alipay' => '0', 'ali_seller' => '', 'ali_pid' => '', 'ali_key' => '', 'bankpay' => '0', 'bank_id' => '', 'bank_md5' => '', 'msg_acc' => '', 'msg_mima' => '', );?>

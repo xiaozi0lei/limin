@@ -1,0 +1,202 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+<script src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+<script>
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('.editor_textarea', {
+					filterMode : false,
+					uploadJson : '{:U('Admin/Sort/uploadArticalImg')}',
+					allowFileManager : false,
+					items:[
+        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+        'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+        'anchor', 'link', 'unlink', '|', 'about'
+]
+				});
+				
+			});
+		</script>
+
+<div class="rightCon1 fl">
+     <div class="conTitle">栏目编辑</div>
+     <div class="conNav">
+       <ul>
+        <li <if condition="ACTION_NAME=='sortlist'">class="active"</if> ><a href="{:U('Admin/Sort/sortList')}{$language}"><span>栏目管理</span></a></li>
+        <li <if condition="ACTION_NAME=='config'">class="active"</if>><a href="{:U('Admin/Sort/config')}{$language}"><span>栏目设置</span></a></li>
+       
+       </ul>
+     </div>
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Sort/doEditSort')}" method="post" enctype="multipart/form-data">
+	<table width="100%" height="564"   border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+	  <tr>
+		<td width="20%" class="title_text"><span class="span_title">{$Think.lang.name}:</span></td>
+		<td width="80%" class="spacing3"><input class="input_middle" name="name" value="{$sort.name|default=''}" /></td>
+	   </tr>
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">父类:</span></td>
+		<td width="" class="spacing3">
+		
+		<select name="parent_id">
+			<option value="0">顶级分类</option>
+			{$html}
+		</select>
+		
+		</td>
+	   </tr>
+	   
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">{$Think.lang.order}:</span></td>
+		<td width="" class="spacing3"><input class="input_middle" name="sort_order" value="{$sort.sort_order|default=0}" /></td>
+	   </tr>
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">所属模块:</span></td>
+		<script>
+		function change_module(t){
+		
+			if($(t).val()=='Link'){
+				$('#foldername_span').text('链接:');
+				
+				$('#foldername').val('');	
+			}else{
+				$('#foldername_span').text('目录:');
+				$('#linktr').css('display','none');
+			}
+		
+		}
+		
+		</script>
+		<td width="" class="spacing3">
+			<select name="module_name" onchange="change_module(this)">
+				<option value="Index"  <eq name="sort.module" value="Index">selected="selected"</eq> >主页</option>
+				<option value="Article" <eq name="sort.module" value="Article">selected="selected"</eq>>文章</option>
+				<option value="Product" <eq name="sort.module" value="Product">selected="selected"</eq>>产品</option>
+				<option value="Download" <eq name="sort.module" value="Download">selected="selected"</eq>>下载</option>
+				<option value="Picture" <eq name="sort.module" value="Picture">selected="selected"</eq>>图片</option>
+				<option value="Job" <eq name="sort.module" value="Job">selected="selected"</eq>>招聘</option>
+				<option value="Message" <eq name="sort.module" value="Message">selected="selected"</eq>>留言</option>
+				<option value="About" <eq name="sort.module" value="About">selected="selected"</eq>>单页简介</option>
+				<option value="Link" <eq name="sort.module" value="Link">selected="selected"</eq>>链接</option>
+			</select>
+		</td>
+	   </tr>
+	   
+	   <tr>
+		<td width="" class="title_text"><span class="span_title" id="foldername_span"><if condition="$sort['module']=='Link'">链接<else/>目录</if>:</span></td>
+		<td width="" class="spacing3"><input class="input_middle" id="foldername" name="folder" value="{$sort.folder|default=''}" /></td>
+	   </tr>
+	   
+	   <if condition="!in_array($sort['module'],array('About','Index','Message'))">
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">列表页模板名:</span></td>
+		<td width="" class="spacing3"><input  type="text" value="{$sort.index_tpl|default='index'}" name="index_tpl" /></td>
+	   </tr>
+	   </if>
+	   <if condition="!in_array($sort['module'],array('Index','About','Message'))">
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">内页模板名:</span></td>
+		<td width="" class="spacing3"><input  type="text" value="{$sort.show_tpl|default='show'}"  name="show_tpl"/></td>
+	   </tr>
+	   </if>
+	   <if condition="in_array($sort['module'],array('Message','About'))">
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">模板名:</span></td>
+		<td width="" class="spacing3"><input  type="text" value="{$sort.index_tpl|default='index'}"  name="index_tpl"/></td>
+	   </tr>
+	   </if>
+	   
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">链接到第一个子类:</span></td>
+		<td width="" class="spacing3"><input type="radio" value="1" name="jump_to_son" 
+		  <eq name="sort.jump_to_son" value="1">checked="checked"</eq> />{$Think.lang.yes} <input type="radio" value="0"  <eq name="sort.jump_to_son" value="0">checked="checked"</eq>  name="jump_to_son"/>{$Think.lang.no}</td>
+	   </tr>
+	   
+	   
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">主页隐藏:</span></td>
+		<td width="" class="spacing3"><input type="radio" value="1" name="index_hidden" 
+		  <eq name="sort.index_hidden" value="1">checked="checked"</eq> />{$Think.lang.yes} <input type="radio" value="0"  <eq name="sort.index_hidden" value="0">checked="checked"</eq>  name="index_hidden"/>{$Think.lang.no}</td>
+	   </tr>
+	   
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">主导航隐藏:</span></td>
+		<td width="" class="spacing3"><input type="radio" value="1" name="hidden" 
+		  <eq name="sort.hidden" value="1">checked="checked"</eq> />{$Think.lang.yes} <input type="radio" value="0"  <eq name="sort.hidden" value="0">checked="checked"</eq>  name="hidden"/>{$Think.lang.no}</td>
+	   </tr>
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">栏目图片:</span></td>
+		<td width="" class="spacing3">
+		<script>
+			function editimg(){
+				
+				$('#sortimg').html('<input type="file" name="img"/>')
+			}
+		</script>
+		
+		<span id="sortimg"><if condition="!empty($sort['img'])"><img src="{$site_url}/{$sort['img']}" width="100" height="80" /> <a href="javascript:void(0)" onclick="editimg()">修改</a><else/><input type="file" name="img" /></if></span></td>
+	   </tr>
+	   
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">{$Think.lang.title}:</span></td>
+		<td width="" class="spacing3"><input class="input_middle" name="title" value="{$sort.title|default=''}"/></td>
+	   </tr>
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">手机站导航名称:</span></td>
+		<td width="" class="spacing3"><input class="input_middle" name="mobiletitle" value="{$sort.mobiletitle|default=''}"/></td>
+	   </tr>
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">主导航显示方式:</span></td>
+		<td width="" class="spacing3"><input type="radio" value="2" name="show_type"  <if condition="empty($sort['show_type'])||$sort['show_type']==2">checked="checked"</if> />PC <input name="show_type"  type="radio" value="1" <if condition="$sort['show_type']==1">checked="checked"</if>/>都显示 <input name="show_type" type="radio" value="3" <if name="show_type" condition="$sort['show_type']==3">checked="checked"</if>/>手机端</td>
+	   </tr>
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">{$Think.lang.keyword}:</span></td>
+		<td width="" class="spacing3"><input class="input_middle" name="keyword" value="{$sort.keyword|default=''}"/></td>
+	   </tr>
+	   <tr>
+		<td width="" class="title_text"><span class="span_title">{$Think.lang.desc}:</span></td>
+		<td width="" class="spacingtext3"><textarea name="desc">{$sort.desc|default=''}</textarea></td>
+	   </tr>
+	   
+	   <!--模块特殊字段-->
+	   <switch name="sort['module']" >
+		<case value="About" break="1">
+			<tr>
+			<td width="" class="title_text"><span class="span_title">内容:</span></td>
+			<td width="" class="spacingtext3"><font color="red">百度地图添加方法：在内容里添加<literal>{$map}</literal></font><textarea class="editor_textarea" name="extend[content]" style="width:670px; height:400px;">{$sort['extend']['content']}</textarea></td>
+		   </tr>
+			
+		</case>
+	
+		
+	   </switch>
+	
+	   
+	   
+	   
+	   
+	   <tr>
+		<td width="" class="title_text"><span class="span_title"></span></td>
+		<td width="" class="spacing3"><input class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+	   </tr>
+		<input type="hidden" value="{$sort.id}" name="id" />
+	</table>
+	</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

@@ -1,0 +1,149 @@
+<html>
+<head>
+<title>安装</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="__PUBLIC__/js/jquery-1.4.4.min.js"></script>
+<script>
+$(function(){
+
+	var a=$('input:checked').val();
+	tab(a);
+
+})
+function tab(type){
+			 	
+				if(type=='pdo'){
+					$('.mysql').css('display','none');
+				}
+			 	if(type=='mysql'){
+					$('.mysql').css('display','');
+				}
+			 	
+			 
+			 }
+</script>
+<link rel='stylesheet' type='text/css' href='__PUBLIC__/css/install.css'>
+</head>
+<body >
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+<if condition="strtolower(ACTION_NAME) eq index">  
+<tr><td align="center">
+    <table width="600" border="0" cellpadding="4" cellspacing="1" class="tableoutline" style="text-align:center">
+         <tr class="tb_head" style="text-align:left"><td colspan="3"><h2>目录权限检测：</h2></td></tr>
+         <tr class="firstalt">
+         <td width="250"><strong>目录名</strong></td>
+         <td width="100"><strong>读取权限</strong></td>
+         <td ><strong>写入权限</strong></td>
+    <?php 
+    $dirs=array('/','/Conf/*','/data/*','/Runtime/*','/Upload/*'); 
+    ?>   
+         </tr>
+    <?php 
+        foreach($dirs as $d){
+    ?>
+        <tr class="firstalt">
+        <td><?php echo $d; ?></td>
+    <?php
+        $fulld = APP_PATH.str_replace('/*','',$d);
+        $rsta = (is_readable($fulld) ? '<font color=green>[√]读</font>' : '<font color=red>[×]读</font>');
+        $wsta = (testwrite($fulld) ? '<font color=green>[√]写</font>' : '<font color=red>[×]写</font>');
+        echo "<td>$rsta</td><td>$wsta</td>";
+    ?> </tr>
+    <?php
+        };
+    ?></table>
+     <table width="600" border="0" cellpadding="4" cellspacing="1" class="tableoutline" style="text-align:center">
+     <tr class="tb_head" style="text-align:left"><td colspan="3"><h2>服务器环境检测：</h2></td></tr>
+     <tr class="firstalt">
+     <td width="250"><strong>需开启的变量或函数</strong></td>
+     <td width="100"><strong>要求</strong></td>
+     <td ><strong>实际状态及建议</strong></td>
+     </tr>
+     <tr class="firstalt">
+     <td >MySQL 支持</td>
+     <td >On</td>
+     <td ><php>echo function_exists('mysql_connect') ? '<font color=green>[√]On</font>' : '<font color=red>[×]Off</font>'</php></td>
+     </tr>          
+     <tr class="firstalt">
+     <td >allow_url_fopen</td>
+     <td >On</td>
+     <td ><php>echo ini_get('allow_url_fopen') ? '<font color=green>[√]On</font>' : '<font color=red>[×]Off</font>'</php></td>
+     </tr>
+     <tr class="firstalt">
+     <td >safe_mode</td>
+     <td >Off</td>
+     <td ><php>echo ini_get('safe_mode') ? '<font color=red>[√]On</font>' : '<font color=green>[×]Off</font>'</php></td>
+     </tr>
+     <tr class="firstalt">
+     <td >GD 支持</td>
+     <td >(>=2.0.34 compatible)</td>
+     <td ><?php
+            $gd = gd_info();
+			echo $gd['GD Version'] ? $gd['GD Version'] : '<font color=red>[×]Off</font>';
+			?>
+     </td>
+     </tr>
+ 	<tr class="tb_head" style="text-align:center">
+    <td colspan="3"><form method="post" action="{:U('Admin/Install/setup')}"><input type="submit" name="submit" value="下一步" class="bginput"></form></td></tr>             
+    </table> 
+</td></tr>
+<else/> 
+<tr><td align="center">
+	<table width="600" border="0" cellpadding="4" cellspacing="1" class="tableoutline">
+        <form action="{:U('Admin/Install/install')}"  method="post" name="myform">
+           
+		   <tr class="firstalt">
+            <td width="48%" valign="top"><b>数据库类型</b><br>
+              <font color="#666666">选择数据库类型</font></td>
+            <td>
+	
+			
+			<input class="db_typec" onClick="tab('mysql')" type="radio" <if condition="empty($db_mysql)">disabled="disabled"</if>   name="data[dbtype]" value="mysql"    <eq name="db_mysql" value="1">checked="checked"</eq>>MySql 
+			
+			<eq name="db_mysql" value="1"><font color="#00FF80">支持</font><else/><font color="#FF0000">不支持</font></eq>
+	
+			<input class="db_typec" onClick="tab('pdo')" <if condition="empty($db_sqlite)">disabled="disabled"</if> type="radio" name="data[dbtype]" value="pdo" <eq name="db_sqlite" value="1">checked="checked"</eq>>Sqlite
+			
+			<eq name="db_sqlite" value="1"><font color="#00FF80">支持</font><else/><font color="#FF0000">不支持</font></eq>
+			
+			</td>
+          </tr>
+		            
+          <tr class="firstalt mysql">
+            <td width="48%" valign="top"><b>服务器地址</b><br>
+              <font color="#666666">一般为localhost</font></td>
+            <td><input  type="text" name="data[db_host]" size="35" maxlength="50" value="localhost" id="data[db_host]" ></td>
+          </tr>
+          <tr nowrap class="firstalt mysql">
+            <td width="48%"><b>数据库端口</b><br><font color="#666666">请填写MYSQL数据库使用的端口</font><br></td>
+            <td><input name="data[db_port]" type="text" id="data[db_port]" value="3306" size="35" maxlength="50" ></td>
+          </tr>          
+          <tr nowrap class="firstalt mysql">
+            <td width="48%"><b>数据库名称</b><br><font color="#666666">请填写已存在的数据库名</font><br></td>
+            <td><input name="data[db_name]" type="text" id="data[db_name]" value="cms" size="35" maxlength="50" ></td>
+          </tr>         
+          <tr nowrap class="firstalt mysql">
+            <td width="48%"><b>数据库用户名</b><br><font color="#666666">一般为root</font><br></td>
+            <td><input name="data[db_user]" type="text" id="data[db_user]" value="root" size="35" maxlength="50" ></td>
+          </tr>
+          <tr nowrap class="firstalt mysql">
+            <td width="48%"><b>数据库密码</b><br>密码尽量不要设为空<br></td>
+            <td><input name="data[db_pwd]"  type="text" id="data[db_pwd]" size="35" maxlength="50" ></td>
+          </tr>
+          <tr nowrap class="firstalt mysql">
+            <td width="48%"><p><b>表前缀</b><br><font color="#666666">一般不用修改</font><br></p></td>
+            <td><input name="data[db_prefix]"  type="text" id="data[db_prefix]" value="cms_" size="35" maxlength="50"  valid="required"  errmsg="表前缀不能为空!"></td>
+          <tr class="firstalt" style="height:60px">
+            <td colspan="2" align="center">
+              <input class="bginput" type="submit" name="submit" <php> echo (testwrite(APP_PATH.'/Conf')?'value=" 安装程序 "':'value="你的空间没有写入权限不能安装" disabled');</php>>
+              <input class="bginput" type="reset" name="Input" value=" 重 置 " ></td>
+          </tr>
+         
+        </form>
+      </table>     
+</td></tr>
+</if>
+</table>
+</body>
+</html>

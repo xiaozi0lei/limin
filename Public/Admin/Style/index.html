@@ -1,0 +1,65 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<div class="rightCon1 fl">
+     <div class="conTitle">列表页</div>
+       <div class="conNav">
+       <ul>
+		  <eq name="style_lists" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="index">class="active"</eq>><a href="{:U('Admin/Style/lists')}{$language}"><span>列表页</span></a></li>
+		 </eq>
+		  <eq name="style_details" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="detail">class="active"</eq>><a href="{:U('Admin/Style/detail')}{$language}"><span>内容页</span></a></li>
+		 </eq>
+		  <eq name="style_customer" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="customer">class="active"</eq>><a href="{:U('Admin/Style/customer')}{$language}"><span>客服管理</span></a></li>
+		 </eq>
+        <li <eq name="Think.const.ACTION_NAME" value="tmpl">class="active"</eq>><a href="{:U('Admin/Style/tmpl')}{$language}"><span>模板设置</span></a></li>
+       </ul>
+     </div>
+	 
+	
+	 <div>
+	 	<form action="{:U('Admin/Style/doSaveStyleList')}" method="post">
+		<table width="100%" height="349" border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+		  <tr>
+			<td width="20%" class="title_text"><span class="span_title">{$Think.lang.aperpage}:</span></td>
+			<td width="80%" class="spacing3"><input class="input_middle" name="list_article_num" value="{$list_article_num|default=10}" /></td>
+	      </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.properpage}:</span></td>
+			<td class="spacing3"><input class="input_middle" name="list_product_num" value="{$list_product_num|default=10}" /></td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.pperpage}:</span></td>
+			<td class="spacing3"><input class="input_middle" name="list_picture_num" value="{$list_picture_num|default=10}" /></td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.dperpage}:</span></td>
+			<td class="spacing3"><input class="input_middle" name="list_download_num" value="{$list_download_num|default=10}" /></td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.jobperpage}:</span></td>
+			<td class="spacing3"><input class="input_middle" name="list_job_num" value="{$list_job_num|default=10}" /></td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.newico}:</span></td>
+			<td class="spacing3"><input style="width:50px;" name="new_icon_day" value="{$new_icon_day|default=2}" />{$Think.lang.newicodesc}</td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.hotico}:</span></td>
+			<td class="spacing3"><input  style="width:50px;"  name="hot_icon_click" value="{$hot_icon_click|default=10}" /> {$Think.lang.hoticodesc}</td>
+		   </tr>
+		   <tr>
+			<td class="title_text">&nbsp;</td>
+			<td class="spacing3"><input class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+		   </tr>
+		 
+		</table>
+		</form>
+	 
+	 </div>
+	 
+   </div>
+
+<include file="./Public/Admin/Public/footer.html" />

@@ -1,0 +1,95 @@
+<include file="Public:header" />
+<link href="../Public/js/zoom/phzoom.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/js/zoom/phzoom.js"></script>
+<script>
+$(function(){
+
+$(".piczoom").phzoom({
+
+        prevText:'上一张',         // 上一张按钮的显示文本, 需要引号
+        nextText:'下一张',         // 下一张按钮的显示文本, 需要引号
+        navColor:'#FFFFFF',         // 上/下一张按钮的文本颜色, 需要引号
+        capColor:'#FFFFFF'         // 大图底部标题与索引的文本颜色, 需要引号
+        
+  });
+
+
+
+});
+</script>
+<style>
+ #piclist li{
+ float:left;
+ margin-right:10px;
+ }
+</style>
+
+<div class="nypro">
+ <div class="nynr gg"><p>{$current_sort['name']}</p></div>
+    		
+</div>
+<div class="main">
+
+
+<div id="page_main" class="clearfix">
+    <div class="container">
+      <div class="page-right">
+     <div class="lanmu">
+          <div class="lmdh fl"><include file="Public:left" /></div>
+      <div class="site-nav fr"><span>当前位置 : </span>
+	  
+		{$location}
+	  
+	  </div>
+      <br class="clear" />
+      </div>
+      <div class="page-news">
+        <div id="shownews">
+            <h1 class="title">{$title}</h1>
+			{$qrcode}
+            <div class="text editor">
+			  <div id="piclist" class="product-nav">
+			  		<!--<ul>
+					    <volist name="plist" id="pic">
+						<li><a href="{$site_url}/{$pic.org}" title="{$pic.desc}" class="piczoom"><img width="200"  src="{$site_url}/{$pic.filepath}" /></a></li>
+						
+						</volist>
+					</ul>-->
+					<div style="clear:both;"></div>
+			  </div>
+			 
+
+			
+			{$content}
+			</div>
+			<div class="hits">更新时间：{$dateline|date="y/m/d H:i:m",###}&nbsp;&nbsp;【<a href="javascript:window.print()">打印此页</a>】&nbsp;&nbsp;【<a href="javascript:self.close()">关闭</a>】</div>
+            
+			<div class="page">
+			
+			上一条：<if condition="!empty($pre)"><a href="{$pre['url']}">{$pre['title']}</a><else/>没有了</if><br>
+			下一条：<if condition="!empty($next)"><a href="{$next['url']}">{$next['title']}</a><else/>没有了</if></a>
+			
+			</div>
+
+			<h4 class="related">相关图片</h4>
+			    <ul class="related-list">
+
+					<volist name="relate" id="relate">
+                    <li><a target="_blank" title="{$relate.title}" href="{$relate['url']}">{$relate['title']}</a></li>
+					</volist>
+                    
+
+                </ul>
+				<div class="clear"></div>
+
+        </div>
+      </div>
+     
+ </div>
+   
+    <br class="clear" />
+    </div>
+    
+	
+  </div>
+ <include file="Public:footer" />   

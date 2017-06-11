@@ -1,0 +1,112 @@
+<include file="Public:header" />
+
+
+<div id="index_main" class="clearfix">
+    <div class="index-left">
+      <div class="index-newproducts">
+        <h2><span>推荐产品</span><a href="products.html"><img src="../Public/images/more.gif" width="32" height="5" alt="产品展示" /></a></h2>
+        <!--滚动产品开始-->
+        <div class="productsroll">
+          <div id="LeftArr1"></div>
+          <div id="RightArr1"></div>
+          <ul id="ScrollBox" class="clearfix">
+		  	<!--sortid为栏目ID ，limit为显示条数,  istop为是否置顶推荐-->
+			<items sortid="587" limit="8" istop="1">
+			<li><a href="{$item.url}" title="{$item.title}"><img src="{$item.pic}" alt="{$item.title}" width="140" height="100" /><span>{$item.title}</span></a></li>
+			</items>
+		  
+			
+          </ul>
+          <script language="javascript" type="text/javascript">
+			<!--//--><![CDATA[//><!--
+			var scrollPic_01 = new ScrollPic();
+			scrollPic_01.scrollContId   = "ScrollBox"; //内容容器ID
+			scrollPic_01.arrLeftId      = "LeftArr1";//左箭头ID
+			scrollPic_01.arrRightId     = "RightArr1"; //右箭头ID
+			scrollPic_01.frameWidth     = 648;//显示框宽度
+			scrollPic_01.pageWidth      = 162; //翻页宽度
+			scrollPic_01.speed          = 10; //移动速度(单位毫秒，越小越快)
+			scrollPic_01.space          = 5; //每次移动像素(单位px，越大越快)
+			scrollPic_01.autoPlay       = true; //自动播放
+			scrollPic_01.autoPlayTime   = 3; //自动播放间隔时间(秒)
+			scrollPic_01.initialize(); //初始化
+			//--><!]]>
+		  </script>
+        </div>
+        <!--滚动产品结束-->
+      </div>
+      <div class="index-news">
+        <h2><span>新闻中心</span><a href="news.html"><img src="../Public/images/more.gif" width="32" height="5" alt="新闻中心" /></a></h2>
+         <!--新闻开始-->
+		
+		 
+        <ul>
+		  <!--sortid为栏目ID ，limit为显示条数-->
+		  <items sortid="427" limit="8">
+		  <li><a href="{$item.url}" title="{$item.title}"><span>{$item['dateline']}</span>-　{$item.title}</a> </li>
+		  </items>
+		        
+        </ul>
+         <!--新闻结束-->
+      </div>
+      <div class="index-about">
+        <h2><span>关于我们</span><a href="single.html"><img src="../Public/images/more.gif" width="32" height="5" alt="关于我们" /></a></h2>
+        <!--公司简介开始-->
+        {$content_1}
+        <!--公司简介结束-->
+      </div>
+      <div class="index-products">
+        <h2><span>产品展示</span><a href="products.html"><img src="../Public/images/more.gif" width="32" height="5" alt="产品展示" /></a></h2>
+        <!--产品多行显示开始-->
+        <ul class="clearfix">
+		 <items sortid="429" limit="8" >
+            <li><a href="{$item.url}" title="{$item.title}"><img src="{$item.pic}" alt="{$item.title}" width="140" height="100" /><span>{$item.title}</span></a></li>
+		 </items>
+        </ul>
+        <!--产品多行显示结束-->
+      </div>
+    </div>
+    <div class="index-right">
+      <div class="index-search">
+        <h2><span>站内搜索</span></h2>
+        <!--站内搜索开始-->
+        <form action="{:U('Home/search/search')}" method="post" id="sitesearch" name="sitesearch">
+          <p>
+            <select name="searchid" id="searchid">
+              <option value="product">产品展示</option>
+              <option value="article">新闻中心</option>
+              <option value="job">招聘信息</option>
+            </select>
+          </p>
+          <p>
+            <input name="searchtext" type="text" id="searchtext"/>
+          </p>
+          <p>
+            <input name="searchbutton" type="submit" id="searchbutton" value="" />
+          </p>
+        </form>
+        <!--站内搜索结束-->
+      </div>
+      <div class="index-jobs">
+        <h2><span>招聘信息</span><a href="jobs.html"><img src="../Public/images/more.gif" width="32" height="5" alt="招聘信息" /></a></h2>
+        <!--招聘信息开始-->
+        <ul>
+          <volist name="job" id="jo">
+          <li><a href="{$jo.url}" title="{$jo.title}"><span>　-　{$jo.title}</span></a></li>
+		  </volist>
+        </ul>
+        <!--招聘信息结束-->
+      </div>
+	  
+	  <item sortid="job" limit="1">
+	  </item>
+	  
+      <div class="index-contact">
+        <h2><span>联系我们</span></h2>
+        {$content_4}
+      </div>
+      <img src="../Public/images/tel.gif" width="240" height="59" alt="联系我们" /> </div>
+  </div>
+
+
+<include file="Public:footer" />

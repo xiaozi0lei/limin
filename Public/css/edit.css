@@ -1,0 +1,300 @@
+.Gen
+{
+POSITION: relative
+}
+.heading
+{
+BACKGROUND: #eeeeee;
+COLOR: #000000
+}
+.HtmlEdit
+{
+BACKGROUND-COLOR: #f5feed;
+POSITION: relative
+}
+.yToolbar
+{
+	BACKGROUND-COLOR: #f5feed;
+	BORDER-BOTTOM: buttonshadow 1px solid;
+	BORDER-LEFT: buttonhighlight 1px solid;
+	BORDER-RIGHT: buttonshadow 1px solid;
+	BORDER-TOP: buttonhighlight 1px solid;
+	HEIGHT: 28px;
+	LEFT: 0px;
+	POSITION: relative;
+	TOP: 0px;
+	width: 300px;
+
+}
+.Btn
+{
+BACKGROUND-COLOR: #f5feed;
+BORDER-BOTTOM: buttonface 1px solid;
+BORDER-LEFT: buttonface 1px solid;
+BORDER-RIGHT: buttonface 1px solid;
+BORDER-TOP: buttonface 1px solid;
+HEIGHT: 24px;
+POSITION: absolute;
+TOP: 1px;
+WIDTH: 24px
+}
+.Ico
+{
+LEFT: 3px;
+POSITION: absolute;
+TOP: 3px
+}
+.TBSep
+{
+BORDER-LEFT: buttonshadow 1px solid;
+BORDER-RIGHT: buttonhighlight 1px solid;
+FONT-SIZE: 0px;
+HEIGHT: 22px;
+POSITION: absolute;
+TOP: 1px;
+WIDTH: 1px
+}
+.TBGen
+{
+FONT: 9pt 锟斤拷锟斤拷,verdana,arial,sans-serif;
+HEIGHT: 22px;
+POSITION: absolute;
+TOP: 3px
+}
+.TBHandle
+{
+BACKGROUND-COLOR: #f5feed;
+BORDER-LEFT: buttonhighlight 1px solid;
+BORDER-RIGHT: buttonshadow 1px solid;
+BORDER-TOP: buttonhighlight 1px solid;
+FONT-SIZE: 1px;
+HEIGHT: 22px;
+POSITION: absolute;
+TOP: 1px;
+WIDTH: 3px
+}
+.BtnMouseOverUp
+{
+BACKGROUND-COLOR: #DAE8CA;
+BORDER-BOTTOM: buttonshadow 1px solid;
+BORDER-LEFT: buttonhighlight 1px solid;
+BORDER-RIGHT: buttonshadow 1px solid;
+BORDER-TOP: buttonhighlight 1px solid;
+HEIGHT: 24px;
+POSITION: absolute;
+TOP: 1px;
+WIDTH: 24px
+}
+.BtnMouseOverDown
+{
+BACKGROUND-COLOR: #DAE8CA;
+BORDER-BOTTOM: buttonhighlight 1px solid;
+BORDER-LEFT: buttonshadow 1px solid;
+BORDER-RIGHT: buttonhighlight 1px solid;
+BORDER-TOP: buttonshadow 1px solid;
+HEIGHT: 24px;
+POSITION: absolute;
+TOP: 1px;
+WIDTH: 24px
+}
+.BtnDown
+{
+BACKGROUND-COLOR: #DAE8CA;
+BORDER-BOTTOM: buttonhighlight 1px solid;
+BORDER-LEFT: buttonshadow 1px solid;
+BORDER-RIGHT: buttonhighlight 1px solid;
+BORDER-TOP: buttonshadow 1px solid;
+HEIGHT: 24px;
+POSITION: absolute;
+TOP: 1px;
+WIDTH: 24px
+}
+.IcoDown
+{
+HEIGHT: 16px;
+LEFT: 4px;
+POSITION: absolute;
+TOP: 4px;
+WIDTH: 16px
+}
+.IcoDownPressed
+{
+LEFT: 3px;
+POSITION: absolute;
+TOP: 3px
+}
+.inp_02	{font-family:tahoma,arial; font-size:11px; height:17; 
+}
+
+body {
+	font-family: "锟斤拷锟斤拷";
+	font-size: 12px;
+	
+}
+TH {
+	FONT-SIZE: 12px;
+}
+TD {
+	FONT-SIZE: 12px;; LINE-HEIGHT: 170%;
+	WORD-BREAK: break-all;
+	
+}
+
+INPUT {
+	FONT-SIZE: 12px;
+}
+SELECT {
+	FONT-SIZE: 12px;
+}
+TEXTAREA {
+	FONT-SIZE: 12px;
+}
+A:link {
+	COLOR: #000000; TEXT-DECORATION: none;font-size:12px
+}
+A:visited {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.hui2 {
+                    font-size: 12px;
+                    color: #797979;
+}
+.hui {
+	COLOR: #797979
+}
+A.hui:link {
+	COLOR: #797979;font-size:12px
+}
+A.hui:visited {
+	COLOR: #797979
+}
+A.hui:hover {
+	COLOR:#cc3300
+}
+
+.3333 {
+	COLOR: #333333
+}
+A.3333:link {
+	COLOR: #333333;font-size:12px
+}
+A.3333:visited {
+	COLOR: #333333
+}
+A.3333:hover {
+	COLOR:#333333
+}
+
+
+.white {
+	COLOR: #ffffff
+}
+A.white:link {
+	COLOR: #ffffff;font-size:12px
+}
+A.white:visited {
+	COLOR: #ffffff
+}
+A.white:hover {
+	COLOR: #ffffff
+}
+.red {
+	COLOR: #FF0000
+}
+A.red:link {
+	COLOR: #FF0000;font-size:12px
+}
+A.red:visited {
+	COLOR: #FF0000
+}
+A.red:hover {
+	COLOR: #FF0000
+}
+
+.menu {
+	COLOR: #3e3e3e;font-size:14px;
+}
+A.menu:link {
+	COLOR: #3e3e3e;font-size:14px;
+}
+A.menu:visited {
+	COLOR: #3e3e3e;font-size:14px;
+}
+A.menu:hover {
+	COLOR: #3e3e3e;font-size:14px;
+}
+
+.menu1 {
+	COLOR: #3e3e3e;font-size:12px;
+}
+A.menu1:link {
+	COLOR: #3e3e3e;font-size:12px;
+}
+A.menu1:visited {
+	COLOR: #3e3e3e;font-size:12px;
+}
+A.menu1:hover {
+	COLOR: #3e3e3e;font-size:12px;
+}
+
+.666666 {
+	COLOR: #666666
+}
+.666666 A {
+	COLOR: #666666; TEXT-DECORATION: none;font-size:12px
+}
+.666666 A:hover {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.666666 A:visited {
+	COLOR: #666666; TEXT-DECORATION: none
+}
+
+.englishfont {
+	font-family: "Arial, Helvetica, sans-serif";
+	font-size: 9pt;
+}
+.tdblues {background: #f5f5f5;}
+.tdblue {background: #f5f5f5;}
+.tdblueq {background: #DCF2FF;}
+.tdbluee {background: #ffffff;}
+.tdbluel {background: #CEE7FF;}
+.tdbyellow {background: #FFCC99;}
+.f14px {
+	FONT-SIZE: 14px
+}
+.xinweiti {
+                    font-family: 锟斤拷锟斤拷锟斤拷魏;
+                    font-size: 18px;
+					line-height:130%;
+}
+.22px {
+                    font-size: 22px;
+					line-height:150%;
+}
+.orage { 
+					line-height:150%;
+					color:F0892D
+}
+.oragefont {        
+                    FONT-SIZE: 14px;
+					line-height:150%;
+					color:F0892D
+}
+.green {
+	COLOR:#006600
+}
+.tdblues {background: #91D4FF;}
+.tdblueq {background: #fff;}
+.tdbluel {background: #CEE7FF;}
+.tdbyellow {background: #FFCC99;}
+.tdgreens {background: #0C851F;}
+.tdgreenq {background: #DFFBAA;}
+.tdgreenz {background: #CFF586;}
+.loginone{
+color:#3e3e3e;}
+.logintwo{
+color:#a09f9f;}

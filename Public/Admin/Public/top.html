@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>头部</title>
+<script>
+var public_path='__PUBLIC__';
+</script>
+<script src="__PUBLIC__/js/jquery-1.4.4.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#Title").focus(function(){
+  	var login_nameval=$("#Title").val();
+	if(login_nameval=="请输入相关产品关键字"){
+    	$("#Title").val("");
+ 		};
+  });
+  $("#Title").blur(function(){
+  	var login_nameval=$("#Title").val();
+	if(login_nameval==""){
+    	$("#Title").val("请输入相关产品关键字");
+ 		};
+  });
+});
+</script>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/style.css">
+</head>
+
+<body>
+ <div style="min-width:1002px;" class="head">
+     <div class="headl fl"><img src="__PUBLIC__/images/index_r1.jpg"></div>
+     <div class="headr fr">
+        <div class="headr1 fl"><img src="__PUBLIC__/images/index_r2.jpg"></div>
+        <div class="headr2 fl">
+          <form action="{:U('Admin/product/search')}" method="get" target="main">
+            <div class="headr21 fl"> 
+              <input type="text" style=" background:url(__PUBLIC__/images/index_r3.jpg) repeat-x bottom left;
+              width:192px; height:30px; border:none; border-top:1px solid #d8dce7;
+               border-bottom:1px solid #d8dce7; line-height:30px; _height:30px;_margin-top:1px; outline:0;" value="请输入相关产品关键字" name="searchtext" id="Title">
+            </div>
+            <div class="headr22 fl">
+               <input type="submit" style="width:31px; height:32px; background:url(__PUBLIC__/images/index_r4.jpg) no-repeat; border:none;" value="" name="button" id="submitform">
+            </div>
+          </form>
+        </div>  
+        <div class="headr3 fl">
+           <span style="font-weight:bold;"></span> <a title="设置" onmouseout="window.status='';return true;" onmouseover="window.status='设置';return true;" href="{:U('Admin/public/cpanel')}" target="main">设置</a> | <a title="系统主页" onmouseout="window.status='';return true;" onmouseover="window.status='系统主页';return true;" href="{:U('Admin/public/cpanel')}" target="main">系统主页</a> | <a title="网站主页" onmouseout="window.status='';return true;" onmouseover="window.status='网站主页';return true;" href="{:U('Home/index/index')}" target="_blank">网站主页</a> | <a title="帮助" onmouseout="window.status='';return true;" onmouseover="window.status='帮助';return true;" href="javascript:void(0)" target="main">帮助</a> | <a title="退出系统" onmouseout="window.status='';return true;" onmouseover="window.status='退出系统';return true;" href="{:U('Admin/Index/logout')}" target="_parent">退出</a>
+        </div>
+     </div>
+   </div>
+
+</body>
+</html>

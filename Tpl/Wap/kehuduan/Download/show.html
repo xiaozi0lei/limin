@@ -1,0 +1,39 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+    <div class="page-right">
+      <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+      <div class="page-news">
+        <div id="shownews">
+            <h1 class="title">{$title}?</h1>
+            <div class="text editor">
+			
+			<table width="240">
+			  <tr>
+				<th>文件名称</th>
+				<td>{$title}</td>
+			  </tr>
+			  <tr>
+				<th>上传时间</th>
+				<td>{$dateline|date="y/m/d",###}</td>
+			  </tr>
+			  <tr>
+				<th>下载地址</th>
+				<td><a href="{:U('Download/doDownload',array('id'=>$id))}">下载</a></td>
+			  </tr>
+			</table>
+
+			
+			{$content}
+			
+			</div>
+			
+				<div class="clear"></div>
+
+        </div>
+      </div>
+    </div>
+    
+	<include file="Public:left" />
+	
+  </div>
+ <include file="Public:footer" />   

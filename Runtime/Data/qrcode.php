@@ -1,0 +1,1 @@
+<?php	return array ( 'qrmodule' => NULL, 'level' => 'Q', 'size' => 3, 'article' => 0, 'product' => 1, 'download' => 0, 'picture' => 0, 'job' => 0, );?>

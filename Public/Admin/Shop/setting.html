@@ -1,0 +1,71 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">购物</div>
+     <div class="conNav">
+       <ul>
+        <li <if condition="ACTION_NAME=='orderall'">class="active"</if> ><a href="{:U('Admin/Shop/orderAll',array('tab'=>1))}{$language}"><span>订单</span></a></li>
+        <li <if condition="ACTION_NAME=='setting'">class="active"</if>><a href="{:U('Admin/Shop/setting')}{$language}"><span>设置</span></a></li>
+        <li <if condition="ACTION_NAME=='paysetting'">class="active"</if>><a href="{:U('Admin/Shop/paysetting')}{$language}"><span>支付设置</span></a></li>
+
+       </ul>
+     </div>
+
+	 
+	 <div>
+	 	<form action="{:U('Admin/Shop/doSaveConfig')}" method="post">
+<table width="100%" height="361" border="0" cellpadding="0" cellspacing="1"   class="list_table">
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">是否开启购物:</span></td>
+    <td width="80%" class="spacing3"><input type="radio" name="shop_swich"  value="1" <if condition="$shop_swich==1">checked="checked"</if> />是 <input type="radio" name="shop_swich" value="0"  <if condition="$shop_swich==0">checked="checked"</if>/>否</td>
+   </tr>
+ 
+   <tr>
+    <td width="" class="title_text"><span class="span_title">手机绑定:</span></td>
+    <td width="" class="spacing3"><input type="text" name="shop_mobile"  value="{$shop_mobile}"/></td>
+   </tr>
+   
+   <tr style="display:none;">
+    <td width="" class="title_text"><span class="span_title">短信接口账号:</span></td>
+    <td width="" class="spacing3"><input type="text" name="msg_acc"  value="{$msg_acc}"/></td>
+   </tr>
+   
+   <tr  style="display:none;">
+    <td width="" class="title_text"><span class="span_title">短信接口密码:</span></td>
+    <td width="" class="spacing3"><input type="password" name="msg_mima"  value="{$msg_mima}"/></td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">邮箱绑定:</span></td>
+    <td width="" class="spacing3"><input type="text" name="shop_email" value="{$shop_email}"/></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">购物车类型:</span></td>
+    <td width="" class="spacing3"><input type="radio" name="order_style" value="top" <eq name="order_style" value="top">checked="checked"</eq> />顶部 <input type="radio" name="order_style" value="right" <eq name="order_style" value="right">checked="checked"</eq>/>侧边  <input type="radio" name="order_style" value="right_bottom" <eq name="order_style" value="right_bottom">checked="checked"</eq>/>右下  <input type="radio" name="order_style" value="inliine" <eq name="order_style" value="inliine">checked="checked"</eq>/>嵌入</td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">订单颜色:</span></td>
+    <td width="" class="spacing3"><input type="radio" name="order_color" value="yellow" <eq name="order_color" value="yellow">checked="checked"</eq>/>黄 <input type="radio" name="order_color" value="blue" <eq name="order_color" value="blue">checked="checked"</eq>/>蓝</td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">弹窗颜色:</span></td>
+    <td width="" class="spacing3"><input type="radio" name="dio" value="blue" <eq name="dio" value="blue">checked="checked"</eq> />蓝 <input type="radio" name="dio" value="green" <eq name="dio" value="green">checked="checked"</eq>/>绿 <input type="radio" name="dio" value="black" <eq name="dio" value="black">checked="checked"</eq> />黑</td>
+   </tr>
+  
+   <tr>
+    <td width="" class="title_text">&nbsp;</td>
+    <td width="" class="spacing3"><input type="submit" class="form-text" value="{$Think.lang.save}" /></td>
+   </tr>
+</table>
+</form>
+	 
+	 </div>
+	
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

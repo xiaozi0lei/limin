@@ -1,0 +1,115 @@
+<include file="Public:header" />
+<link href="../Public/photoswipe/photoswipe.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="../Public/photoswipe/lib/klass.min.js"></script>
+<script type="text/javascript" src="../Public/photoswipe/code.photoswipe.jquery-3.0.5.min.js"></script>
+
+<script src="../Public/js/jquery.lazyload.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="../Public/js/getBodyAuto.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+      $(function() {
+          $("img").lazyload({failure_limit : 10});
+      });
+</script>
+
+<script type="text/javascript">
+		(function(window, $, PhotoSwipe){
+			$(document).ready(function(){
+				var options = {};
+				$(".imgWrap a").photoSwipe(options);
+			});
+		}(window, window.jQuery, window.Code.PhotoSwipe));
+
+
+function lastPostFunc(){
+    
+	var count=$('.plist').length;
+	$.ajax({
+	   type: "GET",
+	   url: "{:U('Wap/product/more')}",
+	   data: "count="+count+'&sid={$current_sort['id']}',
+	   dataType:'json',
+	   success: function(msg){
+		 
+		 if(msg.status==1){
+		 		var html='';
+				for(var i=0;i<msg.data.length;i++){
+					
+					html +='<li class="plist"><div class="imgWrap"> <a href='+msg.data[i].url+'><img src="'+msg.data[i].pic+'"  data-original="'+msg.data[i].pic+'" ></a></div><div class="infoWrap"><h3 class="productTitle"><span class="name"><a href="'+msg.data[i].url+'">'+msg.data[i].title+'</a> </span></h3><p class="code"></p><p class="mark"></p></div></li>';
+					$('#list_ul').append(html);
+				
+			
+		 }
+		 
+		 
+	   }else{
+		 	$('#more').text('没有数据了');
+		 }
+	}
+	
+	
+	});
+
+}
+</script>
+	<div data-role="header">
+    <header class="headerNews"> <span class="return fl" onClick="javascript:history.go(-1);">
+      <div class="btn"> <b> <em></em> </b> <span> 返回 </span> </div>
+      </span> <span class="BigclassName">{$current_sort['title']}</span> <span class="rightButton fr"> <span class="titleBar fr" role="Bar_Left"> <em class="kinds"> 导航 </em> <em class="icon"></em> </span> <span class="textSizeBtn" style="position: relative;"> <em class="title">字<sup> + </sup></em>
+      <div class="textSize" style="display: none;">
+        <div class="contArrow"> <em>◆</em> <i>◆</i> </div>
+        <ul class="cont">
+          <li style="font-size:12px;"> 小 </li>
+          <li style="font-size:14px;" class="current"> 中 </li>
+          <li style="font-size:16px;"> 大 </li>
+        </ul>
+      </div>
+      </span> </span>
+      <div class="clear"></div>
+    </header>
+  </div>
+
+  <section>
+    <ul class="productListCont clear" id="list_ul">
+
+	  <volist name="list" id="p">
+      <li class="plist">
+        <div class='imgWrap'> <a href='{$site_url}/{$p.pic}'><img src='{$site_url}/{$p.pic}'  data-original='{$site_url}/{$p.pic}' alt='11111'></a></div>
+        <div class='infoWrap'>
+          <h3 class='productTitle'><span class='name'><a href='{:U('Wap/product/show',array('sid'=>$p['sort'],'id'=>$p['id']))}'>{$p.title}</a> </span></h3>
+          <p class='code'></p>
+          <p class='mark'></p>
+        </div>
+      </li>
+	  </volist>
+	  
+      <div class='clear'></div>
+    </ul>
+  </section>
+  
+  <section class="showMore" role="Bar_Left_C">
+      <table cellspacing="0" cellpadding="0">
+        <tbody>
+           <tr>
+             <td class="barWrap" valign="top">
+              <span class="closeBar active">
+                <em></em>
+              </span>
+            </td>
+            <td class="contWrap" style="min-height: 2000px;">
+              <div id="hScrollList" style="height: 340px; overflow: hidden;">
+                <!--<ul id="thelist" style="transition-property: -moz-transform; transform-origin: 0px 0px 0px; transform: translate(0px, 0px);">
+                  <li class="item current">
+                    <a href="index.asp"><span class="name js_slideChange">网站首页</span></a>
+                  </li>
+
+                </ul>-->
+				
+				{$leftmenu}
+              </div>
+           </tr>
+        </tbody>
+      </table>
+    </section>
+
+<include file="Public:footer" />

@@ -1,0 +1,57 @@
+<include file="./Public/Admin/Public/header.html" />
+
+
+
+<div id="right">
+
+<div id="container" style="margin:0 auto; margin-top:50px;">
+<form action="{:U('Admin/Member/doSaveMember')}" method="post">
+<table width="638" height="305" border="1">
+  <tr>
+    <td width="234" class="title_text"><span class="span_title">用户名:</span></td>
+    <td width="319">{$username}</td>
+   </tr>
+   <tr>
+    <td width="234" class="title_text"><span class="span_title">登录密码:</span></td>
+    <td width="319"><input class="input_middle" name="pwd" value="" /></td>
+   </tr>
+   <tr>
+    <td width="234" class="title_text"><span class="span_title">密码确认:</span></td>
+    <td width="319"><input class="input_middle" name="pwdconfirm" value="" /></td>
+   </tr>
+   <tr>
+    <td width="234" class="title_text"><span class="span_title">姓名:</span></td>
+    <td width="319"><input class="input_middle" name="realname" value="{$realname|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="234" class="title_text"><span class="span_title">电话:</span></td>
+    <td width="319"><input class="input_middle" name="phone" value="{$phone|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="234" class="title_text"><span class="span_title">手机号码:</span></td>
+    <td width="319"><input class="input_middle" name="mobile" value="{$mobile|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="234" class="title_text"><span class="span_title">qq号码:</span></td>
+    <td width="319"><input  class="input_middle"  name="qq" value="{$qq|default=''}" /> </td>
+   </tr>
+   
+   <tr>
+    <td width="234" class="title_text"><span class="span_title">email:</span></td>
+    <td width="319"><input  class="input_middle"  name="email" value="{$email|default=''}" /> </td>
+   </tr>
+   
+   <tr>
+    <td width="234" class="title_text"><span class="span_title"></span></td>
+    <td width="319"><input type="submit" value="保存" /></td>
+   </tr>
+   <input type="hidden" name="uid" value="{$uid}" />
+ 
+</table>
+</form>
+
+</div>
+
+
+</div>
+<include file="./Public/Admin/Public/footer.html" />

@@ -1,0 +1,76 @@
+<include file="Public:header" />
+<script>
+$(function(){
+
+$.ajax({
+   type: "POST",
+   url: "{:U('Home/Public/viewNum')}",
+   data: "module=article&id={$id}",
+   success: function(msg){
+   		$('#hitnum').text(msg);
+   }
+});
+
+})
+</script>
+<div class="nynews">	
+<img src="../Public/images/news.jpg" />   		 
+</div>
+ <div class="nyk gg">
+<div class="nynr"><p>{$current_sort['name']}</p></div></div>
+           
+<div class="main">
+
+<div id="page_main" class="clearfix">
+ <div class="container">
+  <div class="page-right">
+  <div class="lanmu">
+          <div class="lmdh fl"><include file="Public:left" /></div>
+      <div class="site-nav fr"><span>当前位置 : </span>
+	  
+		{$location}
+	  
+	  </div>
+      <br class="clear" />
+      </div>
+    <div class="page-news">
+      <div id="shownews">
+       <h1 class="title">{$title}</h1>
+       <div class="hits">
+	    <if condition="$click_num">点击次数：<span id="hitnum"></span>&nbsp;&nbsp;</if>
+	    <if condition="$add_time">更新时间：{$dateline|date="y/m/d H:i:m",###}&nbsp;&nbsp;</if>
+		  &nbsp;&nbsp;来源：<a href="http://{$artSource}">{$artSource}</a>  
+	    <if condition="$page_close">【<a href="javascript:self.close()">关闭</a>】</if>
+
+		<if condition="!empty($share_button)">	
+          <span >分&nbsp;&nbsp;&nbsp;&nbsp;享: </span> 
+		<div class="bdsharebuttonbox" style="display: inline-flex;"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></span>
+	      </if>
+	    
+       </div>
+	   {$qrcode}
+	   <ul style=" margin:10px 0px;">
+		<volist name="field" id="f">
+		 <li>{$f.title}: {$f.value}</li>
+		</volist>	
+	   </ul>
+       <div class="text editor">{$content}</div>
+	   
+	   
+      <div class="page" style="clear:both;">
+		<span >上一条：<if condition="!empty($pre)"><a href="{$pre['url']}">{$pre['title']}</a><else/>没有了</if></span>
+		<span >下一条：<if condition="!empty($next)"><a href="{$next['url']}">{$next['title']}</a><else/>没有了</if></a></span>
+	  </div>
+
+    
+   </div> 
+  </div>
+  </div>
+ 
+    <br class="clear" />
+ </div>
+</span>
+</div>
+
+<include file="Public:footer" /> 

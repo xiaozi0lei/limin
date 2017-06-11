@@ -1,0 +1,126 @@
+<include file="Public:header" />
+<script>
+function showmore(){
+
+	var count=$('.items').length;
+	$.ajax({
+	   type: "GET",
+	   url: "{:u('Wap/article/more')}",
+	   data: "count="+count+"&sid={$sort['id']}",
+	   dataType:'json',
+	   success: function(msg){
+	   
+	   var html='';
+	   
+	   if(msg.data.length==0){
+	   	$('#span_more').text('没有数据了');
+	   }else{
+	   	for(var i=0;i<msg.data.length;i++){
+			
+			html +='<li class="items"><a href="'+msg.data[i].url+'"><div><h3 class="newsTitle"><span class="name">'+msg.data[i].title+'</span></h3><p class="time">'+msg.data[i].time+'</p></div></a></li>';
+			
+		}
+	   
+		 $('#listtable').append(html);
+	   
+	   }
+	   
+	   	
+	   }
+	});
+
+}
+
+</script>
+<div data-role="header">
+    <header class="headerNews">
+      <span class="return fl" onClick="javascript:history.go(-1);">
+        <div class="btn">
+            <b>
+            <em></em>
+            </b>
+            <span> 返回 </span>
+        </div>
+      </span>
+      <span class="BigclassName"><if condition="!empty($keywords)"><else/>{$current_sort.name}</if></span>
+      <span class="rightButton fr">
+        <span class="titleBar fr" role="Bar_Left">
+          <em class="kinds"> 导航 </em>
+          <em class="icon"></em>
+        </span>
+		<!--
+      <span class="textSizeBtn" style="position: relative;">
+            <em class="title">字<sup> + </sup></em>
+            <div class="textSize" style="display: none;">
+              <div class="contArrow">
+                <em>◆</em>
+                <i>◆</i>
+               </div>
+               <ul class="cont">
+                 <li style="font-size:12px;"> 小 </li>
+                 <li style="font-size:14px;" class="current"> 中 </li>
+                 <li style="font-size:16px;"> 大 </li>
+               </ul>
+            </div>
+         </span>
+		 -->
+      </span>
+      <div class="clear"></div>
+    </header>
+  </div>
+    <section>
+           <ul class="NewsListCont"  id="listtable">
+        
+
+    	  <volist name="list" id="li">
+          <li class="items">
+           <a href="{$li.url}">
+            <div>
+            <h3 class="newsTitle">
+              <span class="name">{$li.title}</span>
+            </h3>
+            <p class="time">{$li['dateline']|date="y/m/d",###}</p>
+            </div>
+            </a> 
+           </li>
+		  </volist>
+          
+        </ul>
+       
+	    <if condition="empty($keywords)">
+			<div class="more">
+			   <span onclick="showmore()" id="span_more"> 查看更多 </span>
+			</div>
+		</if>
+
+
+    </section>
+	
+	
+	<section class="showMore" role="Bar_Left_C">
+      <table cellspacing="0" cellpadding="0">
+        <tbody>
+           <tr>
+             <td class="barWrap" valign="top">
+              <span class="closeBar active">
+                <em></em>
+              </span>
+            </td>
+            <td class="contWrap" style="min-height: 2000px;">
+              <div id="hScrollList" style="height: 340px; overflow: hidden;">
+                <!--<ul id="thelist" style="transition-property: -moz-transform; transform-origin: 0px 0px 0px; transform: translate(0px, 0px);">
+                  <li class="item current">
+                    <a href="index.asp"><span class="name js_slideChange">网站首页</span></a>
+                  </li>
+
+                </ul>-->
+				
+				{$leftmenu}
+              </div>
+           </tr>
+        </tbody>
+      </table>
+    </section>
+
+
+<include file="Public:footer" />

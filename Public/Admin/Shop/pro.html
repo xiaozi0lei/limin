@@ -1,0 +1,48 @@
+<include file="./Public/Admin/Public/header.html" />
+
+
+<div id="menu_tab" style="margin-top:50px;">
+<a href="{:U('Admin/alexa/eng',array('st'=>$st,'et'=>$et,'tab'=>1))}">促销管理</a>
+<a href="{:U('Admin/alexa/eng',array('st'=>$st,'et'=>$et,'tab'=>2))}">优惠券管理</a>
+  
+</div>
+
+<div id="right">
+
+<div id="container" class="list_table">
+<form action="{:U('Admin/Wap/doSaveLists')}" method="post">
+<table width="100%" border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" >
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.aperpage}:</span></td>
+    <td width="80%" style="spacing3"><input class="input_middle" name="wap_list_art_num" value="{$wap_list_art_num|default=10}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.properpage}:</span></td>
+    <td width="" style="spacing3"><input class="input_middle" name="wap_list_pro_num" value="{$wap_list_pro_num|default=10}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.pperpage}:</span></td>
+    <td width="" style="spacing3"><input class="input_middle" name="wap_list_pic_num" value="{$wap_list_pic_num|default=10}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.dperpage}:</span></td>
+    <td width="" style="spacing3"><input class="input_middle" name="wap_list_down_num" value="{$wap_list_down_num|default=10}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.jobperpage}:</span></td>
+    <td width="" style="spacing3"><input class="input_middle" name="wap_list_job_num" value="{$wap_list_job_num|default=10}" /></td>
+   </tr>
+
+   <tr>
+    <td width="" class="title_text"><span class="span_title"></span></td>
+    <td width="" style="spacing3"><input type="submit" value="{$Think.lang.save}" /></td>
+   </tr>
+ 
+</table>
+</form>
+
+</div>
+
+
+</div>
+<include file="./Public/Admin/Public/footer.html" />

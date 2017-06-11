@@ -1,0 +1,289 @@
+<include file="Public:header" />
+<link href="../Public/css/css.css" rel="stylesheet" type="text/css" />
+
+<script>
+
+
+$(function(){
+
+$.ajax({
+   type: "POST",
+   url: "{:U('Home/Public/viewNum')}",
+   data: "module=product&id={$id}",
+   success: function(msg){
+   		$('#hitnum').text(msg);
+   }
+});
+
+})
+
+
+var pid={$Think.get.id};
+
+function show_card(is_cart){
+
+	art.dialog.open(site_url+'Public/buy/id/'+pid+'/is_cart/'+is_cart);
+}
+
+
+function show_search(){
+	art.dialog.open("{:U('Public/search')}");
+}
+function show_checkout(){
+	art.dialog.open("{:U('Public/checkout')}");
+}
+
+</script>
+<script src="__PUBLIC__/js/artDialog/jquery.artDialog.js?skin={$shop.dio}"></script>
+<script src="__PUBLIC__/js/artDialog/plugins/iframeTools.js"></script>
+<script src="../Public/js/base.js" type=text/javascript></script>
+<script src="../Public/js/show.js" type=text/javascript></script>
+
+<div id="page_main" class="clearfix">
+  <div class="page-right">
+    <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+    <div class="page-news">
+      <div id="shownews">
+        <h1 class="ptitle">{$title}</h1>
+        <div id="preview">
+          <div class="jqzoom" id="spec-n1" ><IMG src="{$site_url}/{$bigimg}" jqimg="{$site_url}/{$bigimg}" width=280> </div>
+          <div id="spec-n5">
+            <div class="control" id="spec-left"> <img src="../Public/images/left_1.gif" /> </div>
+            <div id="spec-list">
+			
+			 <if condition="!empty($piclist)">
+              <ul class="list-h">
+			    <volist name="piclist" id="list">
+				<li><img src="{$list.thumb}" ref="{$list.pic}" onclick="showproduct({$list.app_id})"> </li>
+                </volist>
+              </ul>
+			  </if>
+			  
+            </div>
+            <div class="control" id="spec-right"> <img src="../Public/images/right_1.gif" /> </div>
+          </div>
+        </div>
+        <ul id="pro_info">
+
+          <li><span>产品名称:</span> <span class="ptitle" style="font-weight:bold;">{$title}</span></li>
+
+          <li><span>产品分类:</span> <span>{$sortname.name}</span></li>
+		  <li><span>公司名称:</span> <span>{$sitename}</span></li>
+		  <li><span>型号规格:</span> <span>{$model}</span></li>
+		   <li><span>产品用途:</span> <span>{$purpose}</span></li>
+          <li><span>产品价格:</span> <span id="price" style="font-weight:bold; color:#FF0000; font-size:22px;">￥{$price}</span></li>
+			<volist name="field" id="f">
+			 <li>{$f.title}: {$f.value}</li>
+			</volist>	
+	  
+		  <li><span>添加时间:</span> <span id="dateline">{$dateline|date="y/m/d",###}</span></li>
+
+
+		  <if condition="!empty($share_button)">	
+          <li><span style="float:left;">分&nbsp;&nbsp;&nbsp;&nbsp;享: </span> <span>
+		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></span> </li>
+	      </if>
+
+
+		  <if condition="!empty($qrcode)">	
+          <li><span>二&nbsp;维&nbsp;码:</span>
+
+           <div style="background: #f2f2f2;display: block;width: 286px;border: 1px solid #ccc;padding: 5px;margin-top: 10px;">
+
+              <div style="float:left;">{$qrcode}</div>
+
+              <div style="float:right;padding-right: 43px;padding-top: 30px;">
+
+                <p style="font-size:15px; font-weight:bold; line-height:30px;">手机购</p>
+
+                <p style="font-size:15px; font-weight:bold; line-height:30px;">更方便</p>
+
+              </div>
+
+              <div style=" clear:both;"></div>
+
+              </div>
+
+           </li>
+		   </if>
+
+          <li style="height:auto;"><div id="shop_cart"></div></li>
+
+        </ul>
+		
+
+        <div class="text editor" style="clear:both;">
+
+          
+
+          <div style=" border: 1px solid #dfdfdf; border-top: 1px solid #dfdfdf;height:29px; margin-bottom:20px; padding-bottom:2px; background: #4882c2;"> <div class="tab active" id="proinfo" onclick="javascript:tab_menu(this)">产品详情</div><div class="tab" id="message" onclick="javascript:tab_menu(this)">询盘</div> </div>
+
+          <div id="proinfo_c" class="tabc">{$content} </div>
+
+          <div id="message_c" class="page-guestbook tabc" style="display:none;">
+
+            <form onsubmit="return check()" action="{:U('Message/doSaveMessage')}" id="guestbook" name="guestbook" method="post">
+
+              <dl class="clearfix">
+
+                <dt>您的姓名：</dt>
+
+                <dd>
+
+                  <input type="text" id="Guest_Name" name="Guest_Name">
+
+                  <span>*</span></dd>
+
+                <dt>邮件地址：</dt>
+
+                <dd>
+
+                  <input type="text" id="Guest_Email" name="Guest_Email">
+
+                  <span>*</span></dd>
+
+                <dt>电话：</dt>
+
+                <dd>
+
+                  <input type="text" id="Guest_TEL" name="Guest_TEL">
+
+                </dd>
+
+                <dt>传真：</dt>
+
+                <dd>
+
+                  <input type="text" id="Guest_FAX" name="Guest_FAX">
+
+                </dd>
+
+                <dt>地址：</dt>
+
+                <dd>
+
+                  <input type="text" id="Guest_ADD" name="Guest_ADD">
+
+                </dd>
+
+                <dt>邮编：</dt>
+
+                <dd>
+
+                  <input type="text" id="Guest_ZIP" name="Guest_ZIP">
+
+                </dd>
+
+                <dt>留言内容：</dt>
+
+                <dd>
+
+                  <textarea id="Content" class="Content" rows="" cols="" name="Content"></textarea>
+
+                </dd>
+
+                <dt>验证码：</dt>
+
+                <dd>
+
+                  <input type="text" autocomplete="off" maxlength="4" id="checkcode" name="checkcode">
+
+                  <img id="verifyImg" src='__APP__/public/verify/' /> <span>*</span></dd>
+
+              </dl>
+
+              <p>
+
+			  	<input type="hidden" name="isxunpan" value="1" />
+
+				<input type="hidden" name="productid" value="{$id}" />
+
+                <input type="submit" class="submit" value="提交信息" id="submit" name="submit">
+
+              </p>
+
+            </form>
+
+          </div>
+
+        </div>
+		
+		
+        <div class="hits">
+			<if condition="!empty($click_num)">点击次数：<span id="hitnum"></span>&nbsp;&nbsp;</if>
+			<if condition="!empty($add_time)">更新时间：{$dateline|date="y/m/d H:i:m",###}&nbsp;&nbsp;</if>
+			<if condition="!empty($print_page)">【<a href="javascript:window.print()">打印此页</a>】&nbsp;&nbsp;</if>
+			<if condition="!empty($page_close)">【<a href="javascript:self.close()">关闭</a>】</if>
+		</div>
+ 
+		
+		
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+  	$(function(){			
+	   $(".jqzoom").jqueryzoom({
+			xzoom:250,
+			yzoom:250,
+			offset:10,
+			position:"right",
+			preload:1,
+			lens:1
+		});
+		$("#spec-list").jdMarquee({
+			deriction:"left",
+			width:285,
+			height:56,
+			step:2,
+			speed:4,
+			delay:10,
+			control:true,
+			_front:"#spec-right",
+			_back:"#spec-left"
+		});
+		$("#spec-list img").bind("mouseover",function(){
+			var src=$(this).attr("src");
+			var ref=$(this).attr('ref');
+
+			$("#spec-n1 img").eq(0).attr('src',ref);
+			$("#spec-n1 img").eq(0).attr('jqimg',ref);
+			$(this).css({
+				"border":"2px solid #ff6600",
+				"padding":"1px"
+			});
+		}).bind("mouseout",function(){
+			$(this).css({
+				"border":"1px solid #ccc",
+				"padding":"2px"
+			});
+		});				
+})
+
+  </script>
+  <script>
+		$.ajax({
+		   type: "GET",
+		   url:"{:U('Public/getShop')}",
+		   dataType:'json',
+		   success: function(msg){
+		   
+		   	if(msg.data.style=='inliine'){
+			 
+				$('#shop_cart').html(msg.data.content);
+				
+			}else{
+				$('body').append(msg.data.content);
+			}
+			
+		   
+			
+		   }
+		});
+	
+	</script>
+  <include file="Public:left" /> </div>
+<include file="Public:footer" /> 

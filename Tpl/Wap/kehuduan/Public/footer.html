@@ -1,0 +1,46 @@
+  <section class="copyright">
+    <div> COPYRIGHT&copy;烟台市立民红木家具有限公司 版权所有 </div>
+  </section>
+  <footer role="box_footer" id="box_footer">
+    <ul class="footerWrap">
+      <li> <a id="mobile" href="tel:0535-4326056" alt=""> <span class="icon tel"></span> <span class="text">电话</span> </a> </li>
+      <li> <a id="mobile" href="{:U('Wap/message/index')}" alt=""> <span class="icon email"></span> <span class="text">留言</span> </a> </li>
+      <li> <a id="mobile" href="{:U('Wap/map/index')}" alt=""> <span class="icon map"></span> <span class="text">地图</span> </a> </li>
+      <li> <a id="mobile" href="{:U('Wap/share/index')}" alt=""> <span class="icon share"></span> <span class="text">分享</span> </a> </li>
+    </ul>
+  </footer>
+</div>
+<!--<section class="DownLoadBox">
+  <div id="iphonetype"  class="alertWindow" style="">
+    <div class="iphoneStart"> <span class="contWrap"> <img src="../Public/images/appico.png" style="float:left; height:65px; margin-right:5px;"> 请点击此处<em class="icon"></em>，选择 <em class="textRed">添加到屏幕</em>以添加快捷方式到主屏幕，方便 <em class="textRed">从主屏幕启动本应用</em>。 </span>
+      <div class="contArrow"><em>◆</em></div>
+    </div>
+  </div>
+  <div id="androidtype"  class="alertWindow" style="">
+    <div class="androidStart">
+      <div class="active install" onClick="javascript:window.location.href='http://app.appcan.cn/11292481/0.1/000/android/11292481_android_0.1_000_0.apk'"> <span class="icon"></span>立即体验客户端 </div>
+      <div class="later">稍后再说>></div>
+    </div>
+  </div>
+</section>-->
+<section class="SearchBox">
+  <div class="SearchC ClientWidth">
+    <div class="SearchTop">
+      <ul>
+        <li class="current" value="product">产品</li>
+        <li value="article">资讯</li>
+        <div class="clear"></div>
+      </ul>
+    </div>
+    <div class="SearchBottom">
+	  <form method="get" action="{:U('Wap/search/search')}">
+      <input id="keywords" class="fd-input" placeholder="关键字" maxlength="32" name="keywords" type="text">
+      <input name="SearchAction" id="SearchAction" value="product" type="hidden">
+	  <input type="submit" name="Searchsubmit_btn" id="Searchsubmit_btn"   class="fd-button" value="搜索" onclick="if($('#keywords').val()=='') {alert('请输入关键词'); return false;}"/>
+     
+       </form>
+	</div>
+  </div>
+</section>
+</body>
+</html>

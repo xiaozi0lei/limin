@@ -1,0 +1,287 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+<script src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+
+
+<script src="__PUBLIC__/js/swfupload.js"></script>
+<script src="__PUBLIC__/js/swfupload.queue.js"></script>
+<script src="__PUBLIC__/js/fileprogress.js"></script>
+<script src="__PUBLIC__/js/handlers.js"></script>
+<script src="__PUBLIC__/js/swfupload.cookies.js"></script>
+<script>
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]', {
+					uploadJson : '{:U('Admin/Picture/uploadEditerImg')}',
+					allowFileManager : false,
+					items:[
+        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+        'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+        'anchor', 'link', 'unlink', '|', 'about'
+]
+				});
+				
+			});
+			
+				var swfu;
+		window.onload = function() {
+			var settings = {
+				flash_url : "__PUBLIC__/images/swfupload.swf",
+				upload_url: "{:U('Admin/Picture/swfupload')}",	
+				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
+				file_size_limit : "20 MB",
+				file_types : "*.jpg;*.gif;*.png;*.jpeg",
+				file_types_description : "选择图片",
+				file_upload_limit : 30,  //配置上传个数
+				file_queue_limit : 0,
+				custom_settings : {
+					progressTarget : "fsUploadProgress",
+					cancelButtonId : "btnCancel"
+				},
+				debug: false,
+
+				// Button settings
+				button_image_url: "__PUBLIC__/images/TestImageNoText_65x29.png",
+				button_width: "65",
+				button_height: "29",
+				button_placeholder_id: "selectbutton",
+				button_text: '<span class="theFont">浏览</span>',
+				button_text_style: ".theFont { font-size: 16; }",
+				button_text_left_padding: 12,
+				button_text_top_padding: 3,
+				
+				file_queued_handler : fileQueued,
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				upload_start_handler : uploadStart,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess,
+				upload_complete_handler : uploadComplete,
+				queue_complete_handler : queueComplete	
+			};
+
+			swfu = new SWFUpload(settings);
+	     }
+		 
+function submitCheck(){
+	
+			
+			if($('input[name="title"]').val()=='') {
+				art.dialog.alert('题目不能为空！');
+		
+				return false;
+				}
+		
+			
+			if(editor.isEmpty()){
+				art.dialog.alert('内容不能为空！');
+		
+				return false;
+			}
+			
+			
+	
+}
+	
+	
+	
+	///删除上传图片
+function deleteimage(id){
+			
+	art.dialog({
+    title: '提示框',
+	content:'确定删除吗?',
+	icon:'question',
+	ok:function(){
+	$('#pic_'+id).remove();
+	
+	$.ajax({	
+    	beforeSend:function(XMLHttpRequest){
+	    	$("#codetips").text('正在提...请稍后')	
+	    	},	
+			url:"{:U('Admin/Product/deleteImage')}",
+			type:"post",
+			dataType:'json',
+			data:{'id':id},
+			success:function(msg){
+
+				if(msg.status==0){
+					alert(msg.info);
+				}
+
+			}	
+		})
+
+	
+	
+	},
+	cancel:true,
+	lock:true
+});
+			
+	}	
+
+function feng(imgid){
+	$('.warpper').css('border','none');
+	$('#pic_'+imgid).css('border','1px solid red');
+	$('input[name="feng"]').val(imgid);
+}			 
+</script>
+<style>
+#imgul_list li{
+position:relative;
+width:100px;
+height:100px;
+float:left;
+margin-right:5px;
+margin-bottom:5px;
+}
+#imgul_list li a{
+position:absolute;
+top:0px;
+right:0px;
+text-decoration:none;
+font-size:13px;
+color:#FF0000;
+}
+#imgul_lis img{
+width:100px;
+height:100px;
+}
+</style>
+
+<!--右边开始-->
+   <div class="rightCon1 fl">
+     <div class="conTitle">添加编辑图片</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	  <div id="menu_tab">
+		<ul>
+		<li><span <if condition="ACTION_NAME=='productlist'">class="active"</if>><a href="{:U('Admin/Picture/pictureList')}" >图片列表</a></span></li>
+		<li><span <if condition="ACTION_NAME=='addpicture'">class="active"</if>><a href="{:U('Admin/Picture/addPicture')}" >添加图片</a></span> </li> 
+		<li><span <if condition="ACTION_NAME=='bat'">class="active"</if>><a href="{:U('Admin/Picture/bat')}" >图片批量上传</a></span></li>
+		
+		</ul>
+	</div>
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Picture/doAddPicture')}" method="post" onsubmit="return submitCheck()">
+<table width="100%" height="854" border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table">
+
+  
+  <tr>
+    <td width="185" class="title_text"><span class="span_title">{$Think.lang.sort}:</span></td>
+    <td width="824" class="spacing3">
+	<select name="sort">
+	{$html}
+	</select></td>
+   </tr>
+   <tr>
+    <td width="185" class="title_text"><span class="span_title">{$Think.lang.atitle}:</span></td>
+    <td width="824" class="spacing3"><input class="input_middle" name="title" value="{$title|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="185" class="title_text"><span class="span_title">图片:</span></td>
+    <td width="824" class="spacing3">
+	<span id="uploadspan">
+			
+	   <div id="uploaddiv">
+          <div style="float:left;" id="selectbutton"></div>
+		  <input id="btnCancel" type="button" value="取消全部" onClick="swfu.cancelQueue();" disabled="disabled" style=" position:relative; top:-7px;margin-left: 2px; font-size: 8pt; height: 26px;" />
+          <span style=" font-size:12px; line-height:35px; margin:0 15px; color: #9F9F9F; position:relative; top:-10px;">在文件列表中，您可以按住Shift多选。'jpg','gif','png',
+					'jpeg'</span>
+          <div style="clear:both;"></div>
+        </div>
+        <div id="fsUploadProgress"></div>
+		
+		<div id="pic_list">
+        	<if condition="!empty($pics)">
+				
+					<volist name="pics" id="pic">
+						<div class="warpper"  <if condition="$pic['feng']">style="border:1px solid red;"</if> id="pic_{$pic.id}"><img width="100" height="100" src="__ROOT__/{$pic.filepath}"><textarea name="imagedes[{$pic.id}]">{$pic.desc}</textarea><a class="opimg" href="javascript:feng({$pic.id})">设置为封面</a><a class="delete"  href="#" onclick="deleteimage({$pic.id});return false;">remove</a></div>
+					</volist>
+				
+			</if>
+
+        </div>
+	</span>	</td>
+   </tr>
+
+   
+   
+   
+   <tr>
+    <td width="185" class="title_text"><span class="span_title">{$Think.lang.attribute}:</span></td>
+    <td width="824" class="spacing3"><input type="checkbox" value="1" name="top" <eq name="top" value="1">checked="checked"</eq> />{$Think.lang.top}</td>
+   </tr>
+   
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">设为栏目:</span></td>
+    <td width="869" class="spacing3"><input type="radio" value="1"  name="show_pid" <if condition="!empty($show_pid)&&$show_pid==$id">checked="checked"</if> />是 <input type="radio" value="0" name="show_pid" <if condition="empty($show_pid)||$show_pid!=$id">checked="checked"</if> />否 (常用于栏目分类中只有一个产品)</td>
+   </tr>
+   
+   <tr>
+    <td width="185" class="title_text"><span class="span_title">{$Think.lang.order}:</span></td>
+    <td width="824" class="spacing3"><input type="text" value="{$p_order|default=0}" name="order" /></td>
+   </tr>
+   <tr>
+    <td width="185" class="title_text"><span class="span_title">{$Think.lang.eiditor}:</span></td>
+    <td width="824" class="spacing3"><input class="input_middle" name="user" value="{$user|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="185" class="title_text"><span class="span_title">{$Think.lang.date}:</span></td>
+    <td width="824" class="spacing3"><input class="input_middle" name="dateline" value="<php>if(empty($dateline)){echo date('Y-m-d H:i:s',time());}else{echo date('Y-m-d H:i:s',$dateline);}</php>" /></td>
+   </tr>
+   <tr>
+    <td width="185" class="title_text"><span class="span_title">{$Think.lang.atitle}:</span></td>
+    <td width="824" class="spacing3"><input class="input_middle" name="seotitle" value="{$seotitle|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="185" class="title_text"><span class="span_title">{$Think.lang.keyword}:</span></td>
+    <td width="824" class="spacing3"><input class="input_middle" name="seokeyword" value="{$seokeyword|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="185" height="71" class="title_text"><span class="span_title">{$Think.lang.desc}:</span></td>
+    <td width="824" class="spacing3"><textarea name="seodesc" style="width:400px; height:50px;">{$seodesc|default=''}</textarea></td>
+   </tr>
+   <volist name="p_field" id="f">
+    <tr>
+		<td width="18%" height="37" class="title_text"><span class="span_title">{$f.name}:</span></td>
+		<td width="82%" class="spacing3"><input type="text" name="field{$f.fid}" value="<php>echo ${field.$f['fid']}</php>" />  调用方法 列表调用: <php>echo '{'.'$item.field'.$f["fid"].'}';</php> 内页调用: <php>echo '{'.'$field'.$f["fid"].'}';</php></td>
+    </tr>
+   </volist>
+   <tr>
+    <td width="185" height="300" class="title_text"><span class="span_title">{$Think.lang.contant}:</span></td>
+    <td width="824" class="spacingtext3" valign="top"><textarea name="content" style="width:700px; height:300px;">{$content}</textarea></td>
+   </tr>
+   <tr>
+    <td width="185"><span class="span_title"></span></td>
+    <td width="824"><input  class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+   </tr>
+   <tr>
+     <td class="title_text">&nbsp;</td>
+     <td class="spacing3">&nbsp;</td>
+   </tr>
+ 	<input type="hidden" value="{$id|default=0}"  name="id"/>
+	<input type="hidden" value=""  name="feng"/>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+   <!--右边结束-->
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

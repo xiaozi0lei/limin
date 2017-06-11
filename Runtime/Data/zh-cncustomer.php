@@ -1,0 +1,1 @@
+<?php	return array ( 0 => array ( 'id' => '12', 'c_order' => '0', 'name' => '百度', 'qq' => '1111111111111111', 'msn' => '', 'taobao' => '', 'alibaba' => '', 'lang' => 'zh-cn', ), );?>

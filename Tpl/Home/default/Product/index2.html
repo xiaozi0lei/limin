@@ -1,0 +1,71 @@
+<include file="Public:header" />
+<script src="__PUBLIC__/js/artDialog/jquery.artDialog.js?skin={$shop.dio}"></script>
+<script src="__PUBLIC__/js/artDialog/plugins/iframeTools.js"></script>
+<script>
+function show_card(pid){
+	art.dialog.open(site_url+'Public/buy/id/'+pid);
+}
+</script>
+<div id="page_main" class="n_content">
+	 <include file="Public:left" />
+     <div class="n_content_right fr">
+  <div class="page-right">
+   <div class="n_content_right_s"><p><span>当前位置：</span>{$location}</p></div>
+   <div class="head-search">
+  <div class="ss f_l">产品搜索：</div>
+  <div class="ssk f_l">
+      <form class="f_l" method="get" action="{:U('Product/index',array('sid'=>$sort['id']))}">
+      <input type="text" class="txt-keyword" id="key" name="key"/>
+	  <input value="1" type="hidden"  name="style"/>
+     <!--  <input type="image" src="../Public/images/cp_ss.jpg" class="btn-search" /> -->
+	  <input type="submit" style="background:url(../Public/images/cp_ss.jpg);" value="" class="btn-search" />
+      </form>
+	 
+    <div class="right_tb f_r">
+       <ul>
+          <li><a href="{$surl}"> <img src="../Public/images/lbt.jpg" /></a></li>
+          <li><a href="{$kurl}"> <img src="../Public/images/slt.jpg" /></a></li>
+       </ul>
+    </div>
+	
+  </div>
+  <div style="clear:both;"></div>
+</div>
+
+
+   <!--产品列表页-->
+   <div class="lbtu"  >
+      <ul class="lbtup">
+        <volist name="list" id="list">
+           <li style="border-bottom: 1px solid #f2f2f2;"><div class="lbtu_left fl"><a href="{$list.url}" title="{$list.title}"><img src="{$site_url}/{$list.pic}" alt="{$list.title}" /></a></div>
+             <ul class="lbtu_right fr">
+                <li><div class="bt"><a href="{$list.url}" title="{$list.title}" >{$list.title|msubstr=0,12}</a></div>
+                  <div class="wenzi"><span style=" color:#2e5457; font-weight:bold;">分类：</span><span id="sort" style="font-size:12px; line-height:22px;">{$list['name']}</span></div>
+                 <div class="wenzi"><a href="{$list.url}">[查看详情]</a></span></div>
+                 </li>
+                <li style="text-align:center; padding-left:60px;"><p style=" line-height:30px; height:30px;"><span style="font-weight:bold; font-size:12px;"> 价格：</span><span id="price" style="font-weight:bold; color:#FF0000; font-size:17px;">￥{$list.price}</span></p></li>
+                
+				<if condition="!empty($shop['shop_swich'])">
+				<li style="padding-left:75px; float:right;"> <span>
+                  <input type="button" value="立即购买" style=" background:url(../Public/images/list_anniu.jpg); padding:4px;display: block;text-align: center;color: #fff;margin-top:10px; font-size:12px; width:70px;" onclick="show_card({$list.id});">
+                  <input type="button" value="加入购物车" style=" background:url(../Public/images/list_anniu.jpg); padding:4px;display: block;text-align: center;color: #fff;margin-top:10px; font-size:12px; width:70px;" onclick="show_card({$list.id});">
+				  
+                </li>
+				</if>
+           		
+                 <div class="clear"></div>
+               
+             </ul>
+           <div class="clear"></div>
+             </li>
+        </volist>
+  </ul>
+  <div class="clear"></div>
+  <div class="page_list">{$page}</div>
+</div>
+
+  </div>
+  </div>
+<div class="clear"></div> 
+</div>
+<include file="Public:footer" />

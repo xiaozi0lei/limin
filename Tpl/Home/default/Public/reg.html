@@ -1,0 +1,83 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+ <div class="page-right">
+   <div class="site-nav"><span>当前位置 : </span>会员注册</div>
+   <div class="page-news">
+    <div class="page-guestbook">
+		<script type="text/javascript">
+		function check()
+		{
+			if(document.guestbook.username.value=="")
+			{
+				alert("请填写用户名");
+				document.guestbook.Guest_Name.focus();
+				return false
+			}
+			
+			if(document.guestbook.pwd.value=="")
+			{
+				alert("请填写密码");
+				document.guestbook.username.focus();
+				return false
+			}
+			
+			if(document.guestbook.pwdconfirm.value=="")
+			{
+				alert("请填写密码确认");
+				document.guestbook.pwdconfirm.focus();
+				return false
+			}
+			
+			if(document.guestbook.pwdconfirm.value != document.guestbook.pwd.value)
+			{
+				alert("密码不相同");
+				document.guestbook.pwdconfirm.focus();
+				return false
+			}
+
+			if (document.guestbook.code.value=='')
+			{
+				alert("验证码为空");
+				
+				return false;
+			}
+			 
+			return true;
+		}
+		</script>
+      <form method="post" name="guestbook" id="guestbook" action="{:U('Public/doreg')}" onsubmit="return check();">
+      <dl class="clearfix">
+      <dt>用户名：</dt>
+      <dd><input type="text" name="username" id="username"><span>*</span></dd>
+      <dt>密码：</dt>
+      <dd><input type="password" name="pwd" id="pwd"><span>*</span></dd>
+      <dt>密码确认：</dt>
+      <dd><input type="password" name="pwdconfirm" id="pwdconfirm"> <span>*</span></dd>
+      <dt>姓名：</dt>
+      <dd><input type="text" name="realname" id="realname"></dd>
+      <dt>性别：</dt>
+      <dd><input name="sex" value="1" checked="checked" type="radio" style="width:auto; height:auto;">男 <input value="2" name="sex" type="radio" style="width:auto; height:auto;">女</dd>
+      <dt>电话：</dt>
+      <dd><input type="text" name="phone" id="phone"></dd>
+      <dt>手机号码:：</dt>
+      <dd><input type="text" name="mobile" id="mobile"></dd>
+	  <dt>qq：</dt>
+      <dd><input type="text" name="qq" id="qq"></dd>
+	  <dt>email：</dt>
+      <dd><input type="text" name="email" id="email"></dd>
+      <dt>验证码：</dt>
+      <dd>
+        <input type="text" name="code" id="code">
+        <img src="/cms/Public/verify/">
+        <span>*</span>
+      </dd>
+      </dl>
+      <p><input type="submit" name="submit" id="submit" value="提交" class="submit"></p>
+     
+	 </form>
+      </div>
+   </div>
+ </div>
+<include file="Public:left" />
+</div>
+<include file="Public:footer" />

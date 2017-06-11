@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin.css" />
+<title>管理后台</title>
+<script>
+var mobile = '{$wapon}';
+</script>
+<script src="__PUBLIC__/js/jquery-1.4.4.min.js"></script>
+<script src="__PUBLIC__/js/common.js"></script>
+<script src="__PUBLIC__/js/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="__PUBLIC__/js/artDialog/plugins/iframeTools.js"></script>
+<script>
+var root_path='__ROOT__';
+function submit_form(form_url){
+	$('#form_id').attr('action',form_url);
+	$('#form_id').submit();
+
+}
+
+function select_all(){
+	
+	$('.check_all').attr('checked',$('#checkbox_all').attr('checked'));
+	
+}
+
+$(function(){
+
+
+	$('.bind_change').change( function() {
+	  	$(this).parent().parent().find('td').first().find('input').attr('checked','checked');
+	});
+
+})
+
+
+function del_one(t,form_url){
+	if(confirm('{$Think.lang.sure}')){
+		op_one(t,form_url);
+	}
+	
+	
+}
+
+function del(url){
+	if($('.check_all:checked').length==0){
+		alert('{$Think.lang.selectitem}');
+		return false;
+	}
+	
+	submit_form(url);
+}
+
+
+function op_one(t,form_url){
+
+		$(t).parent().parent().find('td').first().find('input').attr('checked','checked');
+		$('#form_id').attr('action',form_url);
+		$('#form_id').submit();
+}
+
+
+
+$(function(){
+
+
+var menustr=$.cookie('active');
+
+	if(menustr==null){
+		$('.pc').addClass('active');
+		$('.cpmenu').css('display','none');
+		$('#pc_cp').css('display','');
+		var li=$('#pc_cp').find('li');
+			$(li[0]).addClass('visited')
+	}else{
+		$('.mainmenu').removeClass('active');
+		var str=menustr.split('-');
+			$('#'+str[0]).css('display','');
+			var li=$('#'+str[0]).find('li');
+			$('#'+menustr).addClass('visited')
+			
+			$('.'+str[0]).addClass('active');
+	}
+
+
+$(".list_table tr:odd").addClass('odd');
+$(".list_table .list_tr").hover(
+  function () {
+    $(this).addClass("hover");
+  },
+  function () {
+    $(this).removeClass("hover");
+  }
+);
+
+/*
+var noheader=parseInt(document.body.clientHeight)-80;
+var rightdiv=parseInt($('.rightCon1').css('height'));
+if(rightdiv>noheader){
+$('.center').css('height',parseInt($('.rightCon1').css('height'))+80);
+}*/
+})
+
+function changemenu(t,idstr){
+	var h=$('center').css('height');
+	$('.mainmenu').removeClass('active');
+	$(t).addClass('active');
+	$('.cpmenu').css('display','none');	
+	$('#'+idstr).css('display','');
+	$('center').css('height',h);
+	
+	
+}
+
+function submenu(t,str){
+	$.cookie('active',str,{expires: 0, path: '/'});
+	$('.subli').removeClass('visited');
+	$(t).addClass('visited');
+	
+}
+
+
+</script>
+
+</head>
+
+<body style="background:url(__PUBLIC__/images/1.jpg);">
+
+<div style="width:1206px;   margin:0 auto; position: relative;left:50%; margin-left:-603px; margin-top:50px;">
+<div style="background:url(__PUBLIC__/images/top.png) left no-repeat; width:1206px; margin:0 auto; height:6px; font-size:0px;"></div>
+<center>
+ <div class="center" style="width:1200px; margin:0 auto;">
+  <!--头部开始-->
+   <div class="head">
+     <div class="logo fl"><img src="__PUBLIC__/images/logo.jpg" align="middle" style="float:left;" /><div style="color: #FFFFFF; font-weight:bold;float: left; margin-top:25px;"><if condition="$lang=='zh-cn'">(中文站管理)<else/>(英文站管理)</if></div></div>
+     <div class="home fr" style="padding-top:20px;">
+       
+         <font style="font-size:14px; font-weight:bold; color:#FFFFFF;">{$space.username}</font>
+         <a href="{:U('Admin/Index/logout')}" style=" padding:0px 20px;"><img src="__PUBLIC__/images/main04.jpg" /></a>
+         <a href="<if condition="$lang!='zh-cn'">{:site_url()}/index.php?l={$lang}<else/>{:site_url()}</if>" target="_blank"><img src="__PUBLIC__/images/main05.jpg" /></a>
+       
+     </div>
+     <div style="padding-top:20px; float:right; padding-right:30px;">
+      <form action="{:U('Admin/product/search')}" method="get" >
+        <div > 
+       
+          <input onfocus="javascirpt:if(this.value=='请输入相关产品关键字'){this.value=''}" onblur="if(this.value==''){this.value='请输入相关产品关键字'}" type="text" name="searchtext" value="请输入相关产品关键字"  style=" background:url(__PUBLIC__/images/main022.jpg) repeat-x;
+              width:192px; height:29px; border:none;line-height:29px; color:#a7bacc; padding-left:10px; float:left;"/>
+      	 <input type="submit" id="submitform"  value="" name="button" style="width:35px; height:29px; background:url(__PUBLIC__/images/main03.jpg) no-repeat; border:none; cursor:pointer; float:left;"/>
+        </div>
+   
+       </form>
+     </div>
+     <div class="clear"></div>
+   </div>
+   <!--头部结束-->

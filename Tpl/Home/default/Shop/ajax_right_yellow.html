@@ -1,0 +1,108 @@
+<style>
+#shop_ce{
+font-size:13px;
+    height: 150px;
+    margin-top: -62px;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    width: 125px;
+    z-index: 999999;
+
+}
+#ce_buy{
+    background: url(__PUBLIC__/images/moban_ico5.gif) repeat scroll 0 0 transparent;
+    display: block;
+    height: 29px;
+    margin: 10px 0 0 10px;
+    padding: 0;
+    width: 98px;
+}
+#shop_ce_dl{
+background: url(__PUBLIC__/images/moban_bg.gif) repeat scroll 0 0 transparent;
+    float: left;
+    height: 150px;
+    width: 117px;
+	margin:0px;
+	padding:0px;
+	
+
+}
+#shop_ce_dl a{
+color:#FFFFFF;
+}
+#shop_ce dt{
+margin-bottom: 13px;
+}
+#shop_ce dd{
+border-bottom: 1px dashed #FFFFFF;
+    line-height: 1;
+    margin: 0 10px 10px;
+    padding: 0 0 3px;
+}
+#shop_ce_close{
+    background: url(__PUBLIC__/images/moban_ico6.png) repeat scroll 0 0 transparent;
+    cursor: pointer;
+    float: left;
+    font-size: 0;
+    height: 150px;
+    width: 8px;
+}
+
+#ce_span_1{
+background: url(__PUBLIC__/images/moban_ico5.gif) repeat scroll 0 -30px transparent;
+    display: inline-block;
+    height: 17px;
+    margin-right: 5px;
+    vertical-align: middle;
+    width: 19px;
+}
+
+#ce_span_2{
+background: url(__PUBLIC__/images/moban_ico5.gif) repeat scroll -20px -30px transparent;
+    display: inline-block;
+    height: 17px;
+    margin: -2px 5px 2px 0;
+    vertical-align: middle;
+    width: 19px;
+}
+
+
+
+#ce_span_3 {
+    background: url(__PUBLIC__/images/moban_ico5.gif) repeat scroll -40px -30px transparent;
+    display: inline-block;
+    height: 17px;
+    margin: -2px 5px 2px 0;
+    vertical-align: middle;
+    width: 19px;
+}
+
+</style>
+
+<!--侧边-->
+<div id="shop_ce">
+<div id="shop_ce_close"></div>
+<dl id="shop_ce_dl">	
+	<dt><a id="ce_buy" href=""></a></dt>
+	<dd><span style="display:inline-block;" id="ce_span_1"></span><a  style="text-decoration:underline" href="javascript:void(0);" onclick="show_checkout()">立即结算</a></dd>			
+	<dd><span style="display:inline-block;" id="ce_span_2"></span><a  href="javascript:void(0);" onclick="show_checkout()">购物车<b id="num">0</b>件</a></dd>			
+	<dd><span style="display:inline-block;" id="ce_span_3"></span><a  href="javascript:void(0);" onclick="show_search()">订单查询</a></dd>		
+</dl>
+</div>
+<script>
+$(function(){
+	   
+		var countstr=$.cookie('count');
+		var count=0
+		
+		if(typeof(countstr)=='object'||countstr==''){
+			count=0;
+		}else{
+			count=countstr.split('|').length;
+		}
+
+		$('#num').text(count);
+})
+
+</script>

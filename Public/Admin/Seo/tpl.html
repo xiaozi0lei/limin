@@ -1,0 +1,47 @@
+<include file="./Public/Admin/Public/header.html" />
+<include file="./Public/Admin/Public/left.html" />
+
+
+
+
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">模板管理</div>
+    <include file="./Public/Admin/Seo/nav.html" />
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Public/dohtml')}" method="post" id="html_form">
+<table width="100%" height="212" border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+
+
+
+	<tr>
+		<td width="32%" class="title_text"><span class="span_title">网站头部(header.html):</span></td>
+		<td width="68%" class="spacingtext3"><input  class="form-text" type="button" value="编辑" onclick="window.location.href='{:U('Admin/Seo/tpl',array('edit'=>'header'))}'"  style="float:left;" /> </td>
+    </tr>
+	
+	<tr>
+		<td width="32%" class="title_text"><span class="span_title">网站首页(index.html):</span></td>
+		<td width="68%" class="spacingtext3"><input  class="form-text" type="button" value="编辑"  onclick="window.location.href='{:U('Admin/Seo/tpl',array('edit'=>'index'))}'" style="float:left;" /> </td>
+    </tr>
+	
+	<tr>
+		<td width="32%" class="title_text"><span class="span_title">网站底部(footer.html):</span></td>
+		<td width="68%" class="spacingtext3"><input  class="form-text" type="button" value="编辑"  onclick="window.location.href='{:U('Admin/Seo/tpl',array('edit'=>'footer'))}'" style="float:left;" /> </td>
+    </tr>
+ 
+   
+   
+   <input type="hidden" name="op" value="" id="op" />
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

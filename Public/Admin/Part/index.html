@@ -1,0 +1,80 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+<script src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+<script>
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[class="partcontent"]', {
+					uploadJson : '{:U('Admin/Part/uploadPartImg')}',
+					allowFileManager : false,
+					items:[
+        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+        'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+        'anchor', 'link', 'unlink', '|', 'about'
+]
+				});
+				
+			});
+			
+			
+			function addedit(){
+			
+				var html_str='<table><tr><td width="185"  class="title_text"><span class="span_title">{$Think.lang.contant}:</span></td><td  class="spacingtext3" width="88%"><textarea  class="newpartcontent" name="newpart[]" style="width:700px; height:200px;"></textarea></td></tr></table>'
+					$('#parttable').after(html_str);
+			
+				$.getScript('__PUBLIC__/kindeditor/kindeditor-min.js', function() {
+						KindEditor.basePath = '__PUBLIC__/kindeditor/';
+						KindEditor.create('textarea[class="newpartcontent"]');
+					});
+				
+			
+			}
+			
+		</script>
+
+<style>
+.newtr{
+padding-top:20px;
+}
+</style>
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">局部内容管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Part/doSavePart')}" method="post">
+<table width="100%" height="360" border="0" cellpadding="0" cellspacing="1"   id="parttable">
+   <tr>
+    <td colspan="2" align="center" height="50px;" style=" color:#FF0000;">模版调用方法 : <literal>{$content_（内容ID）}</literal> 如调用ID 为1 的内容为:<literal>{$content_1}</literal></td>
+    </tr>
+<volist name="part" id="p">
+   <tr>
+    <td width="12%"  class="title_text"><span class="span_title">{$Think.lang.contant} (ID:{$p.id}):</span></td>
+    <td width="88%" class="spacingtext3"><textarea  class="partcontent" name="part[{$p.id}]" style="width:700px; height:200px;">{:dereplace($p['contant'])}</textarea></td>
+   </tr>
+</volist>
+
+</table>
+
+<tr>
+    <td width="12%" class="title_text"><span class="span_title"></span></td>
+    <td width="88%" class="spacingtext3" style="padding:10px;"><input class="form-text" type="submit" value="{$Think.lang.save}" />  <input style="margin-left:20px;" type="button" class="form-text" onclick="addedit()" value="{$Think.lang.addpart}" /></td>
+   </tr>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+<include file="./Public/Admin/Public/footer.html" />

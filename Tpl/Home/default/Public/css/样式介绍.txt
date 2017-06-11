@@ -1,0 +1,18 @@
+
+Class	                手机                  平板                电脑
+                      767px 及以下        979px 到 768px            默认 
+   
+
+
+
+.visible-phone	        显示  	              隐藏	           隐藏
+
+.visible-tablet 	隐藏	              显示	           隐藏
+ 
+.visible-desktop	隐藏	              隐藏	           显示
+ 
+.hidden-phone	        隐藏	              显示	           显示
+ 
+.hidden-tablet	        显示	              隐藏	           显示
+ 
+.hidden-desktop   	显示	              显示	           隐藏

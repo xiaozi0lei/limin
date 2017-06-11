@@ -1,0 +1,73 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<div class="rightCon1 fl">
+     <div class="conTitle">二维码生成</div>
+     <div class="conNav">
+       <ul>
+        <li <if condition="ACTION_NAME=='config'">class="active"</if> ><a href="{:U('Admin/Qrcode/config')}{$language}"><span>设置</span></a></li>
+        <li <if condition="ACTION_NAME=='generate'">class="active"</if>><a href="{:U('Admin/Qrcode/generate')}{$language}"><span>二维码生成</span></a></li>
+
+
+       </ul>
+     </div>
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Qrcode/doGenerate')}" method="post">
+<table width="100%" height="270"  border="0" cellpadding="0" cellspacing="1"   class="list_table">
+
+   <tr>
+    <td width="20%" class="title_text"><span class="span_title">生成的图片:</span></td>
+    <td width="80%" class="spacing3"><if condition="!empty($src)"><img src="{$src}" /><else/>请在“数据或网址”输入信息点击生成</if></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">图片地址:</span></td>
+    <td width="" class="spacing3" > {$codeurl}
+    </td>
+   </tr>	
+  <tr>
+    <td width="" class="title_text"><span class="span_title">数据或网址:</span></td>
+    <td width="" class="spacing3"><input type="text" style="width:400px;" name="data" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">二维码图形大小:</span></td>
+    <td width="" class="spacing3">
+	<select name="size">
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4" selected="selected">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8</option>
+	<option value="9">9</option>
+	<option value="10">10</option>
+	</select></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">二维码图形质量:</span></td>
+    <td width="" class="spacing3">
+	<select name="level">
+            <option selected="" value="L">最低</option>
+            <option value="M">中等</option>
+            <option value="Q">高</option>
+            <option value="H" selected="selected">极高</option>
+        </select></td>
+   </tr>
+  
+   <tr>
+        <td class="title_text">&nbsp;</td>
+
+    <td width="" class="spacing3"><input class="form-text" type="submit" value="生成" /></td>
+   </tr>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

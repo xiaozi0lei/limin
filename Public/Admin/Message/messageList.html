@@ -1,0 +1,66 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<div class="rightCon1 fl">
+     <div class="conTitle">网站留言</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 <div id="menu_tab">
+	 <ul>
+		<li>
+		<span <if condition="$_GET['xunpan']==1">class="active"</if>><a href="{:U('Admin/Message/messageList',array('xunpan'=>1))}" >网站询盘</a></span></li>
+		
+		</ul>
+		
+	</div>
+	 
+	 <div>
+	 	<form id="form_id" action="" method="post">
+<table width="100%" height="139" border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table">
+  <tr>
+    <th height="23" scope="col">选择</th>
+    <th scope="col">{$Think.lang.pname}</if></th>
+    <th scope="col">{$Think.lang.phone}</th>
+    <th scope="col">{$Think.lang.email}</th>
+    <th scope="col">{$Think.lang.dateline}</th>
+	<th scope="col">{$Think.lang.verify}</th>
+    <th scope="col">{$Think.lang.op}</th>
+  </tr>
+  
+  
+  <volist name="list" id="li">
+  <tr class="list_tr">
+    <td class="list_td"><input class="check_all" type="checkbox" value="{$li.id}" name="check[{$li.id}]"  /></td>
+    <td class="list_td">{$li.username}<if condition="$li['isxunpan']==1"><font color="#FF0000">(网站询盘)</font></if></td>
+    <td class="list_td">{$li.phone}</td>
+    <td class="list_td">{$li.email}</td>
+    <td class="list_td"><php>echo date('Y-m-d H:i',$li['dateline']);</php></td>
+	<td class="list_td"><eq name="li.isnew" value="1"><font color="red">{$Think.lang.noread}</font><else/>{$Think.lang.isread}</eq></td>
+    <td class="list_td"><a href="javascript:void(0)" onclick="del_one(this,'{:U('Admin/Message/doDelMessage')}')">{$Think.lang.del}</a> <a href="{:U('Admin/Message/messageDetail',array('aid'=>$li['id']))}">{$Think.lang.view}</a></td>
+  </tr>
+  </volist>
+
+
+	<tr class="list_tr" height="60px;">
+			<td class="list_td"><input   type="checkbox" onclick="select_all()" id="checkbox_all"/></td>
+			<td colspan="6"><span style=" margin-top:5px; margin-right:20px;float:left ; display:block;">全选</span> 
+			  <input name="button"  class="form-text" type="button"  onclick="del('{:U('Admin/Message/doDelMessage')}')"  value="{$Think.lang.del}" />    </td>
+		  </tr>
+		  <tr class="list_tr">
+			
+			
+			<td colspan="7" align="center" class="list_td"><span class="page_span">{$page}</span></td>
+		  </tr>	
+
+
+</table>
+
+
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

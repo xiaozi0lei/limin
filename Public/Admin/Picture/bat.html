@@ -1,0 +1,245 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+<script src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+<script src="__PUBLIC__/js/ajaxfileupload.js"></script>
+
+<script src="__PUBLIC__/js/swfupload.js"></script>
+<script src="__PUBLIC__/js/swfupload.queue.js"></script>
+<script src="__PUBLIC__/js/fileprogress.js"></script>
+<script src="__PUBLIC__/js/handlers.js"></script>
+<script src="__PUBLIC__/js/swfupload.cookies.js"></script>
+<script>
+	
+	
+	var editor;		
+	var swfu;
+		window.onload = function() {
+			var settings = {
+				flash_url : "__PUBLIC__/images/swfupload.swf",
+				upload_url: "{:U('Admin/Picture/swfupload')}",	
+				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>","bat":1},
+				file_size_limit : "2 MB",
+				file_types : "*.jpg;*.gif;*.png;*.jpeg",
+				file_types_description : "选择图片",
+				file_upload_limit : 30,  //配置上传个数
+				file_queue_limit : 0,
+				custom_settings : {
+					progressTarget : "fsUploadProgress",
+					cancelButtonId : "btnCancel"
+				},
+				debug: false,
+
+				// Button settings
+				button_image_url: "__PUBLIC__/images/browupload.jpg",
+				button_width: "192",
+				button_height: "32",
+				button_placeholder_id: "selectbutton",
+				button_text: '<span class="theFont"></span>',
+				button_text_style: ".theFont { font-size: 16; }",
+				button_text_left_padding: 12,
+				button_text_top_padding: 3,
+				button_window_mode:'transparent',
+				
+				file_queued_handler : fileQueued,
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				upload_start_handler : uploadStart,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadBatSuccess,
+				upload_complete_handler : uploadComplete,
+				queue_complete_handler : queueComplete	
+			};
+
+			swfu = new SWFUpload(settings);
+	     }
+
+	
+	
+		function addcontent(imgid){
+			
+			var myDialog = art.dialog({
+			
+				title:'内容',
+				ok: function () {
+				    var content=editor.html();	
+					$.ajax({
+					   type: "POST",
+					   url: "{:U('Admin/Picture/saveBatContent')}",
+					   data: {'content':content,'imgid':imgid},
+					   success: function(msg){
+					   		//$('#op_'+imgid).html('<a href="editcontent('+imgid+')">编辑</a>');
+							$('#a_'+imgid).text('编辑');
+					   }
+					});
+					return true;
+				},
+				cancelVal: '关闭',
+				cancel: true //为true等价于function(){}
+			
+			});
+			$.ajax({
+			   type: "GET",
+			   url: "{:U('Admin/Picture/batcontent')}",
+			   data: "imgid="+imgid,
+			   success: function(msg){
+				  myDialog.content(msg);// 填充对话框内容
+				editor=KindEditor.create('textarea[name="content"]', {
+					uploadJson : '{:U('Admin/Picture/uploadEditerImg')}',
+					allowFileManager : true,
+					items:[
+        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+        'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+        'anchor', 'link', 'unlink', '|', 'about'
+]
+				});
+			   }
+			});
+		
+		}
+		
+			///删除上传图片
+function deleteimage(id){
+			
+	art.dialog({
+    title: '提示框',
+	content:'确定删除吗?',
+	icon:'question',
+	ok:function(){
+	$('#'+id).remove();
+	
+	$.ajax({	
+    	beforeSend:function(XMLHttpRequest){
+	    	$("#codetips").text('正在提...请稍后')	
+	    	},	
+			url:"{:U('Admin/Picture/deleteImage')}",
+			type:"post",
+			dataType:'json',
+			data:{'id':id},
+			success:function(msg){
+
+				if(msg.status==0){
+					alert(msg.info);
+				}
+
+			}	
+		})
+
+	
+	
+	},
+	cancel:true,
+	lock:true
+});
+			
+	}	
+	
+</script>
+<style>
+.temp_list{
+float:left;
+height:120px;
+width:370px;
+}
+.temp_left{
+float:left;
+}
+.temp_right{
+float:left;
+width:200px;
+
+}
+.temp_right p{
+margin-bottom:5px;
+}
+#pic_list div{
+background:none;
+padding:0px;
+}
+#pic_list a.delete{
+top:4px;
+}
+
+#pic_list{
+width:auto;
+}
+table tr td{
+text-align:left;
+}
+</style>
+
+
+<!--右边开始-->
+   <div class="rightCon1 fl">
+     <div class="conTitle">产品批量上传</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	 <div id="menu_tab">
+		<ul>
+		<li><span <if condition="ACTION_NAME=='productlist'">class="active"</if>><a href="{:U('Admin/Picture/pictureList')}" >图片列表</a></span></li>
+		<li><span <if condition="ACTION_NAME=='addpicture'">class="active"</if>><a href="{:U('Admin/Picture/addPicture')}" >添加图片</a></span> </li> 
+		<li><span <if condition="ACTION_NAME=='bat'">class="active"</if>><a href="{:U('Admin/Picture/bat')}" >图片批量上传</a></span></li>
+		
+		</ul>
+	</div>
+	 
+	 <div>
+	 	<form action="{:U('Admin/Picture/saveBatPicture')}" method="post">
+<table width="100%" height="176" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table" >
+  <tr>
+    <td width="141" height="50" class="title_textx"><span class="span_title">{$Think.lang.sort}:</span></td>
+    <td width="941" id="sorttd">
+	<select name="parent_id"  id="sort" style="float:left;">
+		{$html}
+	</select>	</td>
+   </tr>
+   
+   <tr>
+    <td width="141" height="50" class="title_textx"><span class="span_title">产品名称:</span></td>
+    <td width="941"><input type="radio"  checked="checked" name="nametype" value="1" />取文件名为图片名 <input type="radio" name="nametype" value="2" />取分类名为图片名</td>
+   </tr>
+   
+   <tr>
+    <td width="141" height="60" class="title_textx"><span class="span_title">{$Think.lang.pic}:</span></td>
+    <td width="941" align="left" valign="top">
+	<span id="uploadspan" >
+	
+	<div id="uploaddiv">
+          <div style="float:left;" id="selectbutton"></div> <span style=" position:relative; margin-left:10px; top:-12px; height:20px; line-height:20px;font-size:12px;   color: #9F9F9F;"> 在文件列表中，您可以按住Shift多选。'jpg','gif','png',
+					'jpeg'</span><br /><br />
+        </div>
+        <div id="fsUploadProgress"></div>
+	</span>	</td>
+   </tr>
+   <tr>
+    <td width="141" class="title_textx"><span class="span_title"></span></td>
+    <td width="941">
+	
+	<div id="pic_list"></div>	</td>
+   </tr>
+   <tr>
+    <td width="141" class="title_textx"><span class="span_title"></span></td>
+    <td width="941" align="left"><input type="submit" value=" " id="uploadsave" />
+		  <input id="btnCancel" class="btnCancel"  type="button" value=" " onClick="swfu.cancelQueue();" disabled="disabled" /></td>
+   </tr>
+   <tr>
+     <td class="title_textx">&nbsp;</td>
+     <td align="left">&nbsp;</td>
+   </tr>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+   <!--右边结束-->
+
+<include file="./Public/Admin/Public/footer.html" />

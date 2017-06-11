@@ -1,0 +1,100 @@
+<include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+<div id="right">
+
+<div id="container" class="list_table" style="float:left; width:75%">
+<form action="" method="post" onsubmit="doupdate();return false;">
+<table width="100%"  border="0" cellpadding="0" cellspacing="1"  >
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.nowversion}:</span></td>
+    <td width="80%" class="spacing3">{$version}</td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.latestversion}:</span></td>
+    <td width="" id="latesttext" class="spacing3">正在检测...</td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">更新日志:</span></td>
+    <td width="" id="desc" class="spacing3">正在检测...</td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.downurl}:</span></td>
+    <td width="" id="downtext" class="spacing3">正在检测...</td>
+   </tr>
+   <tr id="loadingtr" style="display:none;">
+    <td width="" class="title_text"></td>
+    <td width="" id="downtext" class="spacing3">正在下载请稍候...<img src="__PUBLIC__/images/load.gif" height="20"  width="20"/></td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title"></span></td>
+    <td width="" class="spacing3"><input type="submit" disabled="disabled" id="bt_up" value="{$Think.lang.updatebutton}" /></td>
+   </tr>
+ 
+</table>
+</form>
+
+</div>
+
+<script>
+$.ajax({
+   type: "GET",
+   url: "{:U('Admin/Update/checkupdate')}",
+   success: function(msg){
+     
+	 	if(msg.status==1){
+		
+			$('#latesttext').text(msg.data.version);
+			$('#desc').html(msg.data.desc);
+			$('#downtext').html('<a href="'+msg.data.downurl+'">'+msg.data.downurl+'</a>');
+			$('#bt_up').attr('disabled',false);
+			
+		}else{
+			
+		
+			$('#latesttext').text('程序为最新');
+			$('#downtext').text('程序为最新');
+			$('#desc').text('程序为最新');
+			alert(msg.info);
+		}
+	 
+   }
+});
+
+
+
+function doupdate(){
+	
+	
+	$('#bt_up').val('正在下载安装');
+	$('#loadingtr').css('display','');
+	$.ajax({
+   type: "GET",
+   dataType:'json',
+   url: "{:U('Admin/Update/doupdate')}",
+   success: function(msg){
+     
+	 	if(msg.status==1){
+		
+			$('#bt_up').attr('disabled','true');
+			$('#bt_up').val('成功更新');
+			alert('成功更新');
+			window.location.href="{:U('Admin/update/index')}";
+		}else{
+			
+			alert(msg.info);
+		}
+	 
+   }
+});
+
+}
+
+</script>
+</div>
+<include file="./Public/Admin/Public/footer.html" />

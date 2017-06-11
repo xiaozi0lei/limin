@@ -1,0 +1,184 @@
+
+body {
+    color: #4D4D4D;
+    font-family: "宋体",Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 auto;
+    text-align: left;
+}
+input {
+    color: #999999;
+    font: 10pt Verdana,Arial,Helvetica,sans-serif,"宋体";
+}
+img {
+    border: medium none;
+    vertical-align: top;
+}
+p, ul, ol, li, form, dd, dl, dt {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, select, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+a {
+    color: #373737;
+    text-decoration: none;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+a:hover {
+    text-decoration: underline;
+}
+.m_yahei {
+    font-family: "微软雅黑";
+}
+.hdgray01 {
+    color: #767676;
+}
+.hdgray01 a {
+    color: #ABADAC;
+}
+.hdgray02 {
+    color: #A8A8A8;
+}
+.hdgray03 {
+    color: #787878;
+}
+.hdgray03 a {
+    color: #787878;
+}
+.hdgray04 {
+    color: #D1D1D1;
+}
+.hdgray05 {
+    color: #4D4D4D;
+}
+.blcolor {
+    color: #1E7ABB;
+}
+.blcolor a {
+    color: #1E7ABB;
+}
+.blcolor1 {
+    color: #3E7094;
+}
+.blcolor1 a {
+    color: #3E7094;
+}
+.blhover a:hover {
+    color: #1E7ABB;
+}
+.redhover a:hover {
+    color: #DF436F;
+}
+.h115pxov {
+    height: 115px;
+    overflow: hidden;
+}
+.h138pxov {
+    height: 138px;
+    overflow: hidden;
+}
+.wd145pxov {
+    overflow: hidden;
+    width: 145px;
+}
+.wd105pxov {
+    overflow: hidden;
+    width: 105px;
+}
+.hdwrap {
+    height: 482px;
+    margin: 0 auto;
+    width: 100%;
+}
+.flashlist {
+    height: 482px;
+}
+.flashlist .f_out {
+    height: 482px;
+    overflow: hidden;
+}
+.flashlist .f_out .vip01pic, .jcToppic .vip01pic {
+    background: url("../images/vipico.gif") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 58px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 58px;
+    z-index: 200;
+}
+.vip02pic {
+    background: url("../images/vipico.gif") no-repeat scroll -80px 0 transparent;
+    display: block;
+    height: 39px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 39px;
+    z-index: 200;
+}
+.flashlist .f_out .picintro {
+    background: url("../images/hdpng.png") no-repeat scroll 0 -1px transparent;
+    bottom: 0;
+    height: 84px;
+    left: 0;
+    padding: 0 20px;
+    position: absolute;
+    width: 100%;
+    z-index: 99;
+}
+.picintro h2 a {
+    color: #FFFFFF;
+    font-family: "微软雅黑";
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 37px;
+}
+.picintro p {
+    color: #767676;
+    line-height: 20px;
+}
+.picintro p a {
+    color: #ABADAC;
+}
+.flash_tab .tabs {
+    height: 8px;
+    margin: -12px auto auto;
+    overflow: hidden;
+    position: relative;
+    width: 200px;
+    z-index: 999;
+}
+.flash_tab .tabs ul li {
+    display: block;
+    float: left;
+    height: 8px;
+    width: 33px;
+}
+.flash_tab .tabs ul li.opdiv, .noopdiv {
+    opacity: 1;
+    padding: 0;
+}
+.flash_tab .tabs ul li.opdiv a {
+    background: url("../images/hdsmall.gif") no-repeat scroll -41px -1239px transparent;
+    display: block;
+    height: 8px;
+    width: 21px;
+}
+.flash_tab .tabs ul li.opdiv a:hover {
+    background-position: -8px -1239px;
+}
+.flash_tab .tabs ul li.noopdiv a {
+    background: url("../images/hdsmall.gif") no-repeat scroll -8px -1239px transparent;
+    display: block;
+    height: 8px;
+    width: 21px;
+}

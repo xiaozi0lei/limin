@@ -1,0 +1,42 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+
+  <div class="container">
+   <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+   <div class="page-products">
+   <!--<div class="head-search">
+  <div class="ss f_l">产品搜索：</div>
+  <div class="ssk f_l">
+    <form class="f_l" method="get" action="{:U('Product/index',array('sid'=>$sort['id']))}">
+      <input type="text" class="txt-keyword" id="key" name="key"/>
+   <input type="image" src="../Public/images/cp_ss.jpg" class="btn-search" /> 
+	  <input type="submit" style="background:url(../Public/images/cp_ss.jpg);" value="" class="btn-search" />
+      </form>
+  </div>
+  <div style="clear:both;"></div>
+</div>-->
+   
+   
+   
+     <ul class="clearfix product-nav" id="ShowImages" >
+      <volist name="list" id="item">
+      <li><a href="{$item.url}" title="{$item.title}"><span><img src="{$site_url}/{$item.pic}" alt="{$item.title}" width="178" height="150" /><img class="imghou" src="../Public/images/tupxg.png" width="178" height="150" /></span><p>{$item.title}</p></a></li>
+
+	  </volist>
+      	   <script>
+$(function(){
+	$(".product-nav li").hover(function(){
+		$(this).find("img:last").stop().slideDown(200)
+		},function(){
+		$(this).find("img:last").stop().slideUp(200)	
+			})
+	})
+</script>
+
+	</ul>
+    <div class="page_list">{$page}</div>
+   </div>
+  </div>
+
+</div>
+<include file="Public:footer" />

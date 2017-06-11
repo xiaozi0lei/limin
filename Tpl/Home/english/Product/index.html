@@ -1,0 +1,44 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+<include file="Public:left" />
+  <div class="page-right">
+   <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+   <div class="page-products">
+   <div class="head-search">
+  <div class="ss f_l">产品搜索：</div>
+  <div class="ssk f_l">
+    <form class="f_l" method="get" action="{:U('Product/index',array('sid'=>$sort['id']))}">
+      <input type="text" class="txt-keyword" id="key" name="key"/>
+     <!--  <input type="image" src="../Public/images/cp_ss.jpg" class="btn-search" /> -->
+	  <input type="submit" style="background:url(../Public/images/cp_ss.jpg);" value="" class="btn-search" />
+      </form>
+    <div class="right_tb f_r">
+       <ul>
+          <li><a href="{$surl}"> <img src="../Public/images/lbt.jpg" /></a></li>
+          <li><a href="{$kurl}"> <img src="../Public/images/slt.jpg" /></a></li>
+       </ul>
+    
+   
+    </div>
+  </div>
+  <div style="clear:both;"></div>
+</div>
+   
+   
+   
+     <ul class="clearfix" id="ShowImages">
+      <volist name="list" id="item">
+	   <li>
+        <div class="images_img">
+         <a href="{$item.url}" title="{$item.title}"><img src="{$site_url}/{$item.pic}" alt="{$item.title}" /></a>
+        </div>
+        <div class="images_title"><a href="{$item.url}" title="{$item.title}">{$item.title}</a></div>
+       </li>
+	  </volist>
+	</ul>
+    <div class="page_list">{$page}</div>
+   </div>
+  </div>
+
+</div>
+<include file="Public:footer" />

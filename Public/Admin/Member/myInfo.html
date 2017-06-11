@@ -1,0 +1,71 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<div class="rightCon1 fl">
+     <div class="conTitle">我的信息</div>
+     <div class="conNav">
+       <ul>
+        <li <if condition="ACTION_NAME=='listmember'">class="active"</if> ><a href="{:U('Admin/Member/listMember')}{$language}"><span>用户管理</span></a></li>
+        <eq name="member_group" value="1">
+	    <li <if condition="ACTION_NAME=='group'">class="active"</if>><a href="{:U('Admin/Member/group')}{$language}"><span>用户组管理</span></a></li>
+       </eq>
+        <li <if condition="ACTION_NAME=='myinfo'">class="active"</if>><a href="{:U('Admin/Member/myInfo')}{$language}"><span>我的信息</span></a></li>
+
+       </ul>
+	   
+     </div>
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Member/doSaveMember')}" method="post">
+<table width="100%" height="291"  border="0" cellpadding="0" cellspacing="1"  class="list_table">
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.pname}:</span></td>
+    <td width="80%"  class="spacing3">{$username}</td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.password}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="pwd" value="" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.repassword}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="pwdconfirm" value="" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.realname}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="realname" value="{$realname|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.phone}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="phone" value="{$phone|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.mobile}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="mobile" value="{$mobile|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.qq}:</span></td>
+    <td width="" class="spacing3"><input  class="input_middle"  name="qq" value="{$qq|default=''}" /> </td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.email}:</span></td>
+    <td width="" class="spacing3"><input  class="input_middle"  name="email" value="{$email|default=''}" /> </td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text">&nbsp;</td>
+    <td width="" class="spacing3"><input class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+   </tr>
+   <input type="hidden" name="uid" value="{$uid}" />
+   <input type="hidden" name="EGroupId" value="{$groupid}" />
+ 
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

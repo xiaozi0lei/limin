@@ -1,0 +1,110 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+  <script>
+   	
+	function importdata(form_url){
+
+	art.dialog({
+		title: '分类导入',
+		content: '正在导入，请稍后...！',
+		lock: true
+	});
+		
+		$('#form_id').attr('action',form_url);
+		$('#form_id').submit(); 
+	
+	
+	}
+   
+   </script>
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">图片管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	 <div id="menu_tab">
+		<ul>
+		<li><span <if condition="ACTION_NAME=='picturelist'">class="active"</if>><a href="{:U('Admin/Picture/pictureList')}" >图片列表</a></span></li>
+		<li><span <if condition="ACTION_NAME=='addpicture'">class="active"</if>><a href="{:U('Admin/Picture/addPicture')}" >添加图片</a></span></li>
+		<li><span <if condition="ACTION_NAME=='bat'">class="active"</if>><a href="{:U('Admin/Picture/bat')}" >图片批量上传</a></span> </li> 
+		
+		</ul>
+	</div>
+		<div id="searchdiv">
+	 <form  action="{:U('Admin/Picture/pictureList')}" method="get" style="float:left; padding-left:27px;">
+	 <table height="39" >
+	  <tr>
+		<td width="38">分类:</td>
+		<td width="99"><select name="sortid">
+		<option>所有分类</option>
+		{$html}
+		
+		</select></td>
+		<td width="31">题目:</td>
+		<td width="192"><input  type="text" name="keywords" value="{$keywords|default=''}" /></td>
+		<td width="72" ><input  type="submit" value="搜索"/></td>
+	  </tr>
+	</table>
+
+	 </form>
+	 </div>
+
+	 
+	 <div>
+	 	<form id="form_id" action="" method="post">
+<table width="100%"  border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table">
+  <tr>
+    <th height="23" scope="col">选择</th>
+    <th scope="col">{$Think.lang.order}</th>
+	<th scope="col">分类</th>
+    <th scope="col">{$Think.lang.atitle}</th>
+	<th scope="col">图片</th>
+    <th scope="col">{$Think.lang.top}</th>
+    <th scope="col">{$Think.lang.date}</th>
+    <th scope="col">{$Think.lang.op}</th>
+  </tr>
+  
+  
+  <volist name="list" id="li">
+  <tr class="list_tr">
+    <td class="list_td"><input class="check_all" type="checkbox" value="{$li.id}" name="check[{$li.id}]"  /></td>
+    <td class="list_td"><input type="text" name="order[{$li.id}]" value="{$li.p_order}" class="bind_change" /></td>
+	<td class="list_td"><a href="{:U('Admin/Picture/pictureList',array('sortid'=>$li['sort']))}">{$li.sortname}</a></td>
+    <td class="list_td"><a href="{:U('Home/Picture/show',array('id'=>$li['id']))}" target="_blank">{$li.title}</a></td>
+	<td class="list_td"><img src="{$site_url}/{$li['pic']}" width="38" height="23" /></td>
+    <td class="list_td"><eq name="li.top" value="1"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Picture/doTop')}')" class="access_allow"></a></eq><eq name="li.top" value="0"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Picture/doTop')}')" class="access_disallow"></a></eq></td>
+    <td class="list_td"><php>echo date('Y-m-d H:i',$li['dateline']);</php></td>
+    <td class="list_td"> <a href="{:U('Admin/Picture/editPicture',array('id'=>$li['id']))}">{$Think.lang.edit}</a> <a href="javascript:void(0)" onclick="del_one(this,'{:U('Admin/Picture/doDelPicture')}')">{$Think.lang.del}</a> <a href="{:listurl('Home/Picture/show',array('id'=>$li['id'],'sid'=>$li['sort']))}" target="_blank">预览</a></td>
+  </tr>
+  </volist>
+
+	
+	<tr class="list_tr" height="60px;">
+			<td class="list_td"><input   type="checkbox" onclick="select_all()" id="checkbox_all"/></td>
+			<td colspan="8"><span style=" margin-top:5px; margin-right:20px;float:left ; display:block;">全选</span> <input  class="form-text"type="button" value="{$Think.lang.saveorder}" onclick="submit_form('{:U('Admin/Picture/doSaveOrder')}')"/>
+			  <input name="button"  class="form-text" type="button"  onclick="del('{:U('Admin/Picture/doDelPicture')}')" value="{$Think.lang.del}" /> 
+			  <if condition="$_COOKIE['think_language']=='en-us'">
+				<input type="button" onclick="javascript:if(confirm('是否已经导入图片模块分类，否则无法自动分类!!'))importdata('{:U('Admin/Picture/improtPicture')}')" value="导入中文站图片">
+			  </if>
+			  
+			   </td>
+		  </tr>
+		  <tr class="list_tr">
+			
+			
+			<td colspan="8" align="center" class="list_td"><span class="page_span">{$page}</span></td>
+		  </tr>	
+
+</table>
+
+
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

@@ -1,0 +1,24 @@
+<div class="conNav">
+       <ul>
+	   
+        <li <if condition="MODULE_NAME=='Article'">class="active"</if> ><a href="{:U('Admin/Article/articleList')}{$language}"><span>文章管理</span></a></li>
+       
+		<li <if condition="MODULE_NAME=='Product'">class="active"</if>><a href="{:U('Admin/Product/productList')}{$language}"><span>产品管理</span></a></li>
+		
+		<li <if condition="MODULE_NAME=='Banner'">class="active"</if>><a href="{:U('Admin/Banner/bannerList')}{$language}"><span>幻灯片管理</span></a></li>
+		
+        <eq name="download_downloadlist" value="1">
+		<li <if condition="MODULE_NAME=='Download'">class="active"</if>><a href="{:U('Admin/Download/downloadList')}{$language}"><span>下载管理</span></a></li>
+        </eq>
+		<eq name="picture_picturelist" value="1">
+		<li <if condition="MODULE_NAME=='Picture'">class="active"</if>><a href="{:U('Admin/Picture/pictureList')}{$language}"><span>图片管理</span></a></li>
+        </eq>
+		<eq name="job_joblist" value="1">
+		<li <if condition="MODULE_NAME=='Job'">class="active"</if>><a href="{:U('Admin/Job/jobList')}{$language}"><span>招聘管理</span></a></li>
+        </eq>
+	
+		<li <if condition="MODULE_NAME=='Message'">class="active"</if>><a href="{:U('Admin/Message/messageList')}{$language}"><span>网站留言</span></a></li>
+        <li <if condition="MODULE_NAME=='Part'">class="active"</if>><a href="{:U('Admin/Part/index')}{$language}"><span>局部内容管理</span></a></li>
+		<li <if condition="MODULE_NAME=='Map'">class="active"</if>><a href="{:U('Admin/Map/index')}{$language}"><span>百度地图</span></a></li>
+       </ul>
+</div>

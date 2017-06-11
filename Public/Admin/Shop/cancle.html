@@ -1,0 +1,11 @@
+
+
+<div style="width:300px; padding-left:50px;">
+<div  style="margin:0 auto; margin-top:30px;">
+<form action="{:U('Admin/Shop/doCancle')}" method="post">
+确定取消<font color="#FF0000">({$order.num})</font> 的订单吗?<br />
+<input type="submit" style="float:right;" value="确定" style="margin-top:30px;"/>
+<input type="hidden" value="{$order['id']}" name="id" />
+</form>
+</div>
+</div>

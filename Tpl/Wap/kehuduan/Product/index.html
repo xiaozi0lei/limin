@@ -1,0 +1,128 @@
+<include file="Public:header" />
+
+
+<script type="text/javascript">
+
+
+function lastPostFunc(){
+    
+	var count=$('.plist').length;
+	$.ajax({
+	   type: "GET",
+	   url: "{:U('Wap/product/more')}",
+	   data: "count="+count+'&sid={$current_sort['id']}',
+	   dataType:'json',
+	   success: function(msg){
+		
+		 if(msg.status==1){
+		 		var html='';
+				
+				
+				for(var i=0;i<msg.data.length;i++){
+					
+				html +='<li class="plist"><div class="imgWrap"> <a href='+msg.data[i].url+'><img src="'+msg.data[i].pic+'"  data-original="'+msg.data[i].pic+'" ></a></div><div class="infoWrap"><h3 class="productTitle"><span class="name"><a href="'+msg.data[i].url+'">'+msg.data[i].title+'</a> </span></h3><p class="code"></p><p class="mark"></p></div></li>';
+
+				}
+				
+				$('#list_ul').append(html);
+
+	  }else{
+	  
+		$('#span_more').text('没有数据了');
+	  }
+	}
+	
+	
+	});
+
+}
+</script>
+
+  <div data-role="header">
+    <header class="headerNews"> <span class="return fl" onClick="javascript:history.go(-1);">
+      <div class="btn"> <b> <em></em> </b> <span> 返回 </span> </div>
+      </span> <span class="BigclassName">{$current_sort['name']}</span> <span class="rightButton fr"> 
+	  <if condition="!empty($leftmenu)">
+	  <span class="titleBar fr" role="Bar_Left"> <em class="kinds"> 导航 </em> <em class="icon"></em> </span>
+	  </if>
+	   <!--<span class="textSizeBtn" style="position: relative;"> <em class="title">字<sup> + </sup></em>
+      <div class="textSize" style="display: none;">
+        <div class="contArrow"> <em>◆</em> <i>◆</i> </div>
+        <ul class="cont">
+          <li style="font-size:12px;"> 小 </li>
+          <li style="font-size:14px;" class="current"> 中 </li>
+          <li style="font-size:16px;"> 大 </li>
+        </ul>
+      </div>
+      </span>--> </span>
+      <div class="clear"></div>
+    </header>
+  </div>
+  
+  <section>
+    <div class="main-title"> <span class="listTitle">产品展示</span>
+      <div class="clear"></div>
+    </div>
+  </section>
+  <section>
+    
+    <div class="scroll">
+      <div class="slide_02" id="slide_02">
+        <div>
+          <div>
+            <div class='mod_01 ClientWidth'>
+              <ul class='productListCont clear' id="list_ul">
+			 
+			   <volist name="prodcut" id="item">
+                <li class="plist">
+                  <div class='imgWrap'> <a href='{:U('Wap/product/show',array('sid'=>$item['sort'],'id'=>$item['id']))}'><img src="{$site_url}/{$item.pic}"></a></div>
+                  <div class='infoWrap'>
+                    <h3 class='productTitle'><span class='name'><a href='{:U('Wap/product/show',array('sid'=>$item['sort'],'id'=>$item['id']))}'>{$item.title}</a> </span></h3>
+                    <p class='code'></p>
+                    <p class='mark'></p>
+                  </div>
+                </li>
+				</volist>
+				
+				
+                <div class='clear'></div>
+              </ul>
+			  <if condition="empty($keywords)">
+					<div class="more" style="clear:both;">
+					   <span onclick="lastPostFunc()" id="span_more"> 查看更多 </span>
+					</div>
+				</if>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dotModule_new">
+      <div id="slide_02_dot"> </div>
+    </div>
+ 
+  </section>
+  
+  
+  
+  <section class="showMore" role="Bar_Left_C">
+      <table cellspacing="0" cellpadding="0">
+        <tbody>
+           <tr>
+             <td class="barWrap" valign="top">
+              <span class="closeBar active">
+                <em></em>
+              </span>
+            </td>
+            <td class="contWrap" style="min-height: 2000px;">
+			
+              <div id="hScrollList" style="height: 340px; overflow: hidden;">
+				{$leftmenu}
+              </div>
+           </tr>
+        </tbody>
+      </table>
+    </section>
+
+  
+<include file="Public:footer" />

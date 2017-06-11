@@ -1,0 +1,150 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+<style>
+.list_table td{
+text-align:center;
+font-size:14px;
+}
+
+</style>
+<script>
+
+function docheck(t){
+	
+	var keytype=$("input[name='keytype']:checked");
+	var chk_value ="";
+	
+	
+	$("input[name='keytype']:checked").each(function(){
+               chk_value += $(this).val()+",";    
+     });
+	
+	
+	$(t).attr('disabled','disabled');
+	$.ajax({
+	  type: "GET",
+	  url: "{:U('Admin/Seo/getword')}",
+	  data:{'init':1,'keytype':chk_value},
+	  dataType: "json",
+	  success: function(data){
+			$('#wordcout').html(data.count);
+			$('#current_word').text(data.first_word);
+			$('#current').text(1);
+			$('#now_find').css('display','')			
+			dorank(data.count)
+			
+	  }
+
+	});
+
+}
+
+function getnum(keytype){
+
+	$.ajax({
+	  type: "GET",
+	  url: "{:U('Admin/Seo/getword')}",
+	  data:{'init':1,'keytype':keytype},
+	  dataType: "json",
+	  async:'false',
+	  success: function(data){
+			$('#wordcout').html(data.count);
+						
+	  }
+
+	});
+
+}
+
+function stoprank(){
+	$.ajax({
+	  type: "GET",
+	  url: "{:U('Admin/Seo/stoprank')}",
+	  dataType: "json",
+	  success: function(data){}
+
+	});
+	
+
+}
+function dorank(count){
+
+
+	$.ajax({
+	  type: "GET",
+	  url: "{:U('Admin/Seo/dorank')}",
+	  dataType: "json",
+	  data:{'total_count':count},
+	  timeout: 25000,
+	  success: function(rs){
+	  
+	  		if(rs.status==1){
+				
+				if(rs.data.rank!=0){
+				
+					$('.list_table').append('<tr><td colspan="2" scope="col">'+rs.data.keyword+'</th><td scope="col">'+rs.data.page+'</th><td scope="col">'+rs.data.rank+'</th><td scope="col"><a target="_blank" href="'+rs.data.url+'">查看</a></th></tr>');
+				}
+				
+				
+				$('#current').text(rs.data.current_num);
+				$('#current_word').text(rs.data.next_keyword);
+			    setTimeout('dorank('+count+')',1000)
+				
+			
+			}else{
+				$('#b_docheck').attr('disabled','');
+				alert('查询完毕');
+				$('#now_find').css('display','none')
+			}
+	  
+			
+	  },
+	  error: function(XMLHttpRequest, textStatus, errorThrown){
+	        //超时重试
+      		setTimeout('dorank('+count+')',10000)
+	  }
+
+	});
+
+}
+
+
+</script>
+<div class="rightCon1 fl">
+     <div class="conTitle">链接管理</div>
+     <include file="./Public/Admin/Seo/nav.html" />
+	 
+	 
+	 	<form id="form_id" action="{:U('Admin/Style/doSaveStyleCustomer')}" method="post">
+	 <div style=" width:800px;float:left; padding:10px;">
+	 <div style="float:left;">关键词类: <input type="checkbox"  value="mainkey"  name="keytype" checked="checked"/>主词 <input type="checkbox" value="arekey" name="keytype"/>地区词 <input type="checkbox" value="longkey" name="keytype"/>长尾词</div>
+	 
+	 <div style="float:right;"><input style="float:right; margin-left:50px;" type="button" onclick="docheck(this)" id="b_docheck" value="查询"  /><input style="float:right;" type="button" value="停止查询" onclick="stoprank()" /> <input type="button" style="float:right;" onclick="window.location.href='{:U('Admin/Seo/export')}'" value="导出查询" /></div>
+	 <div style="height:25px; clear:both; line-height:25px; font-size:14px; font-weight:bold; margin-right:50px;">
+	 
+	 <span id="now_find" style=" display:none;">正在查询关键词: <span id="current_word" style="font-weight:bold; color:red;"></span> </span>
+	 <span id="current">0</span><span>/</span><span id="wordcout">0</span>
+	 
+	 
+ 	   </div>
+	 </div>
+<table width="100%" border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+
+
+   
+   <tr>
+    <th colspan="2" scope="col">关键词</th>
+	<th scope="col">页数</th>
+    <th scope="col">排名</th>
+    <th scope="col">&nbsp;</th>
+  </tr>
+</table>
+
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

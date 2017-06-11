@@ -1,0 +1,49 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<style>
+html{
+height:100%;
+}
+</style>
+<div class="rightCon1 fl">
+     <div class="conTitle">语言配置</div>
+     <div>
+	 	
+		<form action="{:U('Admin/Config/doSaveLang')}" method="post">
+<table width="100%" height="160" border="0" cellpadding="0" cellspacing="1"   class="list_table" style="margin-left:0;">
+
+ 
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.indexlang}:</span></td>
+    <td width="80%" class="spacing3">
+	 <volist name="lang" id="l">
+	  <input type="radio" value="{$l.filename}" name="indexlang"  <if condition="$l['filename']==$now['indexlang']">checked="checked"</if> />{$l.filename} &nbsp;&nbsp;&nbsp;
+	 </volist>
+	</td>
+  </tr>		
+
+  
+  <tr>
+    <td class="title_text"><span class="span_title">{$Think.lang.adminlang}:</span></td>
+    <td class="spacing3">
+	<volist name="lang" id="l">
+	  <input type="radio" value="{$l.filename}" name="adminlang" <if condition="$l['filename']==$now['adminlang']">checked="checked"</if> />{$l.filename} &nbsp;&nbsp;&nbsp;
+	 </volist>
+	</td>
+  </tr>
+
+  <tr>
+    <td class="title_text">&nbsp;</td>
+    <td class="spacing3"><input class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+  </tr>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

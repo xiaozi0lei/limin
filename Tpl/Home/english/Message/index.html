@@ -1,0 +1,86 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+    <div class="page-right">
+      <div class="site-nav"><span>当前位置 : </span>
+	  
+		{$location}
+	  
+	  </div>
+      <div class="page-guestbook">
+<script type="text/javascript">
+function check()
+{
+	if(document.guestbook.Guest_Name.value=="")
+	{
+		alert("请填写您的姓名");
+		document.guestbook.Guest_Name.focus();
+		return false
+	}
+	if(document.guestbook.Guest_Email.value=="")
+	{
+		alert("请填写邮件地址");
+		document.guestbook.Guest_Email.focus();
+		return false
+	}
+	if(document.guestbook.Content.value=="")
+	{
+		alert("请填写反馈内容");
+		document.guestbook.Content.focus();
+		return false
+	}
+	if(document.guestbook.checkcode.value=="")
+	{
+		alert("请填写验证码");
+		document.guestbook.checkcode.focus();
+		return false
+	}
+	if(document.guestbook.checkcode.value.length<4)
+	{
+		alert("验证码必须为4位");
+		document.guestbook.checkcode.focus();
+		return false;
+	}
+	//var re = /^[0-9]+.?[0-9]*$/;//判断字符串是否为数字
+	var re = /^[1-9]+[0-9]*]*$/;//判断字符串是否为正整数
+	if (!re.test(document.guestbook.checkcode.value))
+	{
+		alert("验证码必须是数字");
+		document.guestbook.checkcode.focus();
+		return false;
+	}
+	 
+	return true;
+}
+</script>
+      <form onsubmit="return check()" action="{:U('Message/doSaveMessage')}" id="guestbook" name="guestbook" method="post">
+      <dl class="clearfix">
+      <dt>您的姓名：</dt>
+      <dd><input type="text" id="Guest_Name" name="Guest_Name"><span>*</span></dd>
+      <dt>邮件地址：</dt>
+      <dd><input type="text" id="Guest_Email" name="Guest_Email"><span>*</span></dd>
+      <dt>电话：</dt>
+      <dd><input type="text" id="Guest_TEL" name="Guest_TEL"></dd>
+      <dt>传真：</dt>
+      <dd><input type="text" id="Guest_FAX" name="Guest_FAX"></dd>
+      <dt>地址：</dt>
+      <dd><input type="text" id="Guest_ADD" name="Guest_ADD"></dd>
+      <dt>邮编：</dt>
+      <dd><input type="text" id="Guest_ZIP" name="Guest_ZIP"></dd>
+      <dt>留言内容：</dt>
+      <dd><textarea id="Content" class="Content" rows="" cols="" name="Content"></textarea></dd>
+      <dt>验证码：</dt>
+      <dd>
+        <input type="text" autocomplete="off" maxlength="4" id="checkcode" name="checkcode">
+        <img  src='__APP__/Public/verify/' />
+        <span>*</span>
+      </dd>
+      </dl>
+      <p><input type="submit" class="submit" value="提交" id="submit" name="submit"></p>
+      </form>
+      </div>
+    </div>
+    
+	<include file="Public:left" />
+	
+  </div>
+<include file="Public:footer" />

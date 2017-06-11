@@ -1,0 +1,34 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+ <div class="container">
+   <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+   <div class="page-news lhd615">
+    <ul class="jobList clearfix">
+     <li class="jobtime"><span>日期</span></li>
+     <li class="jobPosition"><span>职位</span></li>
+     <li class="jobtime hidden-phone"><span>工资</span></li>
+     <li class="jobtime hidden-phone"><span>人数</span></li>
+     <li class="jobtime"><span>应聘</span></li>
+     </ul>
+     <volist name="list" id="li">
+     <ul class="jobList clearfix">
+      <li class="jobtime">{$li['dateline']|date="y/m/d",###}</li>
+      <li class="jobPosition"><a href="{$li.url}" title="{$li.title}">{$li.title}</a></li>
+      <li class="jobtime hidden-phone">{$li.deal}</li>
+      <li class="jobtime hidden-phone">{$li.num}</li>
+      <li class="jobtime"><a href="{:U('/Job/doJob',array('id'=>$li['id']))}">在线应聘</a></li>
+         </ul>
+     </volist>
+ 
+    <script>
+    	$(function(){
+    		$(".lhd615 ul:odd").css({background: "#f7f7f7"})
+    	})
+    </script>
+    <div class=""></div>
+    <div class="page_list">{$page}</div>
+   </div>
+  </div>
+
+</div>
+<include file="Public:footer" />

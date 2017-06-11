@@ -1,0 +1,41 @@
+  <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+<style>
+html{
+height:100%;
+}
+</style>
+
+<div class="rightCon1 fl">
+     <div class="conTitle">内容页配置</div>
+    
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Wap/doSaveDetail')}" method="post">
+<table width="100%" height="119" border="0" cellpadding="0" cellspacing="1" class="list_table">
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">产品图大小:</span></td>
+    <td width="80%" class="spacing3">宽:<input style="width:50px;" name="wap_prothumb_width" value="{$wap_prothumb_width|default=250}" /> 高:<input style="width:50px;" name="wap_prothumb_height" value="{$wap_prothumb_height|default=200}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">图片大小:</span></td>
+    <td width="" class="spacing3">宽:<input style="width:50px;" name="wap_picthumb_width" value="{$wap_picthumb_width|default=200}" /> 高:<input style="width:50px;" name="wap_picthumb_height" value="{$wap_picthumb_height|default=200}" /></td>
+   </tr>
+   
+   <tr>
+        <td class="title_text">&nbsp;</td>
+
+    <td width="" class="spacing3"><input type="submit" class="form-text" value="{$Think.lang.save}" /></td>
+   </tr>
+ 
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

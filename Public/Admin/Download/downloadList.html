@@ -1,0 +1,77 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<style>
+
+#icon_list ul{
+display:none;
+}
+</style>
+<div class="rightCon1 fl">
+     <div class="conTitle">下载管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	 <div id="menu_tab">
+		<ul>
+		<li><span <if condition="ACTION_NAME=='downloadlist'">class="active"</if>><a href="{:U('Admin/Download/downloadList')}" >下载列表</a></span></li>
+		<li><span <if condition="ACTION_NAME=='adddownload'">class="active"</if>><a href="{:U('Admin/Download/addDownload')}" >添加下载</a></span></li>
+		
+		</ul>
+	</div>
+	 
+	 <div>
+	 	<form id="form_id" action="{:U('Admin/Style/doSaveStyleCustomer')}" method="post">
+<table width="100%" height="139"border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table">
+  <tr>
+    <th height="23" scope="col">选择</th>
+    <th scope="col">{$Think.lang.order}</th>
+	<th scope="col">分类</th>
+    <th scope="col">{$Think.lang.atitle}</th>
+
+    <th scope="col">{$Think.lang.top}</th>
+    <th scope="col">{$Think.lang.date}</th>
+    <th scope="col">{$Think.lang.op}</th>
+  </tr>
+  
+  
+  <volist name="list" id="li">
+  <tr class="list_tr">
+    <td class="list_td"><input class="check_all" type="checkbox" value="{$li.id}" name="check[{$li.id}]"  /></td>
+    <td class="list_td"><input type="text" name="order[{$li.id}]" value="{$li.d_order}"class="bind_change" /></td>
+	<td class="list_td"><a href="{:U('Admin/Download/downloadList',array('sortid'=>$li['sort']))}">{$li.sortname}</a></td>
+    <td class="list_td"><a href="{:U('Home/Download/show',array('id'=>$li['id']))}" target="_blank">{$li.title}</a></td>
+	
+    <td class="list_td"><eq name="li.top" value="1"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Download/doTop')}')" class="access_allow"></a></eq><eq name="li.top" value="0"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Download/doTop')}')" class="access_disallow"></a></eq></td>
+    <td class="list_td"><php>echo date('Y-m-d H:i',$li['dateline']);</php></td>
+    <td class="list_td"><a href="{:U('Admin/Download/editDownload',array('id'=>$li['id']))}">{$Think.lang.edit}</a> <a href="javascript:void(0)" onclick="del_one(this,'{:U('Admin/Download/doDelDownload')}')">{$Think.lang.del}</a> <a href="{:U('Home/Download/show',array('id'=>$li['id']))}" target="_blank">预览</a></td>
+  </tr>
+  </volist>
+
+
+
+	<tr class="list_tr" height="60px;">
+			<td class="list_td"><input   type="checkbox" onclick="select_all()" id="checkbox_all"/></td>
+			<td colspan="6"><span style=" margin-top:5px; margin-right:20px;float:left ; display:block;">全选</span> <input  class="form-text"type="button" value="{$Think.lang.saveorder}" onclick="submit_form('{:U('Admin/Download/doSaveOrder')}')"/>
+			  <input name="button"  class="form-text" type="button" onclick="del('{:U('Admin/Download/doDelDownload')}')" value="{$Think.lang.del}" />    </td>
+		  </tr>
+		  <tr class="list_tr">
+			
+			
+			<td colspan="7" align="center" class="list_td"><span class="page_span">{$page}</span></td>
+		  </tr>	
+
+
+
+
+</table>
+
+
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

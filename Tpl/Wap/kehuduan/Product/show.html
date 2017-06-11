@@ -1,0 +1,25 @@
+<include file="Public:header" />
+  <article class="News-detail">
+    <h1>{$title}</h1>
+    <p class="minInfo"> <span class="time">{$dateline|date="y/m/d H:i:m",###}</span> </p>
+    <div class="News-articleCont">{$content}</div>
+    <div class="pageControlBar">
+	  
+	  
+	   <section class='active pagePrev'><a href='<if condition="!empty($pre)">{:U('Wap/product/show',array('sid'=>$pre['sort'],'id'=>$pre['id']))}</if>'>
+        <p class='p1'> 上一条 </p>
+        <if condition="!empty($pre)"><p class='p2'>{$pre['title']}</p><else/><p class='p2'>没有了</p></if>
+        <p class='arrow'></p>
+        </a>
+	</section>
+	  
+      <section class='active pageNext'><a href='<if condition="!empty($next)">{:U('Wap/product/show',array('sid'=>$next['sort'],'id'=>$next['id']))}</if>'>
+        <p class='p1'> 下一条 </p>
+		<if condition="!empty($next)"><p class='p2'>{$next['title']}</p><else/><p class='p2'>没有了</p></if>
+        <p class='arrow'></p>
+        </a>
+	</section>
+     
+    </div>
+  </article>
+ <include file="Public:footer" />   

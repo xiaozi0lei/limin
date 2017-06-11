@@ -1,0 +1,140 @@
+<style>
+#btn_order{
+margin-top:50px;
+}
+#title_ul{
+height: 25px;
+margin: 15px 10px 25px;
+list-style:none;
+padding:0px;
+}
+#title_ul li{
+float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+}
+#title_ul span{
+    display: block;
+    height: 25px;
+}
+#title_ul .one{
+background: url(../Public/images/tab.gif) repeat scroll 0 0 transparent;
+}
+#title_ul .one span{
+ background: url(../Public/images/tab.gif) repeat scroll right -25px transparent;
+    margin-left: 12px;
+
+}
+#title_ul .three{
+ background: url(../Public/images/tab.gif) repeat scroll 0 -150px transparent;
+    margin-left: -8px;
+}
+#title_ul .three span{
+   background: url(../Public/images/tab.gif) repeat scroll right -175px transparent;
+    margin-left: 12px;
+    padding-left: 10px;
+		color:#FFFFFF;
+}
+#title_ul .two{
+background:url(../Public/images/tab.gif) repeat scroll 0 -50px transparent;
+    margin-left: -8px;
+}
+#title_ul .two span{
+     background: url(../Public/images/tab.gif) repeat scroll right -25px transparent;
+    margin-left: 12px;
+    padding-left: 10px;
+}
+
+.order_n{
+  padding: 50px 0 0;
+    text-align: center;
+}
+.order_n h1{
+  font-family: "微软雅黑";
+    font-size: 16px;
+    font-weight: bold;
+}
+.order_n h2 {
+    color: #6D981A;
+    font-family: "微软雅黑";
+    font-size: 24px;
+    font-weight: bold;
+    padding: 25px 0;
+}
+
+</style>
+<script src="__PUBLIC__/js/jquery-1.4.4.min.js"></script>
+<script src="__PUBLIC__/js/artDialog/jquery.artDialog.js?skin={$shop.dio}"></script>
+<script src="__PUBLIC__/js/artDialog/iframeTools.js"></script>
+<script>
+
+
+function onsubmit_pay(){
+
+art.dialog({
+    id: 'testID',
+    content: '在线支付是否成功',
+    button: [
+        {
+            name: '已支付',
+            callback: function () {
+               	$.ajax({
+				   type: "POST",
+				   url: "{:U('Public/checkpay')}",
+				   data: "ordernum={$order_num}",
+				   success: function(msg){
+					 if(msg.error==1){
+					 	art.dialog({
+							icon: 'error',
+							content: '抱歉！该订单未支付成功',
+							title:false
+						});
+					 }else{
+					 
+					 	art.dialog({
+							icon: 'succeed',
+							content: '支付成功！请保存好订单号：<font style="color:#6D981A;font-weight:bold;">'+msg.data.num+'</font>',
+							title:false
+						});
+					 }
+				   }
+				});
+            }
+      
+        },
+        {
+            name: '出现问题',
+            callback: function () {
+                
+            }
+        }
+
+    ]
+});
+return true;
+
+}
+
+
+</script>
+<div id="shopwapper" style="width:680px; height:500px; ">
+  <ul id="title_ul">
+    <li style="width:215px; " class="one"><span>1.填写收货地址</span></li>
+    <li style="width:215px; " class="two"><span>2.付款给商家</span></li>
+    <li style="width:215px; " class="three"><span>3.下单成功</span></li>
+  </ul>
+<div class="order_n">
+
+				<form action="{:U('Public/onlinepay')}" method="post" id="onlineform" onsubmit="return onsubmit_pay()" target="_blank">
+				<h1>恭喜您订单提交成功,可以通过右下角"订单查询"功能查询订单状态</h1>
+				<h2>订单号：{$order_num}</h2>
+				<if condition="$paytype=='alipay'"><div><input type="submit" value="点击支付宝支付" /></div></if>
+				<if condition="$paytype=='chinabank'"><div><input type="submit" value="点击银行卡支付" /></div></if>
+				<input type="hidden" name="paytype" value="{$paytype}" />
+				<input type="hidden" name="ordernum" value="{$order_num}" />
+				</form>
+				
+</div>
+</div>

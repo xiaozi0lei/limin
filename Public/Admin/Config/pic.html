@@ -1,0 +1,59 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+<style>
+html{
+height:100%;
+}
+</style>
+<div class="rightCon1 fl">
+     <div class="conTitle">图片配置</div>
+     <div>
+	 	
+		<form action="{:U('Admin/Config/doSavePic')}" method="post">
+<table width="100%" height="293" border="0" cellpadding="0" cellspacing="1"   class="list_table" style="margin-left:0;">
+
+	<tr>
+    <td width="20%" class="title_text"><span class="span_title"></span></td>
+    <td width="80%" class="spacing3"><font color="red">程序将按照所设置的宽和高将图片等比例缩放</font></td>
+   </tr>
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">产品模块编辑器内图片大小:</span></td>
+    <td width="80%" class="spacing3">{$Think.lang.thumbw}:<input class="input_short" name="product_w" value="{$product_w|default=''}" /> {$Think.lang.thumbh}:<input class="input_short" name="product_h" value="{$product_h|default=''}" /></td>
+   </tr>
+   <tr>
+    <td class="title_text"><span class="span_title">图片模块编辑器内图片大小:</span></td>
+    <td class="spacing3">{$Think.lang.thumbw}:<input class="input_short" name="pic_w" value="{$pic_w|default=''}" /> {$Think.lang.thumbh}:<input class="input_short" name="pic_h" value="{$pic_h|default=''}" /></td>
+   </tr>
+   <tr>
+    <td class="title_text"><span class="span_title">文章模块编辑器内图片大小:</span></td>
+    <td class="spacing3">{$Think.lang.thumbw}:<input class="input_short" name="art_w" value="{$art_w|default=''}" /> {$Think.lang.thumbh}:<input class="input_short" name="art_h" value="{$art_h|default=''}" /></td>
+   </tr>
+
+   <tr>
+    <td class="title_text"><span class="span_title">产品模块列表图片缩略图大小:</span></td>
+    <td class="spacing3">{$Think.lang.thumbw}:<input class="input_short" name="pro_list_w" value="{$pro_list_w|default=''}" /> {$Think.lang.thumbh}:<input class="input_short" name="pro_list_h" value="{$pro_list_h|default=''}" /></td>
+   </tr>
+   <tr>
+    <td class="title_text"><span class="span_title">图片模块列表图片缩略图大小:</span></td>
+    <td class="spacing3">{$Think.lang.thumbw}:<input class="input_short" name="pic_list_w" value="{$pic_list_w|default=''}" /> {$Think.lang.thumbh}:<input class="input_short" name="pic_list_h" value="{$pic_list_h|default=''}" /></td>
+   </tr>
+   <tr>
+    <td class="title_text"><span class="span_title">幻灯片图片缩略图大小:</span></td>
+    <td class="spacing3">{$Think.lang.thumbw}:<input class="input_short" name="banner_w" value="{$banner_w|default=''}" /> {$Think.lang.thumbh}:<input class="input_short" name="banner_h" value="{$banner_h|default=''}" /></td>
+   </tr>
+ 
+   
+   <tr>
+    <td class="title_text">&nbsp;</td>
+    <td class="spacing3"><input class="form-text" type="submit" value="保存" /></td>
+   </tr>
+ 
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

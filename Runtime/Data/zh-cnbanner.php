@@ -1,0 +1,1 @@
+<?php	return array ( 0 => array ( 'bid' => '1', 'pic' => 'Upload/thumb_536c96cc71738.jpg', 'addtime' => '1399625420', 'blink' => 'www.baidu.com', 'bdesc' => 'hahahahahahahhaha', 'lang' => 'zh-cn', ), 1 => array ( 'bid' => '2', 'pic' => 'Upload/thumb_536c976615d31.jpg', 'addtime' => '1399625496', 'blink' => 'www.baidu.com', 'bdesc' => 'lalalallal', 'lang' => 'zh-cn', ), );?>

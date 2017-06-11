@@ -1,0 +1,175 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<link rel="stylesheet" type="text/css" href="__APP__/Public/kindeditor/themes/default/default.css" />
+<script src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+<script src="__PUBLIC__/js/ajaxfileupload.js"></script>
+<script>
+	
+	function ajaxFileUpload()
+	{
+		
+		$("#loading").ajaxStart(function(){
+			$(this).show();
+		}).ajaxComplete(function(){
+			$(this).hide();
+		});
+
+		$.ajaxFileUpload(
+			{
+				url:'{:U('Admin/Download/uploadFile')}',
+				secureuri:false,
+				fileElementId:'pic',
+				dataType: 'json',
+				data:{'ajaxupload':1},
+				success: function (data, status)
+				{
+						
+						if(data.error==1){
+
+							alert(data.message);
+
+						}else{
+							
+							$('#uploadspan').html('<input name="filepath" type="text" value="'+data.url+'" /><a href="javascript:editimg()" style="font-size:14px;">修改</a>')
+
+						}
+
+					
+				},
+				error: function (data, status, e)
+				{
+					alert(e);
+				}
+			}
+		)
+		
+		return false;
+
+	}
+	
+	function editimg(){
+		
+		$('#uploadspan').html('<input type="file" onchange="return ajaxFileUpload();" class="input" name="file"  id="pic"><img align="absmiddle" src="__APP__/Public/images/loading.gif" style="display:none;" id="loading">')
+		
+	}
+	
+</script>
+<script>
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]', {
+					uploadJson : '{:U('Admin/Download/uploadEditerImg')}',
+					allowFileManager : false,
+					items:[
+        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+        'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+        'anchor', 'link', 'unlink', '|', 'about'
+]
+				});
+				
+			});
+		</script>
+
+
+
+<!--右边开始-->
+   <div class="rightCon1 fl">
+     <div class="conTitle">添加</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	 <div id="menu_tab">
+		<ul>
+		<li><span <if condition="ACTION_NAME=='downloadlist'">class="active"</if>><a href="{:U('Admin/Download/downloadList')}" >下载列表</a></span></li>
+		<li><span <if condition="ACTION_NAME=='adddownload'">class="active"</if>><a href="{:U('Admin/Download/addDownload')}" >添加下载</a></span></li>
+		
+		</ul>
+	</div>
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Download/doAddDownload')}" method="post">
+<table width="100%" height="687" border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table">
+  
+  <tr>
+    <td width="225" class="title_text"><span class="span_title">{$Think.lang.sort}:</span></td>
+    <td width="864" class="spacing3">
+	<select name="sort">
+	<volist name="sortlist" id="s">
+	<option  value="{$s.id}" <eq name="sort" value="$s['id']">selected="selected"</eq>>{$s.name}</option>
+	</volist>
+	</select></td>
+   </tr>
+   <tr>
+    <td width="225" class="title_text"><span class="span_title">{$Think.lang.atitle}:</span></td>
+    <td width="864" class="spacing3"><input class="input_middle" name="title" value="{$title|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="225" class="title_text"><span class="span_title">{$Think.lang.f}:</span></td>
+    <td width="864" class="spacing3" style="padding-bottom:3px;">
+	
+	<span id="uploadspan">
+	<if condition="!empty($filepath)">
+		<input type="text" value="{$filepath}" name="filepath" /><a href="javascript:editimg()" style="font-size:12px; border:1px double rgb(88,88,88); margin-left:15px; padding:3px;">{$Think.lang.edit}</a>
+	<else/>
+	<input type="file" onchange="return ajaxFileUpload();" class="input" name="file"  id="pic" />
+	<img align="absmiddle" src="__APP__/Public/images/loading.gif" style="display:none;" id="loading">	</if>		
+	</span> <span style="color:red;">允许最大文件:<php>echo ini_get('upload_max_filesize');</php></span></td>
+   </tr>
+   <tr>
+    <td width="225" class="title_text"><span class="span_title">{$Think.lang.attribute}:</span></td>
+    <td width="864" class="spacing3"><input type="checkbox" value="1" name="top" <eq name="top" value="1">checked="checked"</eq> />{$Think.lang.top}</td>
+   </tr>
+   <tr>
+    <td width="225" class="title_text"><span class="span_title">{$Think.lang.order}:</span></td>
+    <td width="864" class="spacing3"><input type="text" value="{$d_order|default=0}" name="order" /></td>
+   </tr>
+   <tr>
+    <td width="225" class="title_text"><span class="span_title">{$Think.lang.eiditor}:</span></td>
+    <td width="864" class="spacing3"><input class="input_middle" name="user" value="{$user|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="225" class="title_text"><span class="span_title">{$Think.lang.date}:</span></td>
+    <td width="864" class="spacing3"><input class="input_middle" name="dateline" value="<php>if(empty($dateline)){echo date('Y-m-d H:i:s',time());}else{echo date('Y-m-d H:i:s',$dateline);}</php>" /></td>
+   </tr>
+   <tr>
+    <td width="225" class="title_text"><span class="span_title">{$Think.lang.atitle}:</span></td>
+    <td width="864" class="spacing3"><input class="input_middle" name="seotitle" value="{$seotitle|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="225" class="title_text"><span class="span_title">{$Think.lang.keyword}:</span></td>
+    <td width="864" class="spacing3"><input class="input_middle" name="seokeyword" value="{$seokeyword|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="225" height="62" class="title_text"><span class="span_title">{$Think.lang.desc}:</span></td>
+    <td width="864" class="spacingtext3"><textarea name="seodesc" style="width:400px; height:50px;">{$seodesc|default=''}</textarea></td>
+   </tr>
+   <volist name="field" id="field">
+    <tr>
+		<td width="225" height="38" class="title_text"><span class="span_title">{$field.title}:</span></td>
+		<td width="864" class="spacing3"><input type="text" name="field[{$field.id}]" value="{$field.value|default=''}" /></td>
+    </tr>
+   </volist>
+   <tr>
+    <td width="225" height="300" class="title_text"><span class="span_title">{$Think.lang.contant}:</span></td>
+    <td width="864" class="spacingtext3" valign="top"><textarea name="content" style="width:700px; height:300px;">{$content}</textarea></td>
+   </tr>
+   <tr>
+    <td width="225"><span class="span_title"></span></td>
+    <td width="864"><input type="submit" class="form-text" value="{$Think.lang.save}" /></td>
+   </tr>
+ 	<input type="hidden" value="{$id|default=0}"  name="id"/>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+   <!--右边结束-->
+<include file="./Public/Admin/Public/footer.html" />

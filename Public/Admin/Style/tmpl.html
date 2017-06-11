@@ -1,0 +1,67 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<div class="rightCon1 fl">
+     <div class="conTitle">列表页</div>
+     <div class="conNav">
+       <ul>
+
+		  <eq name="style_lists" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="lists">class="active"</eq>><a href="{:U('Admin/Style/lists')}{$language}"><span>列表页</span></a></li>
+		 </eq>
+		  <eq name="style_details" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="detail">class="active"</eq>><a href="{:U('Admin/Style/detail')}{$language}"><span>内容页</span></a></li>
+		 </eq>
+		  <eq name="style_customer" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="customer">class="active"</eq>><a href="{:U('Admin/Style/customer')}{$language}"><span>客服管理</span></a></li>
+		 </eq>
+        <li <eq name="Think.const.ACTION_NAME" value="tmpl">class="active"</eq>><a href="{:U('Admin/Style/tmpl')}{$language}"><span>模板设置</span></a></li>
+       </ul>
+     </div>
+	 
+	
+	 <div>
+	 	<form action="{:U('Admin/Style/dotmpl')}" method="post">
+			<table width="100%" height="167"  border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+			   <tr>
+				<td width="20%" class="title_text"><span class="span_title">PC端:</span></td>
+				<td width="70%" class="spacing3">
+					<volist name="pc" id="p">
+					 <input type="radio" name="pc_tmpl" value="{$p.filename}" <if condition="$p['filename']==$pc_value">checked="checked"</if>/>{$p.filename}
+					
+					</volist>
+					<!--
+					<span>登录购买：</span>
+					
+		         <input type="checkbox" name="pc_memshop" id="pc_memshop" value="true" <if condition="$pc_mem != NULL">checked="checked"</if>/>
+		         开启-->
+		        </td>
+				
+			   </tr>
+			   
+			   <tr>
+				<td class="title_text"><span class="span_title">手机端:</span></td>
+				<td class="spacing3">
+				   <volist name="mobile" id="m">
+					 <input type="radio" name="mobile_tmpl" value="{$m.filename}" <if condition="$m['filename']==$mobile_value">checked="checked"</if>/>{$m.filename}
+				  </volist>
+				  <!--
+                  <span>登录购买：</span>
+		         <input type="checkbox" name="mobile_memshop" id="mobile_memshop" value="true" <if condition="$mb_mem !=NULL">checked="checked"</if>/>
+		         开启-->
+				</td>
+			   </tr>
+			   <tr>
+				<td class="title_text">&nbsp;</td>
+				<td class="spacing3"><input type="submit" class="form-text" value="{$Think.lang.save}" /></td>
+			   </tr>
+		  </table>
+	   </form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

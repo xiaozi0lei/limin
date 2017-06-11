@@ -1,0 +1,44 @@
+<include file="Public:header" />
+<div class="nyban"><img src="../Public/images/1.jpg"></div>
+<div class="main">
+<div class="gao"></div>
+
+<div id="page_main" class="clearfix">
+ <div class="container">
+  <div class="page-right">
+  <div class="lanmu">
+          <div class="lmdh fl">{$current_sort['name']}</div>
+      <div class="site-nav fr"><span>当前位置 : </span>
+	  
+		{$location}
+	  
+	  </div>
+      <br class="clear" />
+      </div>
+   <div class="page-products">
+     <ul class="clearfix product-nav" id="ShowImages">
+	   <volist name="list" id="item">
+		
+         <li><a href="{$item.url}" title="{$item.title}"><span><img src="{$site_url}/{$item.pic}" alt="{$item.title}" width="178" height="150" /><img class="imghou" src="../Public/images/tupxg.png" width="178" height="150" /></span><p>{$item.title}</p></a></li>
+	  
+
+        
+	   </volist>
+<!--	    <script>
+$(function(){
+	$(".product-nav li").hover(function(){
+		$(this).find("img:last").stop().slideDown(200)
+		},function(){
+		$(this).find("img:last").stop().slideUp(200)	
+			})
+	})
+</script>-->
+	 </ul>
+     <div class="page_list">{$page}</div>
+   </div></div>
+   <include file="Public:left" />
+    <br class="clear" />
+    </div>
+ </div>
+</div>
+<include file="Public:footer" />

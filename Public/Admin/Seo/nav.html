@@ -1,0 +1,10 @@
+<div class="conNav">
+       <ul>
+	    <if condition="$lang=='zh-cn'">
+        <li <if condition="ACTION_NAME=='html'">class="active"</if> ><a href="{:U('Admin/Seo/html')}{$language}"><span>静态管理</span></a></li>
+		</if>
+        <li <if condition="ACTION_NAME=='setting'">class="active"</if>><a href="{:U('Admin/Seo/setting')}{$language}"><span>SEO设置</span></a></li>
+        <li <if condition="ACTION_NAME=='link'||ACTION_NAME=='addlink'">class="active"</if>><a href="{:U('Admin/Seo/link')}{$language}"><span>友情链接</span></a></li>
+
+       </ul>
+</div>

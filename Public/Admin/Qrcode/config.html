@@ -1,0 +1,73 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">配置</div>
+     <div class="conNav">
+       <ul>
+        <li <if condition="ACTION_NAME=='config'">class="active"</if> ><a href="{:U('Admin/Qrcode/config')}{$language}"><span>设置</span></a></li>
+        <li <if condition="ACTION_NAME=='generate'">class="active"</if>><a href="{:U('Admin/Qrcode/generate')}{$language}"><span>二维码生成</span></a></li>
+
+
+       </ul>
+     </div>
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Qrcode/doSaveConfig')}" method="post">
+<table width="100%" height="230"  border="0" cellpadding="0" cellspacing="1"  class="list_table">
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">开启二维码的模块:</span></td>
+    <td width="80%" class="spacing3">
+	<input type="checkbox" name="article"  <eq name="article" value="1">checked="checked"</eq> value="1" />文章模块 
+	<input type="checkbox" name="product" value="1"  <eq name="product" value="1">checked="checked"</eq>  />产品模块
+	 <input type="checkbox" name="download" value="1"  <eq name="download" value="1">checked="checked"</eq>  />下载模块 
+	 <input type="checkbox" name="picture" value="1"  <eq name="picture" value="1">checked="checked"</eq> />图片模块 
+	 <input type="checkbox" name="job" value="1"  <eq name="job" value="1">checked="checked"</eq> />招聘模块</td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">二维码图形质量:</span></td>
+    <td width="" class="spacing3">
+	<select name="level">
+            <option <eq name="level" value="L">selected="selected"</eq> value="L">最低</option>
+            <option <eq name="level" value="M">selected="selected"</eq> value="M">中等</option>
+            <option <eq name="level" value="Q">selected="selected"</eq> value="Q">高</option>
+            <option <eq name="level" value="H">selected="selected"</eq> value="H">极高</option>
+        </select>
+	
+	</td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">二维码图形大小:</span></td>
+    <td width="" class="spacing3">
+	<select name="size">
+	<option value="1" <eq name="size" value="1">selected="selected"</eq>>1</option>
+	<option value="2" <eq name="size" value="2">selected="selected"</eq>>2</option>
+	<option value="3" <eq name="size" value="3">selected="selected"</eq>>3</option>
+	<option value="4" <eq name="size" value="4">selected="selected"</eq>>4</option>
+	<option value="5" <eq name="size" value="5">selected="selected"</eq>>5</option>
+	<option value="6" <eq name="size" value="6">selected="selected"</eq>>6</option>
+	<option value="7" <eq name="size" value="7">selected="selected"</eq>>7</option>
+	<option value="8" <eq name="size" value="8">selected="selected"</eq>>8</option>
+	<option value="9" <eq name="size" value="9">selected="selected"</eq>>9</option>
+	<option value="10" <eq name="size" value="10">selected="selected"</eq>>10</option>
+	</select>
+	</td>
+   </tr>
+  
+   <tr>
+        <td class="title_text">&nbsp;</td>
+
+    <td width="" class="spacing3"><input class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+   </tr>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

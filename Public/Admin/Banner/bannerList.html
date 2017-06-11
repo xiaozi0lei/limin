@@ -1,0 +1,69 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+   
+   
+   
+   <!--右边开始-->
+   <div class="rightCon1 fl">
+     <div class="conTitle">幻灯片管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	<div id="menu_tab">
+		<ul>
+		<li><span <if condition="ACTION_NAME=='bannerlist'">class="active"</if>><a href="{:U('Admin/Banner/bannerList')}" >幻灯片列表</a></span></li>
+		<li><span <if condition="ACTION_NAME=='addbanner'">class="active"</if>><a href="{:U('Admin/Banner/addBanner')}" >添加幻灯片</a></span></li>
+		
+		</ul>
+	</div>
+	 
+
+	 
+	 
+	 
+	 <div>
+	 	<form id="form_id" action="" method="post">
+		<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="list_table">
+		  <tr>
+			<th></th>
+			<th scope="col">id</th>
+			
+			
+			<th scope="col">图片</th>
+			<th scope="col">简述</th>
+			<th scope="col">地址</th>
+			<th scope="col">添加时间</th>
+			<th scope="col">操作</th>
+		  </tr>
+		  
+		  
+		  <volist name="list" id="li">
+		  <tr class="list_tr">
+			<td class="list_td"><input class="check_all" type="checkbox" value="{$li.bid}" name="check[{$li.bid}]"  /></td>
+			<td class="list_td">{$li.bid}</td>
+			
+			
+			<td class="list_td" style="text-align:center;"><img src="{$site_url}/{$li.pic}" width="150" height="100" /></td>
+			<td class="list_td">{$li.bdesc}</td>
+			<td class="list_td">{$li.blink}</td>
+			<td class="list_td"><php>echo date('Y-m-d H:i',$li['addtime']);</php></td>
+			<td class="list_td"> <a href="{:U('Admin/Banner/editBanner',array('bid'=>$li['bid']))}">编辑</a> <a href="javascript:void(0)" onclick="del_one(this,'{:U('Admin/Banner/doDelBanner')}')">删除</a></td>
+		  </tr>
+		  </volist>
+		  
+		  
+		 
+		  
+		</table>
+		
+		
+		</form>
+	 
+	 </div>
+	 
+   </div>
+   <!--右边结束-->
+   
+   
+   
+   
+   <include file="./Public/Admin/Public/footer.html" />

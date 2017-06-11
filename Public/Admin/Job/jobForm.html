@@ -1,0 +1,80 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">招聘管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 <div id="menu_tab">
+		<ul>
+		<li>
+		<span <if condition="ACTION_NAME=='joblist'">class="active"</if>><a href="{:U('Admin/Job/jobList')}" >{$Think.lang.jobs}</a></span></li>
+		<li><span <if condition="ACTION_NAME=='prolist'">class="active"</if>><a href="{:U('Admin/Job/proList')}" >{$Think.lang.resume}</a></span> </li> 
+		<li><span <if condition="ACTION_NAME=='jobform'">class="active"</if>><a href="{:U('Admin/Job/jobForm')}" >{$Think.lang.resumef}</a></span></li>
+		<li><span <if condition="ACTION_NAME=='jobsetting'">class="active"</if>><a href="{:U('Admin/Job/jobSetting')}" >{$Think.lang.jobsetting}</a></span></li>
+		</ul>
+	</div>
+	 
+	 <div>
+	 	<form id="form_id" action="" method="post">
+			<table width="100%" height="139" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table" style="margin-left:0;">
+			  <tr>
+				<th height="23" scope="col">{$Think.lang.op}</th>
+				<th scope="col">{$Think.lang.order}</th>
+				<th scope="col">{$Think.lang.mingcheng}</th>
+				<th scope="col">{$Think.lang.fieldtype}</th>
+				<th scope="col">{$Think.lang.requiredon}</th>
+				<th scope="col">{$Think.lang.op}</th>
+			  </tr>
+			  
+			  
+			  <volist name="list" id="li">
+			  <tr class="list_tr">
+				<td class="list_td"><input class="check_all" type="checkbox" value="{$li.id}" name="check[{$li.id}]"  /></td>
+				<td class="list_td"><input type="text" class="bind_change"  value="{$li.f_order}" name="order[{$li.id}]"></td>
+				<td class="list_td">{$li.title}</td>
+				<td class="list_td">
+				<if condition="$li.type" value="input">
+					{$Think.lang.in}
+				<elseif condition="$li.type" value="textare"/>
+					{$Think.lang.textare}
+				<elseif condition="$li.type" value="radio"/>
+					{$Think.lang.radio}
+				<elseif condition="$li.type" value="checkbox"/>
+					{$Think.lang.checkbox}
+				<elseif condition="$li.type" value="file"/>
+					{$Think.lang.attachment}
+				<else if condition="$li.type" value="select"/>
+					{$Think.lang.select}			
+				</if>
+			
+				
+				</td>
+				<td class="list_td"><input class="bind_change"  type="checkbox" name="required[{$li.id}]" value="1"  <eq name="li.required" value="1">checked="checked"</eq> /></td>
+				<td class="list_td"><a href="javascript:void(0)" onclick="del_one(this,'{:U('Admin/Job/doDelFormfield')}')">{$Think.lang.del}</a></td>
+			  </tr>
+			  </volist>
+			
+			  <tr>
+				<td class="list_td">&nbsp;</td>
+				<td colspan="4" class="list_td">{$page}</td>
+				</tr>
+			  <tr>
+				<td height="40" class="list_td"><input type="checkbox" onclick="select_all()" id="checkbox_all"/></td>
+				<td colspan="4">
+				  <input name="button"  class="form-text" type="button" onclick="del('{:U('Admin/Job/doSaveFormfield')}')" value="{$Think.lang.savefield}" />
+				  <input name="button" class="form-text"  type="button" onclick="del('{:U('Admin/Job/doDelFormfield')}')" value="{$Think.lang.del}" />
+				  <input type="button" class="form-text" onclick="window.location.href='{:U('Admin/Job/addFormfield')}'" value="{$Think.lang.addformfield}">
+				  </td>
+				</tr>
+			</table>
+			
+			<input type="hidden" value="{$fid|default=0}" name="fid" />
+			</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

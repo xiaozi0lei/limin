@@ -1,0 +1,57 @@
+<include file="Public:header" />
+<div class="nynews">	
+<img src="../Public/images/news.jpg" />   		 
+</div>
+ <div class="nyk gg">
+<div class="nynr"><p>{$current_sort['name']}</p></div></div>
+           
+<div class="main">
+
+<div id="page_main" class="clearfix">
+ <div class="container">
+
+   <div class="page-right">
+      <div class="lanmu">
+          <div class="lmdh fl"><include file="Public:left" /></div>
+      <div class="site-nav fr"><span>当前位置 : </span>
+	  
+		{$location}
+	  
+	  </div>
+      <br class="clear" />
+      </div>
+   <div class="page-news">
+    <ul class="newsList">
+     <volist name="list" id="li">
+      <li style="overflow:hidden;">
+      	<a href="{$li.url}" title="{$li.title}">
+      	<div class="lhfl fl">
+        <img src="{$site_url}/{$li['pic']}" />
+      		<!--<p><b>{$li['dateline']|date="d",###}</b>
+      			{$li['dateline']|date="Y.m",###}
+      		</p>-->
+      	</div>
+      	<div class="lhfr fr">
+       <span class="dateTitle">{$li.title}{$li.icon}</span>
+
+	   <!--<span style="color: #ccc;font-size: 10px;line-height: 30px;">发布日期:{$li['dateline']|date="Y.m.d",###}</span>-->
+	   <p style="color:#5d4a44; ">{$li.desc}</p>
+	   
+        <!--<b class="lhxq">查看详情></b>           用一个即可  查看更多=字-->
+        <b class="lhjt"></b>                         <!--查看更多=箭头 -->
+       </div>
+      
+       <div class="clear"></div>
+       </a>
+      </li>
+     </volist>
+    </ul>
+    <div class="page_list">{$page}</div>
+   </div>
+ </div>
+
+    <br class="clear" />
+</div>
+</div>
+</div>
+<include file="Public:footer" />

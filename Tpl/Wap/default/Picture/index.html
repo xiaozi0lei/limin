@@ -1,0 +1,21 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+    <div class="page-right">
+      <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+      <div class="page-products">
+      <ul class="clearfix">
+
+
+		<volist name="list" id="list">
+		<li><a href="{:U('Picture/show',array('id'=>$list['id'],'sid'=>$list['sort']))}" title="{$list.title}"><img  src="{$site_url}/{$list.pic}" width="200" height="150" /><span>{$list.title}</span></a></li>
+		</volist>
+		
+	  </ul>
+<div class="page_list">{$page}</div>
+      </div>
+    </div>
+    
+	<include file="Public:left" />
+	
+  </div>
+<include file="Public:footer" />

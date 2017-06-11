@@ -1,0 +1,153 @@
+<include file="Public:header" />
+
+  <div id="banner">
+<div class="fullSlide">
+  <div class="bd">
+    <ul>
+      <li _src="url(../Public/images/1.jpg)" style="background:#fff center 0 no-repeat; text-align:center;"></li>
+      <li _src="url(../Public/images/2.jpg)" style="background:#fff center 0 no-repeat; text-align:center;"></li>
+      <li _src="url(../Public/images/3.jpg)" style="background:#fff center 0 no-repeat; text-align:center;"></li>
+    </ul>
+  </div>
+  <div class="hd">
+    <ul>
+    </ul>
+  </div>
+  <span class="prev"></span><span class="next"></span>
+</div>
+<script type="text/javascript">
+jQuery(".fullSlide").hover(function() {
+    jQuery(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+},
+function() {
+    jQuery(this).find(".prev,.next").fadeOut()
+});
+jQuery(".fullSlide").slide({
+    titCell: ".hd ul",
+    mainCell: ".bd ul",
+    effect: "fold",
+    autoPlay: true,
+    autoPage: true,
+    delayTime:800,
+    interTime:3500,
+    trigger: "click",
+    startFun: function(i) {
+        var curLi = jQuery(".fullSlide .bd li").eq(i);
+        if ( !! curLi.attr("_src")) {
+            curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+        }
+    }
+});
+</script>
+
+</div>
+<div class="main_s">
+ <div class="main_snr gg">
+  <div class="pro_nr">
+  <ul class="clearfix">
+		 <items sortid="532" limit="10" >
+            <li><a href="{$item.url}" title="{$item.title}"><p><img src="{$item.pic}" alt="{$item.title}" width:"260" height="181" /></p><span>{$item.title}</span></a></li>
+		 </items>
+        </ul>
+  </div>
+  <div class="gengduo"><a href="{:listurl('Product/index',array('sid'=>532))}">查看更多+</a></div>
+ </div>
+</div>
+<div class="celiang"></div>
+<div class="main_m">
+ <div class="main_mnr gg"><div class="main_mk">
+  <div class="about_k">
+   <div class="about_p fl"><p><img src="../Public/images/index_11.jpg" /></p></div>
+   <div class="about fr">
+    <div class="about_bt"><img src="../Public/images/about_bt.jpg" /></div>
+    <div class="about_nr">{$content_1}</div>
+    <div class="rongyu"><img src="../Public/images/index_14.jpg" /></div>
+   </div>
+   <br class="clear" />
+  </div>
+ 
+ </div></div>
+</div>
+<div class="main_x">
+<div class="ge"></div>
+  <div class="main_xk gg">
+   <div class="xinwen_z fl">
+    <ul>
+     <li><a href="{:listurl('Article/index',array('sid'=>604))}">行业新闻</a></li>
+     <li><a href="{:listurl('Article/index',array('sid'=>603))}">立民资讯</a></li>
+     <li><a href="{:listurl('Article/index',array('sid'=>639))}">精彩活动</a></li>
+     <li><a href="{:listurl('Message/index',array('sid'=>536))}">在线留言</a></li>
+     <li><a href="{:listurl('About/index',array('sid'=>537))}">联系我们</a></li>
+    </ul>
+   </div>
+   <div class="xinwen_y fr">
+    <div class="hangye fl">
+     <div class="hangye_p">
+      <img src="../Public/images/index_19.jpg" />
+     </div>
+     <div class="hangye_nr">
+            <ul>
+  <items sortid="603" limit="1" >
+		
+		<li><span>
+			<p class="xwbt"><a  href="{$item['url']}">{:msubstr($item['title'],0,15)}</a></p>
+			<p style="padding-top:20px; line-height:22px;">{:msubstr(strip_tags($item['content']),0,50)}</p>
+            <p><a class="xwa"  href="{$item['url']}">查看更多</a></p>
+		</span>
+        </li>
+        <br class="clear" />
+		</items>
+</ul>
+      </div>
+    </div>
+     <div class="shuxian fl"></div>
+    <div class="news fr">
+    <ul>
+   <items sortid="601" limit="3" >
+ <li>
+		<span class="new_pic"><img src="{$item['pic']}"/></span>
+		
+		<span class="fr new_wz">
+			<p><a href="{$item['url']}">{:msubstr($item['title'],0,25)}</a></p>
+			<p style="padding-top:5px; line-height:22px;">{:msubstr(strip_tags($item['content']),0,50)}</p>
+		</span>
+        <br class="clear" />
+        </li>
+        
+		</items>
+        </ul>
+    </div>
+    <br class="clear" />
+   </div>
+   <br class="clear" />
+  </div>
+</div>
+<div class="anli_bt"> <img src="../Public/images/index_23.jpg" /></div>
+<div class="anli_k">
+<div class="anli gg">
+ <div class="anli_wz"><img src="../Public/images/kaiti.jpg" /></div>
+ <div class="anli_nr">
+ <img src="../Public/images/pic.jpg" />
+ </div>
+</div>
+</div>
+<div class="link">
+<div class="link_n gg">
+<if condition="empty($GLOBALS['_city_name'])">
+
+<div id="friendlink">
+友情链接：
+<volist name="flink" id="l">
+	<a href="http://{$l.url}" target="_blank">{$l.linkkeyword}</a>&nbsp;&nbsp;&nbsp;
+</volist>
+</div>
+</if>
+</div>
+</div>
+
+
+
+
+
+
+<include file="Public:footer" />

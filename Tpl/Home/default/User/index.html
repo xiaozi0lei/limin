@@ -1,0 +1,54 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+ <div class="page-right">
+   <div class="site-nav"><span>当前位置 : </span>会员注册</div>
+   <div class="page-news">
+    <div class="page-guestbook">
+		<script type="text/javascript">
+		function check()
+		{
+			
+			
+			
+			
+			if(document.guestbook.pwdconfirm.value!=''&&document.guestbook.pwdconfirm.value != document.guestbook.pwd.value)
+			{
+				alert("密码不相同");
+				document.guestbook.pwdconfirm.focus();
+				return false
+			}
+
+			 
+			return true;
+		}
+		</script>
+      <form method="post" name="guestbook" id="guestbook" action="{:U('User/updateUser')}" onsubmit="return check();">
+      <dl class="clearfix">
+      <dt>用户名：</dt>
+      <dd>{$space['username']}</dd>
+      <dt>密码：</dt>
+      <dd><input type="password" name="pwd" id="pwd"><span>*</span></dd>
+      <dt>密码确认：</dt>
+      <dd><input type="password" name="pwdconfirm" id="pwdconfirm"> <span>*</span></dd>
+      <dt>姓名：</dt>
+      <dd><input type="text" name="realname" id="realname"  value="{$space['realname']}"></dd>
+
+      <dt>电话：</dt>
+      <dd><input type="text" name="phone" id="phone" value="{$space['phone']}"></dd>
+      <dt>手机号码:：</dt>
+      <dd><input type="text" name="mobile" id="mobile" value="{$space['mobile']}"></dd>
+	  <dt>qq：</dt>
+      <dd><input type="text" name="qq" id="qq" value="{$space['qq']}"></dd>
+	  <dt>email：</dt>
+      <dd><input type="text" name="email" id="email" value="{$space['email']}"></dd>
+
+      </dl>
+      <p><input type="submit" name="submit" id="submit" value="提交修改" class="submit"></p>
+     
+	 </form>
+      </div>
+   </div>
+ </div>
+<include file="Public:left" />
+</div>
+<include file="Public:footer" />

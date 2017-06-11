@@ -1,0 +1,183 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<script>
+function grouptab(t){
+
+	var check=$("input[type='checkbox']");
+
+
+	if(t==1){
+		var ban=[];
+		$('#gname').val('系统管理员');
+	}
+	if(t==2){
+	
+		var ban=['group[config_basic]','group[config_lang]','group[config_footer]','group[style_index]','group[style_lists]','group[style_lists]','group[style_details]','group[style_customer]','group[seo_static]','group[member_group]','group[update]'];
+		$('#gname').val('内容管理员');
+	}
+	if(t==3){
+		var ban=['group[config_basic]','group[config_mail]','group[style_index]','group[style_lists]','group[style_details]','group[style_customer]','group[download_downloadlist]','group[picture_picturelist]','group[job_joblist]','group[member_group]','group[update]'];
+		
+		$('#gname').val('优化推广员');
+	}
+
+	if(t==4){
+		
+		for(var i=0;i<check.length;i++){
+				
+				$(check[i]).attr('disabled',false);
+		}
+		
+		$('#gname').val('');
+		return ;
+	}
+
+
+	
+		
+		for(var i=0;i<check.length;i++){
+				
+				var current=$(check[i]).attr('name');
+				var c=$(check[i]).attr('checked');
+				if(c){
+					$(check[i]).attr('checked','');
+				}
+				
+				
+				if(jQuery.inArray(current, ban)==-1){
+					//没有
+					$(check[i]).attr('checked','checked');
+				}
+				
+
+		}
+		
+
+
+}
+
+
+
+</script>
+
+<div class="rightCon1 fl">
+     <div class="conTitle">用户组编辑</div>
+     <div class="conNav">
+      <ul>
+        <li <if condition="ACTION_NAME=='listmember'">class="active"</if> ><a href="{:U('Admin/Member/listMember')}{$language}"><span>用户管理</span></a></li>
+        <li <if condition="ACTION_NAME=='group'">class="active"</if>><a href="{:U('Admin/Member/group')}{$language}"><span>用户组管理</span></a></li>
+        <li <if condition="ACTION_NAME=='myinfo'">class="active"</if>><a href="{:U('Admin/Member/myInfo')}{$language}"><span>我的信息</span></a></li>
+
+       </ul>
+     </div>
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Member/doSaveGroup')}" method="post">
+<table width="100%" height="335"  border="0" cellpadding="0" cellspacing="1"  class="list_table">
+
+	<tr>
+    <td width="15%" class="title_text"><span class="span_title">名称:</span></td>
+    <td width="85%"  class="spacing3">
+	<input   name="gname" id="gname"  value="{$group.gname}" >
+
+	</td>
+   </tr>
+
+
+	<tr>
+    <td width="" class="title_text"><span class="span_title">组类型:</span></td>
+    <td width="" class="spacing3" >
+	<input value="1" type="radio" name="grouptype" onclick="grouptab($(this).val())"  <eq name="group.gtype" value="1">checked="checked"</eq>>系统管理员
+	<input value="2" type="radio" name="grouptype" onclick="grouptab($(this).val())" <eq name="group.gtype" value="2">checked="checked"</eq>>内容管理员
+	<input value="3" type="radio" name="grouptype" onclick="grouptab($(this).val())" <eq name="group.gtype" value="3">checked="checked"</eq>>优化推广员
+	<input value="4" type="radio" name="grouptype" onclick="grouptab($(this).val())" <eq name="group.gtype" value="4">checked="checked"</eq>>自定义
+	</td>
+   </tr>
+
+   <tr>
+    <td width="" class="title_text"><span class="span_title">系统配置:</span></td>
+    <td width="" class="spacing3">
+	
+	
+	<label><input type="checkbox" value="1" class="radio" name="group[config_login]" <eq name="per.config_login" value="1">checked="checked"</eq>>&nbsp;管理登录</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[config_basic]" <eq name="per.config_basic" value="1">checked="checked"</eq>>&nbsp;基本设置</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[config_mail]" <eq name="per.config_mail" value="1">checked="checked"</eq>>&nbsp;系统邮箱设置</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[config_lang]" <eq name="per.config_lang" value="1">checked="checked"</eq>>&nbsp;语言设置</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[config_file]" <eq name="per.config_file" value="1">checked="checked"</eq>>&nbsp;文件管理器</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[config_pic]" <eq name="per.config_pic" value="1">checked="checked"</eq>>&nbsp;图片设置</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[config_footer]" <eq name="per.config_footer" value="1">checked="checked"</eq>>&nbsp;底部内容设置</label>
+	
+	</td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">样式设置:</span></td>
+    <td width="" class="spacing3">
+	
+	<label><input type="checkbox" value="1" class="radio" name="group[style_index]" <eq name="per.style_index" value="1">checked="checked"</eq>>&nbsp;首页设置</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[style_lists]" <eq name="per.style_lists" value="1">checked="checked"</eq>>&nbsp;列表页设置设置</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[style_details]" <eq name="per.style_details" value="1">checked="checked"</eq>>&nbsp;内容页设置</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[style_customer]" <eq name="per.style_customer" value="1">checked="checked"</eq>>&nbsp;客服设置</label>
+	
+	</td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">内容管理:</span></td>
+    <td width="" class="spacing3">
+	
+	<label><input type="checkbox" value="1" class="radio" name="group[artical_articallist]" <eq name="per.artical_articallist" value="1">checked="checked"</eq>>&nbsp;文章管理</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[product_productlist]" <eq name="per.product_productlist" value="1">checked="checked"</eq>>&nbsp;产品管理</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[download_downloadlist]" <eq name="per.download_downloadlist" value="1">checked="checked"</eq>>&nbsp;下载管理</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[picture_picturelist]" <eq name="per.picture_picturelist" value="1">checked="checked"</eq>>&nbsp;图片管理</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[job_joblist]" <eq name="per.job_joblist" value="1">checked="checked"</eq>>&nbsp;招聘管理</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[message_messagelist]" <eq name="per.message_messagelist" value="1">checked="checked"</eq>>&nbsp;网站留言</label>
+	
+	</td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">SEO:</span></td>
+    <td width="" class="spacing3">
+	
+	<label><input type="checkbox" value="1" class="radio" name="group[seo_static]" <eq name="per.seo_static" value="1">checked="checked"</eq>>&nbspSEO模块</label>
+	
+	<!-- <label><input type="checkbox" value="1" class="radio" name="group[seo_map]" <eq name="per.seo_map" value="1">checked="checked"</eq>>&nbsp;网站地图</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[seo_setting]" <eq name="per.seo_setting" value="1">checked="checked"</eq>>&nbsp;SEO设置</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[seo_link]" <eq name="per.seo_link" value="1">checked="checked"</eq>>&nbsp;友情链接管理</label> -->
+	</td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">会员管理:</span></td>
+    <td width="" class="spacing3">
+	
+	<label><input type="checkbox" value="1" class="radio" name="group[member_listmember]" <eq name="per.member_listmember" value="1">checked="checked"</eq>>&nbsp;会员管理</label>
+	<label><input type="checkbox" value="1" class="radio" name="group[member_group]" <eq name="per.member_group" value="1">checked="checked"</eq>>&nbsp;组管理</label>
+	</td>
+   </tr>
+   
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">网站更新:</span></td>
+    <td width="" class="spacing3">
+	<label><input type="checkbox" value="1" class="radio" name="group[update]" <eq name="per.update" value="1">checked="checked"</eq>>&nbsp;更新</label>
+	</td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text">&nbsp;</td>
+    <td width="" class="spacing3"><input class="form-text" type="submit" value="保存" /></td>
+   </tr>
+</table>
+<input type="hidden" value="{$group.gid}" name="gid" />
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

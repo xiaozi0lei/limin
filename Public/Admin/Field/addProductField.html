@@ -1,0 +1,43 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">字段管理</div>
+     <div class="conNav">
+        <ul>
+		<li <if condition="ACTION_NAME=='productfield'">class="active"</if>><a href="{:U('Admin/field/productField')}{$language}"><span>产品字段</span></a></li>
+        <li <if condition="ACTION_NAME=='picturefield'">class="active"</if> ><a href="{:U('Admin/field/picturefield')}{$language}"><span>图片字段</span></a></li>
+       </ul>
+     </div>
+	 
+	 
+	 <div>
+	 	<form id="form_id" action="{:U('Admin/Field/doSave',array('type'=>'product'))}" method="post">
+<table width="100%" height="145"  border="0" cellpadding="0" cellspacing="1"  class="list_table">
+  
+  
+
+
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">名称：</span></td>
+    <td width="80%" class="spacingtext3"><input type="text" name="name" value="{$field.name|default=''}" /></td>
+    </tr>
+  <tr>
+		<td class="title_text"><span class="span_title">fid：</span></td>
+    <td class="spacingtext3"><input type="text" name="fid" value="{$field.fid|default=''}"  <if condition="!empty($field['id'])">readonly="readonly"</if> /></td>
+    </tr>	
+  <tr>
+    <td class="list_td title_text">&nbsp;</td>
+    <td class="spacingtext3"><input class="form-text"  value="{$Think.lang.save}" type="submit"/></td>
+    </tr>
+</table>
+<input type="hidden" name="id" value="{$field.id|default=0}" />
+
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+<include file="./Public/Admin/Public/footer.html" />

@@ -1,0 +1,136 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<script>
+function change_icon(type_str){
+
+	art.dialog({
+		title:'更改图标',
+		content: document.getElementById(type_str+'_list'),
+		id: 'EF893L'
+	});
+
+}
+
+function select_icon(type_str,val_str){
+	
+	$('#image_'+type_str).attr('src',root_path+'/Public/images/'+type_str+'/'+type_str+'_'+val_str+'.jpg');
+	$('#customer_'+type_str).val(val_str);
+	art.dialog({id: 'EF893L'}).close();
+}
+</script>
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">客服管理</div>
+      <div class="conNav">
+       <ul>
+
+		  <eq name="style_lists" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="lists">class="active"</eq>><a href="{:U('Admin/Style/lists')}{$language}"><span>列表页</span></a></li>
+		 </eq>
+		  <eq name="style_details" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="detail">class="active"</eq>><a href="{:U('Admin/Style/detail')}{$language}"><span>内容页</span></a></li>
+		 </eq>
+		  <eq name="style_customer" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="customer">class="active"</eq>><a href="{:U('Admin/Style/customer')}{$language}"><span>客服管理</span></a></li>
+		 </eq>
+        <li <eq name="Think.const.ACTION_NAME" value="tmpl">class="active"</eq>><a href="{:U('Admin/Style/tmpl')}{$language}"><span>模板设置</span></a></li>
+       </ul>
+     </div>
+	 
+	<div id="menu_tab">
+	<ul>
+		<li>
+		<span><a href="{:U('Admin/Style/customerList')}" >{$Think.lang.customer}</a></span></li>
+		</ul>
+
+	
+	</div>
+	
+	 <div>
+	 	<form action="{:U('Admin/Style/doSaveStyleCustomer')}" method="post">
+		<table width="100%" height="460"  border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+			<tr>
+			<td width="20%" class="title_text"><span class="span_title">{$Think.lang.switch}:</span></td>
+			<td width="80%" class="spacing3"><input type="radio" value="1" name="customer_b" <eq name="customer_b" value="1">checked="checked"</eq> />{$Think.lang.on} <input type="radio" value="0" name="customer_b" <eq name="customer_b" value="0">checked="checked"</eq>/>{$Think.lang.off}</td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.color}:</span></td>
+			<td class="spacing3">
+			<select name="customer_color">
+				<option value="blue" <eq name="customer_color" value="blue">selected="selected"</eq>>{$Think.lang.blue}</option>
+				<option value="red" <eq name="customer_color" value="red">selected="selected"</eq>>{$Think.lang.red}</option>
+			</select>	</td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.qqicon}:</span></td>
+			<td class="spacing3"><img id="image_qq" src="__PUBLIC__/images/qq/qq_{$customer_qq}.jpg" /> <a href="javascript:void(0)" onclick="change_icon('qq')">{$Think.lang.changeicon}</a><input id="customer_qq" name="customer_qq" value="1" type="hidden" /></td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.msnicon}:</span></td>
+			<td class="spacing3"><img id="image_msn" src="__PUBLIC__/images/msn/msn_{$customer_msn}.jpg" /> <a href="javascript:void(0)" onclick="change_icon('msn')">{$Think.lang.changeicon}</a><input id="customer_msn" name="customer_msn" value="1"  type="hidden"  /></td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.taobaoicon}:</span></td>
+			<td class="spacing3"><img id="image_taobao" src="__PUBLIC__/images/taobao/taobao_{$customer_taobao}.jpg" /> <a href="javascript:void(0)" onclick="change_icon('taobao')">{$Think.lang.changeicon}</a><input id="customer_taobao" name="customer_taobao" value="1"  type="hidden"  /></td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.aliicon}:</span></td>
+			<td class="spacing3"><img id="image_alibaba" src="__PUBLIC__/images/alibaba/alibaba_{$customer_alibaba}.jpg" /> <a href="javascript:void(0)" onclick="change_icon('alibaba')">{$Think.lang.changeicon}</a><input id="customer_alibaba" name="customer_alibaba" value="1"  type="hidden"  /></td>
+		   </tr>
+		   <tr>
+			<td class="title_text"><span class="span_title">{$Think.lang.bottom}:</span></td>
+			<td class="spacingtext3"><textarea name="customer_bottomer">{$customer_bottomer}</textarea></td>
+		   </tr>
+		   <tr>
+			<td class="title_text">&nbsp;</td>
+			<td class="spacing3"><input class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+		   </tr>
+		</table>
+		</form>
+	 <div id="icon_list" style=" display:none;">
+		<ul id="qq_list" style="width:400px;">
+			<for start="1" end="17">
+			<li style="width:200px; height:50px; float:left;">
+			<span><input type="radio" name="icon_qq" value="1" onchange="select_icon('qq',{$i})"></span>
+			<img src="__PUBLIC__/images/qq/qq_{$i}.jpg">
+			</li>
+			</for>
+		</ul>
+		
+		<ul id="msn_list" style="width:400px;">
+			<for start="1" end="13">
+			<li style="width:200px; height:50px; float:left;">
+			<span><input type="radio" name="icon_msn" value="1" onchange="select_icon('msn',{$i})"></span>
+			<img src="__PUBLIC__/images/msn/msn_{$i}.jpg">
+			</li>
+			</for>
+		</ul>
+		
+		<ul id="taobao_list">
+			<for start="1" end="2">
+			<li>
+			<span><input type="radio" name="icon_taobao" value="1" onchange="select_icon('taobao',{$i})"></span>
+			<img src="__PUBLIC__/images/taobao/taobao_{$i}.jpg">
+			</li>
+			</for>
+		</ul>
+		
+		<ul id="alibaba_list">
+			<for start="1" end="4">
+			<li>
+			<span><input type="radio" name="icon_alibaba" value="1" onchange="select_icon('alibaba',{$i})"></span>
+			<img src="__PUBLIC__/images/alibaba/alibaba_{$i}.jpg">
+			</li>
+			</for>
+		</ul>
+			
+		
+		</div>
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

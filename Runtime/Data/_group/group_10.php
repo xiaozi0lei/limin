@@ -1,0 +1,1 @@
+<?php	return array ( 'config_login' => '1', 'config_lang' => '1', 'config_file' => '1', 'config_pic' => '1', 'config_footer' => '1', 'artical_articallist' => '1', 'product_productlist' => '1', 'message_messagelist' => '1', 'seo_static' => '1', 'member_listmember' => '1', );?>

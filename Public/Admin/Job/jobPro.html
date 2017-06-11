@@ -1,0 +1,43 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">招聘管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 <div id="menu_tab">
+		<ul>
+		<li>
+		<span <if condition="ACTION_NAME=='joblist'">class="active"</if>><a href="{:U('Admin/Job/jobList')}" >{$Think.lang.jobs}</a></span></li>
+		<li><span <if condition="ACTION_NAME=='prolist'">class="active"</if>><a href="{:U('Admin/Job/proList')}" >{$Think.lang.resume}</a></span> </li> 
+		<li><span <if condition="ACTION_NAME=='jobform'">class="active"</if>><a href="{:U('Admin/Job/jobForm')}" >{$Think.lang.resumef}</a></span></li>
+		<li><span <if condition="ACTION_NAME=='jobsetting'">class="active"</if>><a href="{:U('Admin/Job/jobSetting')}" >{$Think.lang.jobsetting}</a></span></li>
+		</ul>
+	</div>
+	 
+	 <div>
+	 	<form action="{:U('Admin/Style/doSaveStyle')}" method="post">
+		<table width="100%" height="190" border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table" style="margin-left:0;">
+		
+		 <volist name="field" id="fie">
+		  <tr>
+			<td width="20%" class="title_textx"><span class="span_title">{$fie.title}:</span></td>
+			<td width="80%" style="padding-left:10px;"><if condition="$fie['type']=='file'">
+			<if condition="!empty($fie['val'])">
+			<a href="{$fie.val}" target="_blank">点击下载</a>
+			</if>
+			<else/>
+			{$fie.val|default=''}
+			
+			</if></td>
+		   </tr>
+		  </volist>
+		
+		</table>
+		</form>
+	 
+	 </div>
+	 
+   </div>
+
+<include file="./Public/Admin/Public/footer.html" />

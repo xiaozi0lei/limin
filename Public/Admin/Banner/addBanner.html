@@ -1,0 +1,58 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+   
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+
+
+
+   
+   
+   <!--右边开始-->
+   <div class="rightCon1 fl">
+     <div class="conTitle">幻灯片管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	  <div id="menu_tab">
+		<ul>
+		<li><span <if condition="ACTION_NAME=='bannerlist'">class="active"</if>><a href="{:U('Admin/Banner/bannerList')}" >幻灯片列表</a></span></li>
+		<li><span <if condition="ACTION_NAME=='addbanner'">class="active"</if>><a href="{:U('Admin/Banner/addBanner')}" >添加幻灯片</a></span></li>
+		
+		</ul>
+	</div>
+	
+	 <div>
+	 	<form action="{:U('Admin/Banner/doAddBanner')}" method="post" enctype="multipart/form-data">
+<table width="100%" height="170" border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table">
+
+   <tr>
+    <td width="18%" class="title_text"><span class="span_title"></span></td>
+    <td width="82%" class="spacing3"><a href="{:U('Admin/Config/pic')}" style="color:#0F03E9; text-decoration:underline;">图片大小在这里设置</a></td>
+   </tr>
+   <tr>
+    <td width="18%" class="title_text"><span class="span_title">描述:</span></td>
+    <td width="82%" class="spacing3"><input type="text" name="desc" value="{$bdesc|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="18%" class="title_text"><span class="span_title">图片:</span></td>
+    <td width="82%" class="spacing3" style="border-bottom:1px solid #dadada;"><input type="file" name="pic" /></td>
+   </tr>
+   <tr>
+    <td width="18%" class="title_text"><span class="span_title">链接:</span></td>
+    <td width="82%" class="spacing3"><input type="text" name="link" value="{$blink|default=''}"  /></td>
+   </tr>
+ 	
+   
+   <tr>
+    <td width="18%"><span class="span_title"></span></td>
+    <td width="82%"><input type="submit"  class="form-text" value="{$Think.lang.save}" /></td>
+   </tr>
+ 	<input type="hidden" value="{$bid|default=0}"  name="bid"/>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+   <!--右边结束-->
+   
+<include file="./Public/Admin/Public/footer.html" />

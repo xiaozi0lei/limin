@@ -1,0 +1,116 @@
+<include file="Public:header" />
+
+  <section class="pro-body">
+    <div role="tablist" class="TitleList">
+      <ul class="NewsTitle-left">
+        <li class="current" link="pic.asp">
+          <div> <span class="text">产品推荐</span> </div>
+        </li>
+      </ul>
+      <div class="right fr"  role="link" link="{:U('Product/index',array('sid'=>532))}"> <span class="icon"></span> </div>
+    </div>
+    <div role="tabpanel">
+      <ul>
+        <li id="id_slide_03">
+          <div class="scroll">
+            <div class="slide_03" id="slide_03">
+              <div>
+                <div>
+                  
+				  
+				  
+				    <volist name="product" id="pro">
+					<div class='mod_01 ClientWidth'>
+                    <ul class='productListCont clear'>
+					
+					  <volist name="pro" id="item">
+                      <li>
+                        <div class='imgWrap'><a href="{:U('Product/show',array('id'=>$item['id']))}"><img src="{$site_url}/{$item.pic}"></a></div>
+                        <div class='infoWrap'>
+                          <h3 class='productTitle'><span class='name'><a href=''>{$item.title}</a> </span></h3>
+                          <p class='code'></p>
+                          <p class='mark'></p>
+                        </div>
+                      </li>
+					  </volist>
+                    </ul>
+					</div>
+					</volist>
+					
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dotModule_new">
+            <div id="slide_03_dot"> </div>
+          </div>
+          <script type="text/javascript" >
+		if(document.getElementById("slide_03") && typeof(f_slide_03) == "undefined" ){  
+    var f_slide_03 = new ScrollPic();
+	  f_slide_03.scrollContId   = "slide_03"; //内容容器ID
+	  f_slide_03.dotListId      = "slide_03_dot";//点列表ID
+	  f_slide_03.dotOnClassName = "selected";
+	  f_slide_03.frameWidth     = sp_getClientWidth;
+	  f_slide_03.pageWidth      = sp_getClientWidth;
+	  f_slide_03.upright        = false;
+	  f_slide_03.speed          = 10;
+	  f_slide_03.space          = 30; 
+		f_slide_03.autoPlay       =true;
+	  f_slide_03.initialize(); //初始化
+    };
+</script>
+        </li>
+        
+      </ul>
+    </div>
+  </section>
+  <section>
+    <div role="tablist" class="TitleList">
+      <ul class="NewsTitle-left">
+       <!-- <li class="current" link="{:U('Article/index',array('sid'=>427))}">
+          <div> <span class="text">关于我们</span> </div>
+        </li>-->
+        <li link="{:U('Article/index',array('sid'=>601))}">
+          <div> <span class="text">最新动态</span> </div>
+        </li>
+      </ul>
+      <div class="right fr"  role="link" link="{:U('Article/index',array('sid'=>601))}"> <span class="icon"></span> </div>
+    </div>
+    <div role="tabpanel">
+      <ul>
+        <!--<li>
+          <div class="content">
+            <div class="info">{$content_1}</div>
+            <div class="clear"></div>
+          </div>
+        </li>-->
+        <li style="">
+          <ul class="NewsListCont">
+            <volist name="article" id="art">
+            <li> <a href="{$art.url}">
+              <div>
+                <h3 class="newsTitle"> <span class="name">{$art['title']}</span> </h3>
+                <p class="time">{$art['dateline']|date="y-m-d",###} </p>
+              </div>
+              </a> </li>
+			  </volist>
+			</li>  
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section>
+    <div class="TitleList">
+      <div class="left fl">关于我们</div>
+      <div class="right fr" link="{:U('About/index',array('sid'=>533))}" role="link"> <span class="icon"></span> </div>
+      <div class="clear"></div>
+    </div>
+    <div class="infoContent">
+     <!-- <div class="infoConpic"><img src="../Public/images/infopic.png"></div>-->
+      <div class="infoCon"> {$content_1}</div>
+      <div class="clear"></div>
+    </div>
+  </section>
+<include file="Public:footer" />  

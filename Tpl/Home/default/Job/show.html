@@ -1,0 +1,35 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+ <div class="container">
+  <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+  <div class="page-news">
+   <div id="shownews">
+    <h1 class="title">{$title}</h1>
+	{$qrcode}
+    <div class="text editor">
+	 <ul class="showjobList clearfix">
+	 	
+	  <li class="frist"><b style="font-size: 20px;">{$job['title']}</b></li>
+	  <li class="frist"><span>工作地点</span> {$job['location']}</li>
+	  <li><div class="f_l"><span>时间</span> {$job['dateline']|date="y/m/d",###}</div><div class="f_l"><span style="border-left:1px solid #ccc ;">人数</span> {$job['num']}</div></li>
+      <li><span>工资</span> {$job['deal']}</li>
+
+	 </ul>
+	 <div class="lhms"><b class="jobDescription">工作描述</b>
+	 <span>{$job['content']}</span>
+	</div>
+	 <div class="lh616" style="text-align:center;"><a href="{:U('/Job/doJob',array('id'=>$job['id']))}" style="color:#FF0000">在线应聘 →</a></div>
+	</div>
+    <div class="clear"></div>
+    <script>
+    $(function(){
+    	
+    		$(".showjobList li:odd").css({background: "#f7f7f7"})
+    	})
+    </script>
+   </div>
+  </div>
+ </div>
+
+</div>
+<include file="Public:footer" />   

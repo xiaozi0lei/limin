@@ -1,0 +1,82 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">设置</div>
+      <include file="./Public/Admin/Seo/nav.html" />
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Seo/doSaveSetting')}" method="post">
+<table width="100%" height="244" border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+
+	<tr>
+    <td width="20%" class="title_text"><span class="span_title">首页 title:</span></td>
+    <td width="80%" class="spacingtext3"><input style="width:500px;"  class="input_middle" name="indextitle" value="{$indextitle|default=''}" /></td>
+   </tr>
+   
+   <tr>
+    <td width="20%" class="title_text"><span class="span_title">网站(公司)名称:</span></td>
+    <td width="80%" class="spacingtext3"><input style="width:500px;"  class="input_middle" name="titleext" value="{$titleext|default=''}" /></td>
+   </tr>
+   
+   <tr>
+    <td width="20%" class="title_text"><span class="span_title">文章来源:</span></td>
+    <td width="80%" class="spacingtext3"><input  style="width:500px;"  class="input_middle" name="artSource" value="{$artSource|default=''}" /></td>
+   </tr>
+
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.deltailformat}:</span></td>
+    <td width="80%" class="spacing3">
+	
+	<input name="detailtitle" type="radio" value="1" <eq name="detailtitle" value="1">checked="checked"</eq> />{$Think.lang.ctitle} <br />
+	<input name="detailtitle" type="radio" value="2" <eq name="detailtitle" value="2">checked="checked"</eq> />{$Think.lang.ctitlek} <br />
+	<input name="detailtitle" type="radio" value="3" <eq name="detailtitle" value="3">checked="checked"</eq> />{$Think.lang.ctitlet} <br />
+	<input name="detailtitle" type="radio" value="4"  <if condition="empty($detailtitle)||$detailtitle==4">checked="checked"</if> />{$Think.lang.ctitlekt} 
+	
+	</td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.keyword} :</span></td>
+    <td width="" class="spacingtext3"><input style="width:500px;" class="input_middle" name="keyword" value="{$keyword|default=''}" /> </td>
+   </tr>
+   <tr>
+    <td class="title_text"><span class="span_title">主页描述(description):</span></td>
+    <td class="spacingtext3"><textarea style="width:600px; height:100px;" class="textare_long" name="desc">{$desc|default=''}</textarea></td>
+  </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">是否开启产品 description :</span></td>
+    <td width="" class="spacingtext3"><input type="radio" name="pdescription" value="1" <eq name="pdescription" value="1">checked="checked"</eq> />开启 <input type="radio" name="pdescription" value="0" <eq name="pdescription" value="0">checked="checked"</eq> />关闭（只对产品有效）</td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">长尾关键字:</span></td>
+    <td width="" class="spacingtext3"><input style="width:500px;" class="input_middle" name="longkeyword" value="{$longkeyword|default=''}" /> （只对产品有效）</td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">推广城市:</span></td>
+    <td width="" class="spacingtext3"><input style="width:500px;" class="input_middle" name="productcity" value="{$productcity|default=''}" /> （只对产品有效）</td>
+   </tr>
+   
+    <tr>
+    <td class="title_text"><span class="span_title">统计代码JS:</span></td>
+    <td class="spacing3"><input style="width:500px;" class="input_middle" name="code" value="{$code|default=''}" /></td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text">&nbsp;</td>
+    <td width="" class="spacingtext3"><input class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+   </tr>
+   <input type="hidden"  name="uid" value="{$id}" />
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

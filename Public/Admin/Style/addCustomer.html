@@ -1,0 +1,137 @@
+  <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<style>
+
+#icon_list ul{
+display:none;
+}
+</style>
+<script>
+function change_icon(type_str){
+
+	art.dialog({
+		title:'更改图标',
+		content: document.getElementById(type_str+'_list'),
+		id: 'EF893L'
+	});
+
+}
+
+function select_icon(type_str,val_str){
+	
+	$('#image_'+type_str).attr('src',root_path+'/Public/images/'+type_str+'/'+type_str+'_'+val_str+'.jpg');
+	$('#customer_'+type_str).val(val_str);
+	art.dialog({id: 'EF893L'}).close();
+}
+</script>
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">添加</div>
+       <div class="conNav">
+       <ul>
+
+		  <eq name="style_lists" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="lists">class="active"</eq>><a href="{:U('Admin/Style/lists')}{$language}"><span>列表页</span></a></li>
+		 </eq>
+		  <eq name="style_details" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="detail">class="active"</eq>><a href="{:U('Admin/Style/detail')}{$language}"><span>内容页</span></a></li>
+		 </eq>
+		  <eq name="style_customer" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="customer">class="active"</eq>><a href="{:U('Admin/Style/customer')}{$language}"><span>客服管理</span></a></li>
+		 </eq>
+        <li <eq name="Think.const.ACTION_NAME" value="tmpl">class="active"</eq>><a href="{:U('Admin/Style/tmpl')}{$language}"><span>模板设置</span></a></li>
+       </ul>
+     </div>
+	 
+	 <div id="menu_tab">
+	 	<ul>
+		<li>
+		<span><a href="{:U('Admin/Style/customerList')}" >{$Think.lang.customer}</a></span></li>
+		</ul>
+
+	</div>
+	 
+	 <div>
+	 	<form action="{:U('Admin/Style/doaddCustomer')}" method="post">
+<table width="100%"  border="0" cellpadding="0" cellspacing="1"  class="list_table">
+	<tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.cname}:</span></td>
+    <td width="80%" class="spacing3"><input type="text" name="name" /></td>
+   </tr>
+   <tr>
+    <td class="title_text"><span class="span_title">{$Think.lang.order}:</span></td>
+    <td class="spacing3"><input type="text" name="order" /></td>
+   </tr>
+  <tr>
+    <td class="title_text"><span class="span_title">{$Think.lang.qq}:</span></td>
+    <td class="spacing3"><input type="text"  name="qq"/></td>
+   </tr>
+   <tr>
+    <td class="title_text"><span class="span_title">{$Think.lang.msn}:</span></td>
+    <td class="spacing3"><input type="text"  name="msn"/></td>
+   </tr>
+   <tr>
+    <td class="title_text"><span class="span_title">{$Think.lang.wangwang}:</span></td>
+    <td class="spacing3"><input type="text"  name="taobao"/></td>
+   </tr>
+   <tr>
+    <td class="title_text"><span class="span_title">{$Think.lang.alibaba}:</span></td>
+    <td class="spacing3"><input type="text"  name="alibaba"/></td>
+   </tr>
+   <tr>
+    <td class="title_text"><span class="span_title"></span></td>
+    <td class="spacing3"><input class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+   </tr>
+</table>
+</form>
+	 
+	 </div>
+	 
+	 <div id="icon_list">
+<ul id="qq_list" style="width:400px;">
+	<for start="1" end="17">
+	<li style="width:200px; height:50px; float:left;">
+	<span><input type="radio" name="icon_qq" value="1" onchange="select_icon('qq',{$i})"></span>
+	<img src="__PUBLIC__/images/qq/qq_{$i}.jpg">
+	</li>
+	</for>
+</ul>
+
+<ul id="msn_list" style="width:400px;">
+	<for start="1" end="13">
+	<li style="width:200px; height:50px; float:left;">
+	<span><input type="radio" name="icon_msn" value="1" onchange="select_icon('msn',{$i})"></span>
+	<img src="__PUBLIC__/images/msn/msn_{$i}.jpg">
+	</li>
+	</for>
+</ul>
+
+<ul id="taobao_list">
+	<for start="1" end="2">
+	<li>
+	<span><input type="radio" name="icon_taobao" value="1" onchange="select_icon('taobao',{$i})"></span>
+	<img src="__PUBLIC__/images/taobao/taobao_{$i}.jpg">
+	</li>
+	</for>
+</ul>
+
+<ul id="alibaba_list">
+	<for start="1" end="4">
+	<li>
+	<span><input type="radio" name="icon_alibaba" value="1" onchange="select_icon('alibaba',{$i})"></span>
+	<img src="__PUBLIC__/images/alibaba/alibaba_{$i}.jpg">
+	</li>
+	</for>
+</ul>
+	
+
+</div>
+	 
+   </div>
+
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

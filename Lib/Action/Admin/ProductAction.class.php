@@ -1,0 +1,965 @@
+<?php
+class ProductAction extends AdminInitAction {
+	public function productList() {
+		$this->checkper ( 'product_productlist' );
+		
+		if(intval($_POST['home_show'])==1){
+			$where['home_show']=1;
+		}
+		if(intval($_POST['top'])==1){
+			$where['top']=intval($_POST['top']);
+		}
+		
+		session('jumpurl',$_SERVER ['REQUEST_URI']);
+		$where['lang']=$this->lang;
+		$sortid=$_POST['sortid']?intval($_POST['sortid']):0;
+		if(!empty($sortid)){
+			$findsort=M('sort')->where(array('id'=>$sortid))->find();
+			if(empty($findsort)){
+				$this->error('不存在该分类');
+			}
+			$where['sort']=$findsort['id'];
+		}
+		if(!empty($_POST['keywords'])){
+				
+			$where['title']=array('like','%'.$_POST['keywords'].'%');
+		}
+		
+		$sort=M('sort')->where(array('lang'=>$this->lang,'module'=>'Product'))->select();
+		$newsort=array();
+		if(!empty($sort)){
+			foreach($sort as $k=>$v){
+				$newsort[$v['id']]=$v;
+			}
+				
+		}
+		
+		import ( 'ORG.Util.Page' ); // 导入分页类
+		$count = M ( 'Product' )->where ($where)->count (); // 查询满足要求的总记录数
+		$Page = new Page ( $count, 20 ); // 实例化分页类 传入总记录数和每页显示的记录数
+		$show = $Page->show (); // 分页显示输出
+		                             // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
+		$list = M ( 'Product' )->where ($where)->order ( 'id desc' )->limit ( $Page->firstRow . ',' . $Page->listRows )->select ();
+		
+		if(!empty($list)){
+			foreach($list as $key=>$value){
+				$list[$key]['sortname']=$newsort[$value['sort']]['name'];
+				$list[$key]['img']=site_url().'/'.$value['pic'];
+			}
+				
+		}
+		
+		
+		
+		$tree=$this->getTree('Product');
+		$html = $this->sorttree ( $tree,$sortid,'Product');
+		$this->assign('html',$html);
+			
+		//$this->assign($this->group);
+		$this->assign($_POST);
+		$this->assign ( 'html', $html );
+		$this->assign ( 'list', $list ); // 赋值数据集
+		$this->assign ( 'page', $show ); // 赋值分页输出
+		$this->display ( './Public/Admin/Product/productList.html' );
+	}
+	
+	
+	private function getTree($module){
+	
+		$sids=array();
+		$li = M ( 'sort' )->where ( array (
+				'lang' => $this->lang,
+				'module'=>$module
+		) )->order ( 'sort_order ASC,id ASC' )->select ();
+	
+		foreach($li as $k=>$v){
+			$ids=explode('-', $v['idpath']);
+			foreach($ids as $iv){
+				$sids[]=$iv;
+			}
+		}
+		$li=M('sort')->where(array('id'=>array('in',array_unique($sids))))->order ( 'sort_order ASC,id ASC' )->select();
+	
+	
+		$tree = list_to_tree ( $li, 'id', 'parent_id' );
+		return $tree;
+	}
+	
+	
+	private function sorttree($sortarray,$current_sort_id=0,$module){
+	
+		$html ='';
+		foreach ( $sortarray as $key => $value ) {
+			$check=$disable='';
+			$count = count ( explode ( '-', $value ['idpath'] ) ) - 1;
+			if(!empty($current_sort_id)&&$current_sort_id==$value['id']){
+				$check='selected = "selected"';
+			}
+	
+			if($value['module']!=$module){
+				$disable='disabled="disabled"';
+			}
+	
+			$html .='<option '.$check.$disable.' value="'.$value['id'].'">'.str_repeat ( '|-', $count ).$value['name'].'</option>';
+			
+			if (! empty ( $value ['_child'] )) {
+				$html .= $this->sorttree ( $value ['_child'],$current_sort_id,$module);
+			}
+		}
+		return $html;
+	}
+	
+	
+	
+	public function addProduct() {
+		
+		// 自定义字段获取
+		$newfield = array ();
+		$field = M ( 'field' )->where ( array (
+				'lang' => $this->lang,
+				'type' => 'product'
+		) )->order('fid ASC')->select ();
+		
+		if (! empty ( $field )) {
+				
+			foreach ( $field as $value ) {
+				$newfield [$value ['id']] = $value;
+				$newfield [$value ['id']]['value'] = "";
+			}	
+			
+				
+			$this->assign ( 'p_field', $newfield );
+		}
+		
+		$tree=$this->getTree('Product');
+		$html = $this->sorttree ( $tree,0,'Product');
+		$this->assign('html',$html);
+		$this->display ( './Public/Admin/Product/addProduct.html' );
+	}
+	
+	public function checkWord(){
+		$words=strip_tags(h($_POST['text']));
+		$leng=mb_strlen(preg_replace("/\s|　/","",$words),'utf8');
+		
+		if($leng<50){
+			echo 0;
+			exit();
+		}
+		echo 1;exit();
+	}
+	
+	public function search() {
+		$text = $_POST ['searchtext'];
+		if (empty ( $text )) {
+			$this->error ( '请输入关键字' );
+		}
+		import ( 'ORG.Util.Page' ); // 导入分页类
+		
+		$count = M ( 'Product' )->where ( array (
+				'lang' => $this->lang,
+				'title' => array (
+						'like',
+						'%' . $text . '%' 
+				) 
+		) )->count (); // 查询满足要求的总记录数
+		
+		$sort=M('sort')->where(array('lang'=>$this->lang,'module'=>'Product'))->select();
+		$newsort=array();
+		if(!empty($sort)){
+			foreach($sort as $k=>$v){
+				$newsort[$v['id']]=$v;
+			}
+		
+		}
+		$Page = new Page ( $count, 20 ); // 实例化分页类 传入总记录数和每页显示的记录数
+		$show = $Page->show (); // 分页显示输出
+		                             // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
+		$list = M ( 'Product' )->where ( array (
+				'lang' => $this->lang,
+				'title' => array (
+						'like',
+						'%' . $text . '%' 
+				) 
+		) )->order ( 'dateline' )->limit ( $Page->firstRow . ',' . $Page->listRows )->select ();
+		
+		if(!empty($list)){
+			foreach($list as $key=>$value){
+				$list[$key]['sortname']=$newsort[$value['sort']]['name'];
+				$list[$key]['img']=site_url().'/'.$value['pic'];
+			}
+		
+		}
+		
+		$this->assign ( 'list', $list ); // 赋值数据集
+		$this->assign ( 'page', $show ); // 赋值分页输出
+		$this->display ( './Public/Admin/Product/productList.html' );
+	}
+	public function doTop() {
+		if (! empty ( $_POST ['check'] )) {
+			foreach ( $_POST ['check'] as $key => $vlaue ) {
+				$Product = M ( 'Product' )->where ( array (
+						'id' => $key 
+				) )->find ();
+				
+				if (empty ( $Product )) {
+					$this->error ( '不存在该产品' );
+				}
+				
+				if (empty ( $Product ['top'] )) {
+					M ( 'Product' )->where ( array (
+							'id' => $key 
+					) )->save ( array (
+							'top' => 1 
+					) );
+				} else {
+					M ( 'Product' )->where ( array (
+							'id' => $key 
+					) )->save ( array (
+							'top' => 0 
+					) );
+				}
+				$sort = M ( 'sort' )->where ( array (
+						'id' => $Product ['sort'] 
+				) )->find ();
+				$ids_str .= $sort ['idpath'] . '-';
+			}
+		} else {
+			$this->error ( '请选择产品' );
+		}
+		
+		if (C ( 'HTML_ON' )&&$this->lang=='zh-cn') {
+			$sids = array_unique ( explode ( '-', substr ( $ids_str, 0, - 1 ) ) );
+			$this->assign ( 'type', 'index' );
+			$this->display ( './Public/Admin/Public/doHtml.html' );
+			return;
+		}
+		
+		header ( 'Location:' . $_SERVER ['HTTP_REFERER'] );
+	}
+	
+	
+	public function doHome() {
+		if (! empty ( $_POST ['check'] )) {
+			foreach ( $_POST ['check'] as $key => $vlaue ) {
+				$Product = M ( 'Product' )->where ( array (
+						'id' => $key
+				) )->find ();
+	
+				if (empty ( $Product )) {
+					$this->error ( '不存在该产品' );
+				}
+	
+				if (empty ( $Product ['home_show'] )) {
+					M ( 'Product' )->where ( array (
+					'id' => $key
+					) )->save ( array (
+					'home_show' => 1
+					) );
+				} else {
+					M ( 'Product' )->where ( array (
+					'id' => $key
+					) )->save ( array (
+					'home_show' => 0
+					) );
+				}
+				$sort = M ( 'sort' )->where ( array (
+						'id' => $Product ['sort']
+				) )->find ();
+				$ids_str .= $sort ['idpath'] . '-';
+			}
+		} else {
+			$this->error ( '请选择产品' );
+		}
+	
+		if (C ( 'HTML_ON' )&&$this->lang=='zh-cn') {
+			$sids = array_unique ( explode ( '-', substr ( $ids_str, 0, - 1 ) ) );
+			$this->assign ( 'type', 'index' );
+			$this->display ( './Public/Admin/Public/doHtml.html' );
+			return;
+		}
+	
+		header ( 'Location:' . $_SERVER ['HTTP_REFERER'] );
+	}
+	
+	
+	
+	public function editProduct() {
+		
+		
+		$id = intval ( $_GET ['id'] );
+		$Product = M ( 'Product' )->where ( array (
+				'id' => $id 
+		) )->find ();
+		
+		
+		if (empty ( $Product )) {
+			$this->error ( '不存在该产品' );
+		}
+		
+		$Product['content']=dereplace($Product['content']);
+		
+		
+		if (! empty ( $Product ['pic'] )) {
+			$Product ['pic'] = site_url () . '/' . $Product ['pic'];
+		}
+		
+		$pics = M ( 'attachment' )->where ( array (
+				'type' => 'product',
+				'app_id' => $id 
+		) )->select ();
+		// 自定义字段获取
+		$field = M ( 'field' )->where ( array (
+				'lang' => $this->lang,
+				'type' => 'product'
+		) )->order('fid ASC')->select ();
+		
+		if (! empty ( $field )) {
+				
+			foreach ( $field as $value ) {
+				$newfield [$value ['id']] = $value;
+				$newfield [$value ['id']]['value'] = "";
+			}	
+			
+				
+			$this->assign ( 'p_field', $newfield );
+		}
+		
+		$tree=$this->getTree('Product');
+		$html = $this->sorttree ( $tree,$Product['sort'],'Product');
+		$this->assign('html',$html);
+		
+		$psort=M('sort')->where(array('id'=>$Product['sort']))->find();
+	
+		$this->assign($psort);
+		$this->assign('html',$html);
+		$this->assign ( 'pics', $pics );
+		$this->assign ( $Product );
+		$this->display ( './Public/Admin/Product/addProduct.html' );
+	}
+	public function doSaveOrder() {
+		if (! empty ( $_POST ['check'] )) {
+			foreach ( $_POST ['check'] as $key => $vlaue ) {
+				$Product = M ( 'Product' )->where ( array (
+						'id' => $key 
+				) )->find ();
+				
+				if (empty ( $Product )) {
+					$this->error ( '不存在该产品' );
+				}
+				
+				M ( 'Product' )->where ( array (
+						'id' => $key 
+				) )->save ( array (
+						'p_order' => intval ( $_POST ['order'] [$key] ) 
+				) );
+				
+				$sort = M ( 'sort' )->where ( array (
+						'id' => $Product ['sort'] 
+				) )->find ();
+				$ids_str .= $sort ['idpath'] . '-';
+			}
+		} else {
+			$this->error ( '请选择产品' );
+		}
+		
+		if (C ( 'HTML_ON' )&&$this->lang=='zh-cn') {
+			$sids = array_unique ( explode ( '-', substr ( $ids_str, 0, - 1 ) ) );
+			$this->assign ( 'sid', implode ( '-', $sids ) );
+			$this->assign ( 'type', 'index' );
+			$this->display ( './Public/Admin/Public/doHtml.html' );
+			return;
+		}
+		
+		header ( 'Location:' . $_SERVER ['HTTP_REFERER'] );
+	}
+	
+	
+	public function doDelProduct() {
+		
+		$path=F ( $this->lang . 'path');
+		if (! empty ( $_POST ['check'] )) {
+			foreach ( $_POST ['check'] as $key => $vlaue ) {
+				$Product = M ( 'Product' )->where ( array (
+						'id' => $key 
+				) )->find ();
+				
+				if (empty ( $Product )) {
+					$this->error ( '不存在该产品' );
+				}
+				
+				M ( 'Product' )->where ( array (
+						'id' => $key 
+				) )->delete ();
+				
+				if (C ( 'HTML_ON' )&&$this->lang=='zh-cn') {
+					@unlink('./'.$path[$Product['sort']]['path'].'/show'.$key.'.html');
+				}
+				
+				//删除相关图片
+				@unlink('./'.$Product['pic']);
+				$oth=str_replace('thumb_', '', $Product['pic']);
+				unlink($oth);
+				delcontentimg($Product['content']);
+				$pics=M('attachment')->where(array('app_id'=>$key,'type'=>'product'))->select();
+				M('attachment')->where(array('app_id'=>$key,'type'=>'product'))->delete();
+				if(!empty($pics)){
+					foreach($pics as $v){
+						@unlink ( './Upload/' . $v ['filename'] );
+						@unlink ( './Upload/thumb_' . $v ['filename'] );
+					}
+				}
+				
+				
+				
+				
+				
+				
+				$sort = M ( 'sort' )->where ( array (
+						'id' => $Product ['sort'] 
+				) )->find ();
+				$ids_str .= $sort ['idpath'] . '-';
+				
+				
+				//查询设置为栏目的产品
+				$show_pro=M('sort')->where(array('show_pid'=>$key))->find();
+				if(!empty($show_pro)){
+					M('sort')->where(array('show_pid'=>$key))->save(array('show_pid'=>0));
+					//更新分类缓存
+					$li = M ( 'sort' )->where ( array (
+							'lang' => $this->lang
+					) )->field('id,parent_id,root,path,idpath,name,mobiletitle,show_type,sort_order,folder,module,title,hidden,index_hidden,keyword,desc,lang,img,show_pid,index_tpl,show_tpl')->order ( 'sort_order ASC,id ASC' )->select ();
+					$tree = list_to_tree ( $li, 'id', 'parent_id' );
+					F ( $this->lang . 'sort', $tree );
+				}
+				
+				
+			}
+		} else {
+			$this->error ( '请选择产品' );
+		}
+		
+		if (C ( 'HTML_ON' )&&$this->lang=='zh-cn') {
+			$sids = array_unique ( explode ( '-', substr ( $ids_str, 0, - 1 ) ) );
+			$this->assign ( 'sid', implode ( '-', $sids ) );
+			$this->assign ( 'type', 'index' );
+			$this->display ( './Public/Admin/Public/doHtml.html' );
+			return;
+		}
+		
+		
+		
+		$this->success ( '删除成功' );
+	}
+	
+	/**
+	 * 编辑和添加
+	 */
+	public function doAddProduct() {
+		
+	
+		$sid = intval ( $_POST ['sort'] );
+		$id = intval ( $_POST ['id'] );
+		
+		$sort = M ( 'sort' )->where ( array (
+				'id' => $sid 
+		) )->find ();
+		
+		if (empty ( $sort )) {
+			$this->error ( '不存在该分类' );
+		}
+		
+		if (empty ( $_POST ['title'] )) {
+			$this->error ( '题目不能为空' );
+		}
+		
+		if (! empty ( $_POST ['imagedes'] )) {
+			
+			$img_ids = array_keys ( $_POST ['imagedes'] );
+			
+			$pics = M ( 'attachment' )->where ( array (
+					'id' => array (
+							'in',
+							$img_ids 
+					) 
+			) )->select ();
+			$newpic = array ();
+			foreach ( $pics as $k => $v ) {
+				$newpic [$v ['id']] = $v;
+				$newpicids [] = $v ['id'];
+			}
+			
+			if (! empty ( $_POST ['feng'] ) && ! empty ( $newpic [$_POST ['feng']] )) {
+				$data ['pic'] = $newpic [$_POST ['feng']] ['hasthumb'] ? 'Upload/thumb_' . $newpic [$_POST ['feng']] ['filename'] : $newpic [$_POST ['feng']] ['filepath'];
+				
+				if (! empty ( $id )) {
+					M ( 'attachment' )->where ( array (
+							'app_id' => $id,
+							'type' => 'product',
+							'feng' => 1 
+					) )->save ( array (
+							'feng' => 0 
+					) );
+				}
+				
+				M ( 'attachment' )->where ( array (
+						'id' => $_POST ['feng'] 
+				) )->save ( array (
+						'feng' => 1 
+				) );
+			} else {
+				$data ['pic'] = $pics [0] ['hasthumb'] ? 'Upload/thumb_' . $pics [0] ['filename'] : $pics [0] ['filepath'];
+				M ( 'attachment' )->where ( array (
+						'id' => $pics [0] ['id'] 
+				) )->save ( array (
+						'feng' => 1 
+				) );
+			}
+		}
+		
+		
+		$post_title =$this->lang=='zh-cn'?preg_replace("/\s|　/","",$_POST ['title']):$_POST ['title'];
+		$data ['title'] = h ($post_title);
+		$data ['top'] = intval ( $_POST ['top'] );
+		$data ['home_show'] = intval ( $_POST ['home_show'] );
+		$data ['user'] = h ( $_POST ['user'] );
+		$data ['p_order'] = intval ( $_POST ['order'] );
+		$data ['dateline'] = intval ( strtotime ( $_POST ['dateline'] ) );
+		$data ['seotitle'] = h ( $_POST ['seotitle'] );
+		$data ['seokeyword'] = h ( $_POST ['seokeyword'] );
+		$data ['seodesc'] = h ( $_POST ['seodesc'] );
+		$data ['content'] = replacesrc(stripslashes($_POST ['content']));
+		$data ['content1'] = replacesrc(stripslashes($_POST ['content1']));
+		$data ['m_content'] = replacesrc(stripslashes($_POST ['m_content']));
+		$data ['lang'] = $this->lang;
+		$data ['sort'] = intval ( $_POST ['sort'] );
+		$data ['price'] = round( $_POST ['price'],2 );
+		$data ['model'] = h ( $_POST ['model'] );
+		$data ['purpose'] = h ( $_POST ['purpose'] );
+		$data ['field1'] = h ( $_POST ['field1'] )?h ( $_POST ['field1'] ):'';
+		$data ['field2'] = h ( $_POST ['field2'] )?h ( $_POST ['field2'] ):'';
+		$data ['field3'] = h ( $_POST ['field3'] )?h ( $_POST ['field3'] ):'';
+		$data ['field4'] = h ( $_POST ['field4'] )?h ( $_POST ['field4'] ):'';
+		$data ['field5'] = h ( $_POST ['field5'] )?h ( $_POST ['field5'] ):'';
+		$data ['field6'] = h ( $_POST ['field6'] )?h ( $_POST ['field6'] ):'';
+		// 自定义字段
+		if (! empty ( $_POST ['field'] )) {
+			$data ['extend'] = serialize ( $_POST ['field'] );
+		}
+		
+		
+		if (empty ( $id )) {
+			$id = M ( 'Product' )->add ( $data );
+			
+			// 生成二维码
+			$config_array = F ( 'qrcode' );
+			if ($config_array ['product']) {
+				$model = D ( 'Qrcode' );
+				$model->imgcode ( 'product', $id, intval ( $_POST ['sort'] ) );
+			}
+			
+			//同步微博等
+			if(!empty($_POST['weibo'])){
+				$config=A('Admin/Config');
+				$link=listurl('Home/Product/show',array('id'=>$id,'sid'=>$data ['sort']));
+				$config->weibo_update($_POST['syn_content'].$link);
+			}
+			//同步QQ空间
+			if(!empty($_POST['qqzone'])){
+				$config=A('Admin/Config');
+				$config->qq_update(array('title'=>$_POST['title'],'url'=>U('Home/Product/show',array('id'=>$id)),'content'=>$_POST['syn_content']));
+			}
+			
+		} else {
+			$isedit=1;
+			$one=M('product')->where(array('id'=>$id))->find();
+			
+			if(empty($one)){
+				$this->error('不存在');
+			}
+			
+			M ( 'Product' )->where ( array (
+					'id' => $id 
+			) )->save ( $data );
+			
+		}
+		if (! empty ( $newpicids )) {
+			foreach ( $newpic as $k => $v ) {
+				M ( 'attachment' )->where ( array (
+				'id' => $k
+				) )->save ( array (
+				'type' => 'product',
+				'app_id' => $id,
+				'desc' => $_POST ['imagedes'] [$k]
+				) );
+			}
+		}
+
+		if(!empty($_POST['show_pid'])){
+			M('sort')->where(array('id'=>$sort['id']))->save(array('show_pid'=>$id));
+		}
+		if($isedit){
+			if($one['sort']!=$sid||$_POST['show_pid']==0){
+				//如何更换分类或者手动设置为否那么还原设置的栏目菜单
+				M('sort')->where(array('show_pid'=>$one['id']))->save(array('show_pid'=>0));
+			}
+			
+		}
+		//更新下栏目缓存
+		$li = M ( 'sort' )->where ( array (
+				'lang' => $this->lang
+		) )->order ( 'sort_order ASC,id ASC' )->select ();
+		$tree = list_to_tree ( $li, 'id', 'parent_id' );
+		F ( $this->lang . 'sort', $tree );
+		
+		
+		if($isedit){
+			if (C ( 'HTML_ON' )&&$this->lang=='zh-cn') {
+				
+				// 更新所有文章类静态(因为文章详细页有相关产品)
+				$article_sort=M('sort')->where(array('lang'=>$this->lang,'module'=>'Article'))->select();
+				$a_sids=array();
+				foreach($article_sort as $v){
+					$a_sids[]=$v['id'];
+				}
+				$p_sids = explode ( '-', $sort ['idpath'] );
+				$sids=array_merge($p_sids,$a_sids);
+				$this->assign ( 'id', $id );
+				$this->assign ( 'sid', implode ( '-', $sids ) );
+				$this->assign ( 'type', 'index' );
+				$this->display ( './Public/Admin/Public/doHtml.html' );
+				return;
+			}else{
+				$this->success ( '编辑成功', session('jumpurl') );
+			}
+			
+		}else{
+			if (C ( 'HTML_ON' )&&$this->lang=='zh-cn') {
+				// 更新所有文章类静态
+				$sids = explode ( '-', $sort ['idpath'] );
+				$this->assign ( 'id', $id );
+				$this->assign ( 'sid', implode ( '-', $sids ) );
+				$this->assign ( 'type', 'index' );
+				$this->assign('jumpurl',U('Admin/Product/productList'));
+				$this->display ( './Public/Admin/Public/doHtml.html' );
+				return;
+			}else{
+				
+				$this->success ( '添加成功', U('Admin/Product/productList'));
+			}
+			
+			
+		}
+		
+		
+		
+	}
+	public function swfupload() {
+		$config_array = F ( $this->lang . 'config' );
+		if (! empty ( $_FILES )) {
+			
+			$rejson = array ();
+			import ( "ORG.Net.UploadFile" );
+			$upload_obj = new UploadFile ();
+			
+			$upload_obj->maxSize = 20145728; // 设置附件上传大小
+			$upload_obj->allowExts = array (
+					'jpg',
+					'gif',
+					'png',
+					'jpeg' 
+			); // 设置附件上传类型
+			$upload_obj->savePath = APP_PATH . 'Upload/'; // 设置附件上传目录
+			$upload_obj->thumb = true;
+			$upload_obj->thumbMaxWidth = $config_array['pro_list_w'];
+			$upload_obj->thumbMaxHeight = $config_array['pro_list_h'];
+			$upload_obj->thumbRemoveOrigin = false;
+			
+			if (empty ( $_FILES ) === false) {
+				$upload_obj->upload ();
+				
+				$file_info = $upload_obj->getUploadFileInfo ();
+				
+				if ($upload_obj->getErrorMsg () != '') {
+					$rejson = array (
+							'error' => 1,
+							'message' => $upload_obj->getErrorMsg () 
+					);
+				} else {
+					$swf_temp = __ROOT__. '/Upload/' . $file_info [0] ['savename'];
+					
+					if($_POST['bat']){
+						//复制通过falsh上传的图片然后进行缩略放到编辑器中
+						
+						$bateditorname=str_replace('.'.$file_info[0]['extension'],'_bateditor.'.$file_info[0]['extension'],$file_info[0]['savename']);
+						$copyname=$file_info[0]['savepath'].'/'.$bateditorname;
+						
+						@copy($file_info[0]['savepath'].'/'.$file_info[0]['savename'],$copyname);
+						Image::thumb($copyname,'./Upload/thumb_'.$bateditorname,'',$config_array['product_w'],$config_array['product_h'],true);
+					}
+					
+					
+					
+					
+					$rs = M ( "attachment" );
+					$data = array (
+							'filepath' => 'Upload/' . $file_info [0] ['savename'],
+							'type' => '',
+							'app_id' => '0',
+							'filename' => $file_info [0] ['savename'] 
+					);
+					
+					if (file_exists ( './Upload/thumb_' . $file_info [0] ['savename'] )) {
+						$data ['hasthumb'] = 1;
+					}
+					
+					if ($_POST ['bat']) {
+						$data ['temp_content'] = '<p><img  src="Upload/thumb_'. $bateditorname . '"/></p>';
+					}
+					
+					$imageid = $rs->add ( $data );
+					$rejson = array (
+							'error' => 0,
+							'message' => '上传成功',
+							'imageid' => $imageid,
+							'path' => $swf_temp,
+							'pname'=> str_replace('.'.$file_info[0]['extension'], '', $file_info[0]['name'])
+					);
+				}
+				$json = json_encode ( $rejson );
+				echo $json;
+				exit ();
+			} else {
+				
+				$rejson = array (
+						'error' => 1,
+						'message' => '上传异常' 
+				);
+				echo $json;
+				exit ();
+			}
+		}
+	}
+	public function deleteImage() {
+		$id = intval ( $_POST ['id'] );
+		$where ['id'] = array (
+				'eq',
+				$id 
+		);
+		$rs = M ( 'attachment' );
+		$one = $rs->where ( $where )->find ();
+		
+		if (empty ( $one )) {
+			$this->ajaxReturn ( '', '不存在该图片', 0 );
+		}
+		
+		$rs->Where ( $where )->delete ();
+		
+		if ($one ['hasthumb']) {
+			@unlink ( './Upload/thumb_' . $one ['filename'] );
+		}
+		@unlink ( './Upload/' . $one ['filename'] );
+		$this->ajaxReturn ( '', '删除成功', 1 );
+	}
+	public function uploadEditerImg() {
+		
+		$config_array = F ( $this->lang . 'config' );
+		import ( 'ORG.Net.UploadFile' );
+		$upload = new UploadFile (); // 实例化上传类
+		$upload->maxSize = 3145728; // 设置附件上传大小
+		$upload->allowExts = array (
+				'jpg',
+				'gif',
+				'png',
+				'jpeg' 
+		); // 设置附件上传类型
+		$upload->savePath = APP_PATH . 'Upload/'; // 设置附件上传目录
+		$upload->thumb = true;
+		$upload->thumbMaxWidth = $config_array['product_w'];
+		$upload->thumbMaxHeight = $config_array['product_h'];
+		$upload->thumbRemoveOrigin = false;
+		
+		if (! $upload->upload ()) { // 上传错误提示错误信息
+			$result ['error'] = 1;
+			$result ['message'] = $upload->getErrorMsg ();
+			echo json_encode ( $result );
+		} else { // 上传成功 获取上传文件信息
+			$info = $upload->getUploadFileInfo ();
+			$result ['error'] = 0;
+			if(!in_array($info[0]['extension'],array('jpg','gif','png','jpeg'))){
+				$result ['url'] = __ROOT__ . '/Upload/' . $info [0] ['savename'];
+			}else{
+				$result ['url'] = __ROOT__ . '/Upload/thumb_' . $info [0] ['savename'];
+			}
+			echo json_encode ( $result );
+		}
+	}
+	public function bat() {
+		$tree=$this->getTree('Product');
+		$html = $this->sorttree ( $tree,0,'Product');
+		$this->assign('html',$html);
+		$this->display ( './Public/Admin/Product/bat.html' );
+	}
+	public function batcontent() {
+		$imgid = intval ( $_POST ['imgid'] );
+		$img = M ( 'attachment' )->where ( array (
+				'id' => $imgid 
+		) )->find ();
+		if (empty ( $img )) {
+			exit ( '不存在图片' );
+		}
+		
+		if (empty ( $img ['temp_content'] )) {
+			
+			$html = dereplace('<p><img  src="'. $img ['filepath'] . '"/></p>');
+		} else {
+			
+			$html = dereplace($img ['temp_content']);
+		}
+		
+		$this->assign ( 'img', $html );
+		
+		$html = $this->fetch ( './Public/Admin/Product/batcontent.html' );
+		exit ( $html );
+	}
+	public function saveBatContent() {
+		
+		$imgid = intval ( $_POST ['imgid'] );
+		M ( 'attachment' )->where ( array (
+				'id' => $imgid 
+		) )->save ( array (
+				'temp_content' => replacesrc(stripslashes($_POST ['content'])) 
+		) );
+	}
+	public function saveBatProduct() {
+		
+		if(empty($_POST['title'])){
+			$this->error('请添加产品');
+		}
+		$time=time ();
+		$i=1;
+		
+		$fix=$_POST['title_fix'];
+		if($_POST['nametype']==2){
+			$sort_p=array();
+			
+			foreach($_POST ['sort'] as $k=>$v){
+				$sort_p[$_POST['sort'][$k]][]=$k;
+			}
+			
+			foreach($sort_p as $k=>$v){
+				$fix_i=0;
+				foreach($v as $sk=>$sv){
+			
+					if($sk==0){
+						continue;
+					}
+					$_POST ['title'][$sv]=!empty($fix[$sk-1])?$_POST ['title'][$sv].$fix[$sk-1]:$_POST ['title'][$sv].$fix_i;
+					$fix_i++;
+				}
+					
+			}
+			
+		}
+		
+		
+		foreach ( $_POST ['title'] as $imgid => $title ) {
+			
+			$img = M ( 'attachment' )->where ( array (
+					'id' => $imgid 
+			) )->find ();
+			
+			$pid=M ( 'product' )->add ( array (
+					'title' => $title,
+					'sort' => $_POST ['sort'] [$imgid],
+					'pic' => 'Upload/thumb_' . $img ['filename'],
+					'content' => replacesrc(stripslashes($img ['temp_content'])),
+					'dateline' =>$time+$i,
+					'lang' => $this->lang,
+					
+			) );
+			M('attachment')->where(array('id'=>$imgid))->save(array('app_id'=>$pid,'type'=>'product'));
+			$i++;
+		} 
+		
+		$this->success ( '添加成功' ,U('Admin/Product/productList'));
+	}
+	
+	public function improtProduct(){
+		$model=M('product');
+		$fieldm=M('field');
+		$picmodel=M('attachment');
+		$tempsort=$tempensort=array();
+	
+		$art=$model->where(array('lang'=>'zh-cn'))->select();
+		$sort=M('sort')->where(array('lang'=>'zh-cn'))->select();
+		$ensrot=M('sort')->where(array('lang'=>'en-us'))->select();
+		
+		$fields=$fieldm->where(array('lang'=>'zh-cn','type'=>'product'))->select();
+		
+		
+		
+		
+		foreach($sort as $k=>$v){
+			$tempsort[$v['id']]=$v;
+		}
+	
+		foreach($ensrot as $k=>$v){
+			$tempensort[$v['folder']]=$v;
+		}
+	
+		foreach($tempsort as $k=>$v){
+			$tempsort[$k]['idr']=!empty($tempensort[$v['folder']]['id'])?$tempensort[$v['folder']]['id']:0;
+		}
+	
+		
+		foreach($fields as $fv){
+			unset($fv['id']);
+			$fv['lang']=$this->lang;
+			$fieldm->add($fv);
+		}
+	
+		foreach($art as $k=>$v){
+			$pics=$picmodel->where(array('type'=>'product','app_id'=>$v['id']))->select();
+			unset($v['id']);
+			$v['lang']=$this->lang;
+			$v['sort']=$tempsort[$v['sort']]['idr'];
+			$n_pid=$model->add($v);
+			foreach($pics as $pv){
+				unset($pv['id']);
+				$pv['app_id']=$n_pid;
+				$picmodel->add($pv);
+			}
+		}
+	
+		$this->success('导入成功 ');
+	
+	
+	}
+
+	public function diaochalist(){
+		//$testlist=M('diaocha')->find(1);
+		$diaochalist=M('diaocha')->where(array('pid'=>$_GET['id']))->order('dateline desc')->select();
+		//var_dump(M('diaocha')->select());exit();
+		$this->assign('diaochalist',$diaochalist);
+
+		$this->display('./Public/Admin/Product/diaochalist.html');
+	}
+
+	public function messageDetail() {
+		$id = intval ( $_GET ['aid'] );
+		
+		$message = M ( 'diaocha' )->where ( array (
+				'id' => $id 
+		) )->find ();
+
+		if (empty ( $message )) {
+			$this->error ( '不存在留言' );
+		}
+
+		
+		$this->assign ( 'message',$message );
+		$this->display ( './Public/Admin/Product/messageDetail.html' );
+	}
+	
+	
+}

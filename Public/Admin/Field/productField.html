@@ -1,0 +1,54 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<div class="rightCon1 fl">
+     <div class="conTitle">字段管理</div>
+     <div class="conNav">
+         <ul>
+		<li <if condition="ACTION_NAME=='productfield'">class="active"</if>><a href="{:U('Admin/field/productField')}{$language}"><span>产品字段</span></a></li>
+        <li <if condition="ACTION_NAME=='picturefield'">class="active"</if> ><a href="{:U('Admin/field/picturefield')}{$language}"><span>图片字段</span></a></li>
+       </ul>
+     </div>
+	 
+	 
+	 <div>
+	 	<form id="form_id" action="" method="post">
+<table width="100%" border="0" cellpadding="0" cellspacing="1"  class="list_table">
+  <tr>
+    <th height="23" scope="col"></th>
+    <th scope="col">fid</th>
+    <th scope="col">{$Think.lang.atitle}</th>
+    <th scope="col">{$Think.lang.op}</th>
+  </tr>
+  
+  
+  <volist name="list" id="li">
+  <tr class="list_tr">
+
+    <td class="list_td"></td>
+    <td class="list_td">{$li.fid}</td>
+    <td class="list_td">{$li.name}</td>
+    <td class="list_td"><a href="javascript:void(0)" onclick="del_one(this,'{:U('Admin/field/doDelField',array('type'=>'product','id'=>$li['id']))}')">{$Think.lang.del}</a> <a href="{:U('Admin/field/editproductField',array('id'=>$li['id']))}')"  >修改</a></td>
+  </tr>
+  </volist>
+
+  <tr>
+    <td class="list_td">&nbsp;</td>
+    <td colspan="5" class="list_td">{$page}</td>
+    </tr>
+  <tr>
+    <td class="list_td"></td>
+    <td colspan="5">
+      
+	   <input type="button"  value="添加" class="form-text" onclick="window.location.href='{:U('Admin/field/addProductField')}'" />
+	  </td>
+    </tr>
+</table>
+
+
+</form>
+	 
+	 </div>
+	 
+   </div>
+<include file="./Public/Admin/Public/footer.html" />

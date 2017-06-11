@@ -1,0 +1,19 @@
+<include file="Public:header" />
+ 
+ <div>
+      <div class="news_list" id="news-list"> 
+     
+        <ul id="listtable" class="news-lists exhibit-lists">
+         
+		  <volist name="list" id="item">
+          <li class="ali"> <a class="ui-link" target="_blank" href="{:U('Wap/product/show',array('sid'=>$item['sort'],'id'=>$item['id']))}">
+            <h3> <cite></cite> <img src="{$site_url}/{$item.pic}"> <span style="color:">{$item.title}</span></h3>
+            </a> </li>
+           </volist>
+        </ul>
+       
+
+      
+      </div>
+    </div>
+<include file="Public:footer" />

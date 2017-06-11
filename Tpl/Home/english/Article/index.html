@@ -1,0 +1,20 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+ <div class="page-right">
+   <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+   <div class="page-news">
+    <ul class="newsList">
+     <volist name="list" id="li">
+      <li>
+       <span class="dateTitle fl"><a href="{$li.url}" title="{$li.title}">{$li.title}</a></span>
+       <span class="dateTime fr">[{$li['dateline']|date="y/m/d",###}]</span>
+       <span class="clear"></span>
+      </li>
+     </volist>
+    </ul>
+    <div class="page_list">{$page}</div>
+   </div>
+ </div>
+<include file="Public:left" />
+</div>
+<include file="Public:footer" />

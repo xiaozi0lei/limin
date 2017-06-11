@@ -1,0 +1,30 @@
+</div>
+  <div id="box_footer" data-role="footer" data-position="fixed" class="ui-footer ui-bar-a ui-footer-fixed fade ui-fixed-overlay" role="contentinfo">
+    <input id="shareval" type="hidden" value="">
+    <div id="elem-Toolbar_show01-001" name="下方工具条">
+      <div class="Toolbar_show">
+        <ul id="uldiv">
+          <li class="first tel col3"><a id="mobile" href="tel:1212121" class=""><em></em><span>电话</span></a></li>
+          <li class="share col3"><a id="share" href="{:U('Wap/Share/index')}"><span>分享</span></a></li>
+          <li class="map col3 "><a id="map" href="{:U('Wap/About/index',array('sid'=>445))}" ><span>地图</span><em></em></a></li>
+          <li class="map col3 last"><a id="map" href="{:U('Wap/Message/index')}" ><span>留言</span><em></em></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+       <script type="text/javascript">
+			function submitName1() {
+				var url = window.location.href;
+				if (url.indexOf("?") > 0) {
+					url = url + "&op=share";
+
+				} else {
+					url = url + "?op=share";
+				}
+				window.location.href = url;
+			}
+		</script>
+
+</div>
+</body>
+</html>

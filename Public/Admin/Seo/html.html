@@ -1,0 +1,150 @@
+<include file="./Public/Admin/Public/header.html" />
+<include file="./Public/Admin/Public/left.html" />
+
+
+
+
+<script>
+
+
+
+function submitall(type){
+	 
+	 var html={$html};
+	 if(html!=1){
+	 	art.dialog.alert('请选中"静态模式",然后点击“修改”按钮');
+	 	return false;
+	 }
+	 
+	 
+	 
+	if(type=='sort'){
+		var sid=$("#sele option:selected").val();
+		var data_str="op=sort&sid="+sid;
+	}else{
+		var data_str="op=all"
+	}
+
+
+	$.ajax({
+	   type: "GET",
+	   url: "{:U('Admin/Public/dohtml')}",
+	   dataType:'json',
+	   data: data_str,
+	   success: function(msg){
+		 
+		 	var count = msg.url.length;
+			var complate=0;
+				if(count>0){
+				
+					for(var i=0;i<count;i++){
+							
+							$.ajax({
+								   type: "GET",
+								   data:'code='+msg.code,
+								   url:msg.url[i],
+								   success: function(){
+											$('#pro_tips').attr('href',msg.url[i]);
+								   			complate=complate+1;
+											var per=parseInt((complate/count)*100);
+											$('#process').css('width',per+'%');
+											$('#pro_tips').text(per+'%');
+											if(per==100){
+												$.ajax({
+												   type: "GET",
+												   async:false,
+												   url: "{:U('Admin/Seo/destroy')}",
+												   success: function(){
+													   
+												   }
+												});
+												
+											}			
+								   }
+								});
+				
+					}
+					
+				}
+				
+		 	
+	   }
+	});
+	
+}
+
+function submitmode(){
+	$('#html_form').attr('action',"{:U('Admin/Seo/doMode')}")
+	$('#html_form').submit();
+}
+
+function check_mode(t){
+	var html={$html}
+	
+	if(html==1){
+		art.dialog.alert('<font style="font-size:14px;color:red;">当前网站为"静态模式"，如果网站已上线请不要切换,否则静态页面将删除影响优化效果。</font><br/><br/>线上修改网站在“栏目生成”选择相应栏目生成静态页查看修改效果');
+	}
+
+}
+
+</script>
+
+
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">静态管理</div>
+    <include file="./Public/Admin/Seo/nav.html" />
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Public/dohtml')}" method="post" id="html_form">
+<table width="100%" height="212" border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+
+
+	<tr>
+    <td width="20%" class="title_text"><span class="span_title">网站访问模式:</span></td>
+    <td width="80%" class="spacingtext3">
+	<select name="url_mode" onchange="check_mode(this)">
+	<option <eq name="sef" value="1">selected="selected"</eq> value="4">伪静态模式</option>
+	<option <if condition="empty($sef)&&empty($html)&&($mode==2||$mode==1)">selected="selected"</if> value="5">普通模式</option>
+	<option <eq name="html" value="1">selected="selected"</eq> value="3">静态模式</option>
+	
+	
+	</select> 
+	<span style="margin-left:10px;">去掉链接的index.php:</span>
+	<input type="radio" value="2" name="rewrite" <eq name="mode" value="2">checked="checked"</eq>/>开启 <input type="radio" value="1"  name="rewrite" <eq name="mode" value="1">checked="checked"</eq>/>关闭
+	<input class="form-text"  type="button" value="修改" onclick="submitmode()" /></td>
+   </tr>
+
+	<tr>
+    <td width="" class="title_text"><span class="span_title">一键生成:</span></td>
+    <td width="" class="spacingtext3"><input  class="form-text" type="button" value="生成全站" onclick="submitall()" style="float:left;" /> </td>
+   </tr>
+
+   <tr>
+    <td width="" class="title_text"><span class="span_title">栏目生成:</span></td>
+    <td width="" class="spacingtext3">
+	<select id="sele">
+	
+	<volist name="sort" id="s">
+	<option value="{$s.id}">{$s.name}</option>
+	</volist>
+	</select> <input class="form-text"  type="button" value="生成"  onclick="submitall('sort')" /></td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">进度:</span></td>
+    <td width="" class="spacingtext3"><div id="pro_waper" style="border:1px solid red; float:left; width:200px; height:17px; font-size:0px;"><div id="process" style="background-color:#FF0000; width:0%;  height:100%;"></div></div><div>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="" target="_blank" id="pro_tips"> </a></div></td>
+   </tr>
+   <input type="hidden" name="op" value="" id="op" />
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

@@ -1,0 +1,35 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+    <div class="page-right">
+      <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+      <div class="page-news">
+        <div id="shownews">
+            <h1 class="title">{$title}</h1>
+            <div class="text editor">
+			
+			<ul>
+				<li>时间： {$job['dateline']|date="y/m/d",###}</li>
+				<li>职位： {$job['title']}</li>
+				<li>人数： {$job['num']}</li>
+				<li>工资： {$job['deal']}</li>
+				
+			</ul>
+			
+			<h3 style="margin-top:20px; background-color:#CCCCCC; padding:5px;">工作描述</h3>
+			{$job['content']}
+			
+			</div>
+
+
+
+ 
+				<div class="clear"></div>
+
+        </div>
+      </div>
+    </div>
+    
+	<include file="Public:left" />
+	
+  </div>
+ <include file="Public:footer" />   

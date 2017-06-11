@@ -1,0 +1,227 @@
+<style>
+#btn_order{
+margin-top:50px;
+}
+#title_ul{
+height: 25px;
+margin: 15px 10px 25px;
+list-style:none;
+padding:0px;
+}
+#title_ul li{
+float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+}
+#title_ul span{
+    display: block;
+    height: 25px;
+}
+#title_ul .one{
+background: url(../Public/images/tab.gif) repeat scroll 0 0 transparent;
+}
+#title_ul .one span{
+ background: url(../Public/images/tab.gif) repeat scroll right -25px transparent;
+    margin-left: 12px;
+
+}
+#title_ul .two{
+ background: url(../Public/images/tab.gif) repeat scroll 0 -150px transparent;
+    margin-left: -8px;
+}
+#title_ul .two span{
+   background: url(../Public/images/tab.gif) repeat scroll right -175px transparent;
+    margin-left: 12px;
+    padding-left: 10px;
+		color:#FFFFFF;
+}
+#title_ul .three{
+  background: url(../Public/images/tab.gif) repeat scroll 0 -100px transparent;
+    margin-left: -8px;
+}
+#title_ul .three span{
+      background: url(../Public/images/tab.gif) repeat scroll right -125px transparent;
+    margin-left: 12px;
+    padding-left: 10px;
+}
+.qing_title{
+border-bottom: 2px solid #D9D9D9;
+    height: 22px;
+    margin: 0 10px 10px;
+}
+.qing_title span{
+    background: url(../Public/images/ico.gif) no-repeat scroll 0 1px transparent;
+    color: #E95925;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 8px;
+    vertical-align: middle;
+}
+.list td{
+border: 1px solid #D9D9D9;
+    height: 30px;
+}
+
+.ttable{
+border-collapse: collapse;
+    border-spacing: 0;
+	font-size: 12px;
+}
+#total_order{
+text-align:right;
+}
+#total_order span{
+font-size:12px;
+}
+#total_order b{
+
+    color: #E02C2C;
+    font-size: 24px;
+    margin: 0 5px;
+	}
+.pay_bottom{
+
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #F9F9F9;
+    border-color: #E95F2D #EAEAEA #EAEAEA;
+    border-image: none;
+    border-style: solid;
+    border-width: 3px 1px 1px;
+    margin-top: 10px;
+    padding: 9px 0 10px 10px;
+	}	
+.go{
+display:block;
+border:1px solid #CCCCCC;
+color:#999999;
+padding:3px;
+font-size:13px;
+text-decoration:none;
+font-weight:bold;
+margin-bottom:5px;
+height:19px;
+line-height:19px;
+}
+
+.orderbuy{
+display:block;
+border:1px solid #6ABC14;
+color:#6ABC14;
+padding:3px;
+font-size:13px;
+text-decoration:none;
+font-weight:bold;
+float:right;
+}	
+</style>
+<script src="__PUBLIC__/js/jsAddress.js"></script>
+<script src="__PUBLIC__/js/jquery-1.4.4.min.js"></script>
+<script src="__PUBLIC__/js/artDialog/jquery.artDialog.js"></script>
+<script src="__PUBLIC__/js/artDialog/iframeTools.js"></script>
+<script>
+function checkform(){
+
+	if($("#Select1 option:selected").val()=='请选择'){
+		alert('请选择省份');
+		return false;
+	}
+	if($("#Select2 option:selected").val()=='请选择'){
+		alert('请选择市');
+		return false;
+	}
+	if($("#Select3 option:selected").val()=='请选择'){
+		alert('请选择区');
+		return false;
+	}
+	
+	if($('#addr').val()==''){
+		alert('请填写地址');
+		return false;
+	}
+	if($('#rname').val()==''){
+		alert('请填写收件人姓名');
+		return false;
+	}
+	
+	if($('#rname').val()==''){
+		alert('请填写收件人姓名');
+		return false;
+	}
+	
+	if($('#mobile').val()==''){
+		alert('请填写手机号');
+		return false;
+	}
+	
+	
+	
+	return true;
+}
+
+
+
+
+
+
+</script>
+<div id="shopwapper" style="width:680px;">
+<form action="{:U('Public/saveOrder')}" method="post" onsubmit="return checkform();">
+
+  <ul id="title_ul">
+    <li style="width:215px; " class="one"><span>1.填写收货地址</span></li>
+    <li style="width:215px; " class="two"><span>2.付款给商家</span></li>
+    <li style="width:215px; " class="three"><span>3.下单成功</span></li>
+  </ul>
+  <h2 class="qing_title"><span>商品清单</span></h2>
+  <table width="626" height="180"  style="font-weight:normal;" >
+  <tr>
+    <th width="179" scope="row"><div align="right">省：</div></th>
+    <td width="430"><select id="Select1" name="sheng"></select> 市:<select id="Select2" name="shi"></select> 区<select id="Select3" name="qu"></select></td>
+  </tr>
+  <tr>
+    <th scope="row"><div align="right">地址：</div></th>
+    <td><input type="text" style="width:400px;" id="addr" name="addr" /> <span style="color:red;">*</span></td>
+  </tr>
+  <tr>
+    <th scope="row"><div align="right">收货人姓名：</div></th>
+    <td><input type="text" style="width:100px;" id="rname" name="rname" /> <span style="color:red;">*</span></td>
+  </tr>
+  <tr>
+    <th scope="row"><div align="right">手机：</div></th>
+    <td><input type="text" style="width:100px;" id="mobile" name="mobile" /> <span style="color:red;">*</span></td>
+  </tr>
+  <tr>
+    <th scope="row"><div align="right">邮箱：</div></th>
+    <td><input type="text" style="width:200px;" name="email" /></td>
+  </tr>
+</table>
+
+  <script type="text/javascript">
+	addressInit('Select1', 'Select2', 'Select3');
+</script>
+
+<div id="total_order">
+<span>商品总价(不含运费)：</span>
+<b>{$total}</b>
+<span>元</span>
+</div>
+
+
+<div class="pay_bottom">
+  <strong>支付方式：</strong>
+<input type="radio" value="cod" name="PAY_TYPE" checked="checked">货到付款
+</div>
+
+<Div style="margin-top:60px;">
+<a href="javascript:void(0)" class="go" style="float:left;" onclick="art.dialog.close();">继续购物</a>
+<input type="submit" value="下一步" class="orderbuy" />
+</Div>
+
+</form>
+</div>

@@ -1,0 +1,36 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+    <div class="page-right">
+      <div class="site-nav"><span>当前位置 : </span>
+	  
+		{$location}
+	  
+	  </div>
+      <div class="page-news">
+      <table border="0" align="center">
+      <tr>
+	  <th width="201" class="news-title">标题</th>
+	  <th width="64" class="news-title">下载</th>
+	  <th width="24" class="news-time">日期</th>
+	  
+	  </tr>
+
+<volist name="list" id="li">
+<tr>
+
+<td><a href="{:listurl('wap/Download/show',array('id'=>$li['id'],'sid'=>$li['sort']))}" title="{$li.title}">{$li.title}</a></td>
+<td><a href="{:listurl('wap/Download/doDownload',array('id'=>$li['id']))}" title="{$li.title}">下载</a></td>
+<td class="time-list"><span>{$li['dateline']|date="y/m/d",###}</span></td>
+
+</tr>
+</volist>
+
+      </table>
+<div class="page_list">{$page}</div>
+      </div>
+    </div>
+    
+	<include file="Public:left" />
+	
+  </div>
+<include file="Public:footer" />

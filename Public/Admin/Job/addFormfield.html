@@ -1,0 +1,99 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+<style>
+#addopt_ul{
+
+list-style: none;
+padding:0px;
+margin:0px;
+}
+</style>
+<script>
+
+function changeoptions(){
+	var opt=$("select option:selected").val();
+	if(opt=='select'||opt=='radio'||opt=='checkbox'){
+		$('#opt_tr').css('display','');
+	}else{
+		$('#opt_tr').css('display','none');
+	}
+}
+
+function addoptions(){
+	
+	$('#addopt_ul').append('<li><input name="opt[]"  type="text"/> <a href="javascript:void(0)" onclick="del_opt(this)">{$Think.lang.del}</a></li>' )
+
+}
+
+function del_opt(t){
+	$(t).parent().remove();
+}
+
+</script>
+
+<div class="rightCon1 fl">
+     <div class="conTitle">招聘管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 <div id="menu_tab">
+	 
+	 <ul>
+		<li>
+		<span <if condition="ACTION_NAME=='joblist'">class="active"</if>><a href="{:U('Admin/Job/jobList')}" >{$Think.lang.jobs}</a></span></li>
+		<li><span <if condition="ACTION_NAME=='prolist'">class="active"</if>><a href="{:U('Admin/Job/proList')}" >{$Think.lang.resume}</a></span> </li> 
+		<li><span <if condition="ACTION_NAME=='jobform'">class="active"</if>><a href="{:U('Admin/Job/jobForm')}" >{$Think.lang.resumef}</a></span></li>
+		<li><span <if condition="ACTION_NAME=='jobsetting'">class="active"</if>><a href="{:U('Admin/Job/jobSetting')}" >{$Think.lang.jobsetting}</a></span></li>
+		</ul>
+	 
+	</div>
+	 
+	 <div>
+	 	<form action="{:U('Admin/Job/doAddFormfield')}" method="post">
+<table width="100%" height="140" border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table" style="margin-left:0;">
+
+   <tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.fieldname}:</span></td>
+    <td width="80%" class="spacing3"><input class="input_middle" name="title" value="{$title|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.order}:</span></td>
+    <td width="80%" class="spacing3"><input class="input_short" name="order" value="{$f_order|default=0}" /></td>
+   </tr>
+   <tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.jsort}:</span></td>
+    <td width="80%" class="spacing3">
+		<select name="type" onchange="changeoptions()">
+			<option value="text" selected="selected">{$Think.lang.in}</option>
+			<option value="textare">{$Think.lang.textare}</option>
+			<option value="radio">{$Think.lang.radio}</option>
+			<option value="checkbox">{$Think.lang.checkbox}</option>
+			<option value="file">{$Think.lang.attachment}</option>
+			<option value="select">{$Think.lang.select}</option>
+		</select>	</td>
+   </tr>
+   <tr id="opt_tr" style="display:none;">
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.oppsetting}:</span></td>
+    <td width="80%" class="spacing3">
+	<ul id="addopt_ul">
+		<li><input type="text" name="opt[]" /> <a href="javascript:void(0)" onclick="addoptions()">{$Think.lang.addopp}</a></li>
+	</ul>
+	</td>
+   </tr>
+   <tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.requiredon}:</span></td>
+    <td width="80%"><input type="checkbox" value="1" name="required" /></td>
+   </tr>
+   <tr>
+    <td width="20%" class="title_text"><span class="span_title"></span></td>
+    <td width="80%" class="spacing3"><input type="submit" value="{$Think.lang.save}" /></td>
+   </tr>
+ 	<input type="hidden" value="{$id|default=0}"  name="id"/>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+<include file="./Public/Admin/Public/footer.html" />

@@ -1,0 +1,22 @@
+<div class="left-contact">
+        <h2><span>会员</span></h2>
+		
+		<if condition="!empty($islogin)">
+		
+		<div style="padding-top:20px;">
+		用户名 : <a href="{:U('User/Index')}" style="color: red;">{$space['username']}</a> &nbsp;&nbsp;&nbsp;<input type="button" value="退出" onclick="window.location.href='{:U('Public/logout')}'" />
+		</div>	
+		
+		<else/>
+			
+		<form action="{:U('Public/loginsubmit')}" method="post" style="padding-left:20px;">
+		 用户名 <input type="text" name="username" style="margin-bottom:10px; margin-top:10px;" /><br />
+		 密&nbsp;&nbsp;&nbsp;码 <input type="password" name="password" /><br />
+		 <input type="button" onclick="window.location.href='{:U('Public/reg')}'"  value="注册" style=" margin-top:10px;" />
+		 <input type="submit"  value="登录" style=" margin-left:100px; margin-top:10px;" />
+		</form>
+		
+		</if>
+		
+        
+</div>

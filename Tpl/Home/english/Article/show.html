@@ -1,0 +1,52 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+ <div class="page-right">
+  <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+    <div class="page-news">
+      <div id="shownews">
+       <h1 class="title">{$title}</h1>
+       <div class="hits">
+	    <if condition="$click_num">点击次数：<span>{$hit}</span>&nbsp;&nbsp;</if>
+	    <if condition="$add_time">更新时间：{$dateline|date="y/m/d H:i:m",###}&nbsp;&nbsp;</if>
+	    <if condition="$print_page">【<a href="javascript:window.print()">打印此页</a>】&nbsp;&nbsp;</if>
+	    <if condition="$page_close">【<a href="javascript:self.close()">关闭</a>】</if>
+	    <if condition="$share_button">
+		<!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+		 <a class="jiathis_button_qzone"></a>
+		 <a class="jiathis_button_tsina"></a>
+		 <a class="jiathis_button_tqq"></a>
+		 <a class="jiathis_button_weixin"></a>
+		 <a class="jiathis_button_renren"></a>
+		 <a class="jiathis_button_xiaoyou"></a>
+		 <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+		 <a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1374589125649456" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+	    </if>
+       </div>
+	   {$qrcode}
+	   <ul style=" margin:10px 0px;">
+		<volist name="field" id="f">
+		 <li>{$f.title}: {$f.value}</li>
+		</volist>	
+	   </ul>
+       <div class="text editor">{$content}</div>
+      <div class="page" style="clear:both;">
+		上一条：<if condition="!empty($pre)"><a href="{$pre['url']}">{$pre['title']}</a><else/>没有了</if><br>
+		下一条：<if condition="!empty($next)"><a href="{$next['url']}">{$next['title']}</a><else/>没有了</if></a>
+	  </div>
+      <h4 class="related">相关文章</h4>
+		<ul class="related-list">
+		 <volist name="relate" id="relate">
+           <li><a target="_blank" title="{$relate.title}" href="{$relate['url']}">{$relate['title']}</a></li>
+		 </volist>
+        </ul>
+        <div class="clear"></div>
+    </div>
+  </div>
+ </div>
+<include file="Public:left" />
+</div>
+<include file="Public:footer" />   

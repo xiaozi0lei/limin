@@ -1,0 +1,1 @@
+<?php	return array ( 'indexlang' => 'zh-cn', 'adminlang' => 'zh-cn', );?>

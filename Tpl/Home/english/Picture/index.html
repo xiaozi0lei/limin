@@ -1,0 +1,21 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+ <div class="page-right">
+   <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+   <div class="page-products">
+     <ul class="clearfix" id="ShowImages">
+	   <volist name="list" id="item">
+		<li>
+         <div class="images_img">
+          <a href="{$item.url}" title="{$item.title}"><img  src="{$site_url}/{$item.pic}" alt="{$item.title}" /></a>
+         </div>
+         <div class="images_title"><a href="{$item.url}" title="{$item.title}">{$item.title}</a></div>
+        </li>
+	   </volist>
+	 </ul>
+     <div class="page_list">{$page}</div>
+   </div>
+ </div>
+<include file="Public:left" />
+</div>
+<include file="Public:footer" />

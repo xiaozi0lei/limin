@@ -1,0 +1,94 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+<script>
+function change_icon(type_str){
+
+	art.dialog({
+		title:'更改图标',
+		content: document.getElementById(type_str+'_list'),
+		id: 'EF893L'
+	});
+
+}
+
+function select_icon(type_str,val_str){
+	
+	$('#image_'+type_str).attr('src',root_path+'/Public/images/'+type_str+'/'+type_str+'_'+val_str+'.jpg');
+	$('#customer_'+type_str).val(val_str);
+	art.dialog({id: 'EF893L'}).close();
+}
+</script>
+
+<div class="rightCon1 fl">
+     <div class="conTitle">客服管理</div>
+      <div class="conNav">
+       <ul>
+
+		  <eq name="style_lists" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="lists">class="active"</eq>><a href="{:U('Admin/Style/lists')}{$language}"><span>列表页</span></a></li>
+		 </eq>
+		  <eq name="style_details" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="detail">class="active"</eq>><a href="{:U('Admin/Style/detail')}{$language}"><span>内容页</span></a></li>
+		 </eq>
+		  <eq name="style_customer" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="customer">class="active"</eq>><a href="{:U('Admin/Style/customer')}{$language}"><span>客服管理</span></a></li>
+		 </eq>
+        <li <eq name="Think.const.ACTION_NAME" value="tmpl">class="active"</eq>><a href="{:U('Admin/Style/tmpl')}{$language}"><span>模板设置</span></a></li>
+       </ul>
+     </div>
+	 
+	<div id="menu_tab">
+		<ul>
+		<li>
+		<span><a href="{:U('Admin/Style/customerList')}" >{$Think.lang.customer}</a></span></li>
+		</ul>
+		
+	</div>
+	
+	 <div>
+	 	<form id="form_id" action="{:U('Admin/Style/doSaveStyleCustomer')}" method="post">
+			<table width="100%"  border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+			  <tr>
+				<th scope="col">{$Think.lang.select}</th>
+				<th scope="col">{$Think.lang.order}</th>
+				<th scope="col">{$Think.lang.name}</th>
+				<th scope="col">{$Think.lang.qq}</th>
+				<th scope="col">{$Think.lang.msn}</th>
+				<th scope="col">{$Think.lang.wangwang}</th>
+				<th scope="col">{$Think.lang.alibaba}</th>
+				<th scope="col">{$Think.lang.op}</th>
+			  </tr>
+			  
+			  
+			  <volist name="customer" id="cu">
+			  <tr class="list_tr">
+				<td class="list_td"><input class="check_all" type="checkbox" value="{$cu.id}" name="check[{$cu.id}]"  /></td>
+				<td class="list_td"><input type="text" name="order[{$cu.id}]" value="{$cu.c_order}" style="width:50px;" class="bind_change" /></td>
+				<td class="list_td"><input type="text" name="name[{$cu.id}]" value="{$cu.name}" style="width:100px;" class="bind_change" /></td>
+				<td class="list_td"><input type="text" name="qq[{$cu.id}]" value="{$cu.qq}" style="width:100px;" class="bind_change"/></td>
+				<td class="list_td"><input type="text" name="msn[{$cu.id}]" value="{$cu.msn}" style="width:100px;" class="bind_change"/></td>
+				<td class="list_td"><input type="text" name="taobao[{$cu.id}]" value="{$cu.taobao}" style="width:100px;" class="bind_change"/></td>
+				<td class="list_td"><input type="text" name="alibaba[{$cu.id}]" value="{$cu.alibaba}" style="width:100px;" class="bind_change"/></td>
+				<td class="list_td"><a href="javascript:void(0)" onclick="del_one(this,'{:U('Admin/Style/delCustomer')}')">{$Think.lang.del}</a></td>
+			  </tr>
+			  </volist>
+			  <tr>
+				<td class="list_td">&nbsp;</td>
+				<td colspan="7" class="list_td" style="text-align:left;"></td>
+				</tr>
+			  <tr>
+				<td height="40" class="list_td"><input type="checkbox" onclick="select_all()" id="checkbox_all"/></td>
+				<td colspan="7"><input class="form-text" type="button" value="{$Think.lang.save}" onclick="submit_form('{:U('Admin/Style/doEditStyleCustomer')}')"/>      <input class="form-text" type="button" value="{$Think.lang.del}" onclick="submit_form('{:U('Admin/Style/delCustomer')}')" /> <input class="form-text" type="button" value="添加客服" onclick="window.location.href='{:U('Admin/Style/addCustomer')}'" /></td>
+				</tr>
+			</table>
+
+
+			</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

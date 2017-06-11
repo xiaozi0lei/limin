@@ -1,0 +1,104 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<style>
+.bind_change{
+text-align: center;
+}
+</style>
+<script>
+function check(t){
+	var input=$(t).parent().parent().find('input:[name="new_index[0][]"]');
+	if($(t).val()=='Link'){
+		input.css('color','#999999');
+		input.val('http://');
+	}else{
+		if(input.val()=='http://'){
+			input.val('');
+		}
+		input.css('color','#000000');
+	}
+	
+}
+
+function add_sub(p_id,level){
+	var l_str='';
+	for(var i=1;i<=level;i++){
+		l_str +='|-';
+	}
+	var html_str='<tr><td class="list_td"><input class="check_all" type="checkbox" value="'+p_id+'" name="check['+p_id+']"  /></td><td class="list_td">&nbsp;</td><td class="list_td"><input type="text" class="bind_change" style="width:50px;" value="" name="new_order['+p_id+'][]"></td><td>'+l_str+'<input type="text"  style="width:100px;" value="" name="new_name['+p_id+'][]"></td><td class="list_td"><select onchange="check(this)" name="new_module['+p_id+'][]"><option value="Index">主页</option><option value="Article">{$Think.lang.articlem}</option><option value="Product">{$Think.lang.productm}</option><option value="Download">{$Think.lang.downloadm}</option><option value="Picture">{$Think.lang.pic}</option><option value="Job">{$Think.lang.j}</option><option value="Message">{$Think.lang.m}</option><option value="About">{$Think.lang.about}</option><option value="Link">链接</option></select></td><td class="list_td"><input type="text"  style="width:100px;" value="" name="new_index['+p_id+'][]"></td><td class="list_td"></td></tr>';
+	$('#p_'+p_id).after(html_str);
+
+}
+
+function add_sort(){
+
+	var html_str='<tr><td class="list_td"><input class="check_all" type="checkbox" value="" name="check[]"  /></td><td class="list_td">&nbsp;</td><td class="list_td"><input type="text" class="bind_change" style="width:50px;" value="" name="new_order[0][]"></td><td><input type="text"  style="width:100px;" value="" name="new_name[0][]"></td><td class="list_td"><select onchange="check(this)" name="new_module[0][]"><option value="Index">主页</option><option value="Article">{$Think.lang.articlem}</option><option value="Product">{$Think.lang.productm}</option><option value="Download">{$Think.lang.downloadm}</option><option value="Picture">{$Think.lang.pic}</option><option value="Job">{$Think.lang.j}</option><option value="Message">{$Think.lang.m}</option><option value="About">{$Think.lang.about}</option><option value="Link">链接</option></select></td><td class="list_td"><input type="text"  style="width:100px;" value="" name="new_index[0][]"></td><td class="list_td"></td></tr>';
+	
+	$('#sort_table').append(html_str);
+
+}
+
+function importdata(form_url){
+
+art.dialog({
+    title: '分类导入',
+    content: '正在导入，请稍后...！',
+    lock: true
+});
+	
+	$('#form_id').attr('action',form_url);
+	$('#form_id').submit(); 
+
+
+}
+
+</script>
+
+<div class="rightCon1 fl">
+     <div class="conTitle">栏目管理</div>
+     <div class="conNav">
+       <ul>
+        <li <if condition="ACTION_NAME=='sortlist'">class="active"</if> ><a href="{:U('Admin/Sort/sortList')}{$language}"><span>栏目管理</span></a></li>
+        <li <if condition="ACTION_NAME=='config'">class="active"</if>><a href="{:U('Admin/Sort/config')}{$language}"><span>栏目设置</span></a></li>
+       
+       </ul>
+     </div>
+	 
+	 
+	 <div>
+	 	<form id="form_id" action="{:U('Admin/Sort/doAddSort')}" method="post">
+		
+		<table width="100%" height="97" border="0" cellpadding="0" cellspacing="1" class="list_table" >
+		 <tbody id="sort_table">
+		  <tr>
+			<th scope="col" style="width:65px;">{$Think.lang.select}</th>
+			<th scope="col" style="width:60px;">SortID</th>
+			<th scope="col" style="width:100px;">{$Think.lang.order}</th>
+			<th scope="col">{$Think.lang.name}</th>
+			<th scope="col" >{$Think.lang.cmodule}</th>
+			<th scope="col" >{$Think.lang.index}</th>
+			<th scope="col" style="width:120px;">{$Think.lang.op}</th>
+		  </tr>
+		
+		  
+		 {$html}
+		 
+		
+		  </tbody>
+		</table>
+		<div style=" text-align:left; padding-bottom:10px; padding-left:340px;"><input type="submit" class="form-text"  style="margin-top:10px;" value="{$Think.lang.save}" /> <input type="button" onclick="add_sort()" class="form-text" value="添加分类"> 
+		
+		<if condition="$_COOKIE['think_language']=='en-us'">
+		<input type="button" onclick="importdata('{:U('Admin/Sort/improtSort')}')"  value="导入中文站分类">
+		</if>
+		</div>
+		
+		</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

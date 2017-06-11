@@ -1,0 +1,57 @@
+<include file="Public:header" />
+<script type="text/javascript">
+function lastPostFunc(){
+    
+	var count=$('.ali').length;
+	$.ajax({
+	   type: "GET",
+	   url: "{:U('Wap/article/more')}",
+	   data: "count="+count+'&sid={$current_sort['id']}',
+	   dataType:'json',
+	   success: function(msg){
+		 
+		 if(msg.status==1){
+		 		var html='';
+				
+				for(var i=0;i<msg.data.length;i++){
+				
+					html +='<li class="ali"> <a class="ui-link" target="_blank" href="'+msg.data[i].url+'"><h3> <cite></cite><span style="color:">'+msg.data[i].title+'</span></h3><p>'+msg.data[i].time+'</p></a></li>';
+
+		 }
+		 		$('#listtable').append(html);
+		 
+	   }else{
+		 	$('#more').text('没有数据了');
+		 }
+	}
+	
+	
+	});
+
+}
+
+</script>
+
+<div>
+      <div class="news_list" id="news-list"> 
+
+        <ul id="listtable" class="news-lists">
+
+		 <volist name="list" id="l">
+          <li class="ali"> <a class="ui-link" target="_blank" href="{:U('/Wap/article/show/id/'.$l['id'].'/sid/'.$l['sort'])}">
+            <h3> <cite></cite><span style="color:">{$l.title}</span></h3>
+            <p>{$l['dateline']|date="y/m/d",###}</p>
+			</a></li>
+			
+		 </volist>
+        </ul>
+
+         <div id="more" class="more" onclick="lastPostFunc()"> 显示更多 </div>
+         
+        <div style="display:none;" id="loading" class="more loading"> <img src="../images/more.gif" class="img" alt="更多">正在加载... </div>
+
+      </div>
+ </div>
+
+
+<include file="Public:footer" />

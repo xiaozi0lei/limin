@@ -1,0 +1,141 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+   
+   
+   <!--右边开始-->
+   <div class="rightCon1 fl">
+   <div style="margin: 20px 50px;">
+     <div class="fuwurexian">
+      
+       <div  style="background-color:#FCF7E3; border:1px solid #CAB276; padding:10px 20px; color:#CAB276;">
+         <strong>&nbsp;&nbsp;服务热线：</strong>商务部：0535-6232222 打尽部：0535-6687233   客服部：0535-6687200 运营部：0535-6687333
+       </div>
+     
+       <div class="clear"></div>
+     </div>
+	 	 <div class="liuliang" style="clear:both;padding-top:50px">
+<img src='http://www.sjhl.cn/Tpl/Home/default/Public/images/sjhl-logo.png'/>
+	 </div>
+     <div class="message">
+       <ul>
+         <li>
+		 	<a href="{:U('Admin/Message/messageList',array('xunpan'=>0))}" style="display:block;  height:86px;">
+           <div class="messageIcon fl"><img src="__PUBLIC__/images/main11.jpg" /></div>
+           <div class="messageText fl">
+             <div class="messTitle">留言</div>
+             <div class="messView">{$pmcount}</div>
+           </div>
+		   </a>
+         </li>
+         <li>
+		   <a href="{:U('Admin/shop/orderAll')}" style="display:block; height:86px;">
+           <div class="messageIcon fl"><img src="__PUBLIC__/images/main12.jpg" /></div>
+           <div class="messageText fl">
+             <div class="messTitle">订单</div>
+             <div class="messView">{$ordercount}</div>
+           </div>
+		    </a>
+         </li>
+         <li>
+		   <a href="{:U('Admin/Message/messageList',array('xunpan'=>1))}" style="display:block;  height:86px;">
+           <div class="messageIcon fl"><img src="__PUBLIC__/images/main13.jpg" /></div>
+           <div class="messageText fl">
+             <div class="messTitle">网站询盘</div>
+             <div class="messView">{$xuncount}</div>
+           </div>
+		   </a>
+         </li>
+         <li>
+		   <a href="{:U('Admin/member/listMember')}" style="display:block;  height:86px;">
+           <div class="messageIcon fl"><img src="__PUBLIC__/images/main14.jpg" /></div>
+           <div class="messageText fl">
+             <div class="messTitle">会员</div>
+             <div class="messView">{$membercount}</div>
+           </div>
+		   </a>
+         </li>
+         <div class="clear"></div>
+       </ul>
+     </div>
+	 	 	 <div class="liuliang" style="clear:both;padding-top:150px">
+
+	 </div>
+
+    <!-- <div class="liuliang">
+       <div class="liuliangTitle" style="clear:both;">新闻列表</div>
+	   
+	  <div>
+		  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table">
+		  <tr>
+			
+			<th  scope="col">id</th>
+			<th scope="col">{$Think.lang.order}</th>
+			<th  scope="col">分类</th>
+			<th  scope="col">推荐</th>
+			<th  scope="col">{$Think.lang.date}</th>
+	
+		  </tr>
+		  
+		  
+		  <volist name="list" id="li">
+		  <tr class="list_tr">
+			
+			<td class="list_td">{$li.id}</td>
+			<td class="list_td"><input type="text"  name="order[{$li.id}]" value="{$li.a_order}"  class="bind_change" /></td>
+			<td class="list_td" style="text-align:center; "><a href="{:U('Admin/Article/articleList',array('sortid'=>$li['sort']))}">{$li.sortname}</a></td>
+			<td class="list_td" style="text-align:center;"><a href="{:U('Home/Article/show',array('id'=>$li['id']))}" target="_blank">{$li.title}</a></td>
+			
+			<td class="list_td"><eq name="li.top" value="1"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Article/doTop')}')" class="access_allow"></a></eq><eq name="li.top" value="0"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Article/doTop')}')" class="access_disallow"></a></eq></td>
+			<td class="list_td"><php>echo date('Y-m-d H:i',$li['dateline']);</php></td>
+			
+		  </tr>
+		  </volist>  
+		</table>
+		</div>
+	  
+	   
+	  <div style="clear:both;"></div>
+     </div>-->
+   <!--  <div class="liuliang" style="clear:both;">
+       <div class="liuliangTitle">产品列表</div>
+
+	   <div>
+	   <table width="100%"  border="0" cellpadding="0" cellspacing="0" class="list_table">
+		  <tr>
+			<th scope="col">ID</th>
+			<th scope="col">{$Think.lang.order}</th>
+			<th scope="col">分类</th>
+			<th scope="col">{$Think.lang.atitle}</th>
+			<th scope="col">缩略图</th>
+			<th scope="col">推荐</th>
+			<th scope="col">{$Think.lang.date}</th>
+			
+		  </tr>
+		  
+		  
+		  <volist name="plist" id="li">
+		  <tr class="list_tr">
+			<td class="list_td">{$li.id}</td>
+			<td class="list_td"><input type="text" name="order[{$li.id}]" value="{$li.p_order}"  class="bind_change" /></td>
+			<td class="list_td"><a href="{:U('Admin/Product/productList',array('sortid'=>$li['sort']))}">{$li.sortname}</a></td>
+			<td class="list_td"><a href="{:U('Home/Product/show',array('id'=>$li['id']))}" target="_blank">{$li.title}</a></td>
+			<td class="list_td"><img src="{$li['img']}" width="38" height="23" /></td>
+			<td class="list_td"><eq name="li.top" value="1"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Product/doTop')}')" class="access_allow"></a></eq><eq name="li.top" value="0"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Product/doTop')}')" class="access_disallow"></a></eq></td>
+			<td class="list_td"><php>echo date('Y-m-d H:i',$li['dateline']);</php></td>
+			
+		  </tr>
+		  </volist>
+	
+		
+		
+		</table>
+	   
+	   
+	   </div>
+	  <div style="clear:both;"></div>
+     </div>-->
+	 <div style="clear:both;"></div>
+	 </div>
+   </div>
+   <!--右边结束-->
+   <include file="./Public/Admin/Public/footer.html" />

@@ -1,0 +1,60 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+<script>
+function change_icon(type_str){
+
+	art.dialog({
+		title:'更改图标',
+		content: document.getElementById(type_str+'_list'),
+		id: 'EF893L'
+	});
+
+}
+
+function select_icon(type_str,val_str){
+	
+	$('#image_'+type_str).attr('src',root_path+'/Public/images/'+type_str+'/'+type_str+'_'+val_str+'.jpg');
+	$('#customer_'+type_str).val(val_str);
+	art.dialog({id: 'EF893L'}).close();
+}
+</script>
+
+<div class="rightCon1 fl">
+     <div class="conTitle">上传文件备份</div>
+     <div class="conNav">
+       <ul>
+        <li <if condition="ACTION_NAME=='db'">class="active"</if> ><a href="{:U('Admin/Backup/db')}{$language}"><span>数据库备份</span></a></li>
+        <li <if condition="ACTION_NAME=='file'">class="active"</if>><a href="{:U('Admin/Backup/file')}{$language}"><span>上传文件备份</span></a></li>
+        <li <if condition="ACTION_NAME=='host'">class="active"</if>><a href="{:U('Admin/Backup/host')}{$language}"><span>整站备份</span></a></li>
+
+       </ul>
+     </div>
+	 
+	 
+	 <div>
+	 	<form action="{:U('Admin/Backup/doBackupUpload')}" method="post">
+<table width="100%" height="78" class="list_table" style="padding-left:200px; padding-top:20px;">
+	<tr>
+	  <td >&nbsp;</td>
+	  <td >&nbsp;</td>
+	  </tr>
+	<tr>
+    <td >&nbsp;</td>
+    <td >该功能可以备份 网站上传的文件 到 /data/backup/uploaddata 文件夹内</td>
+	</tr>
+   <tr>
+    <td width="182" >&nbsp;</td>
+    <td width="915"><input class="form-text" name="submit" type="submit"  value="备份" /></td>
+   </tr>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

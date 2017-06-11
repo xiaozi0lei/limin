@@ -1,0 +1,306 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+<script src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+<script src="__PUBLIC__/js/ajaxfileupload.js"></script>
+
+<script src="__PUBLIC__/js/swfupload.js"></script>
+<script src="__PUBLIC__/js/swfupload.queue.js"></script>
+<script src="__PUBLIC__/js/fileprogress.js"></script>
+<script src="__PUBLIC__/js/handlers.js"></script>
+<script src="__PUBLIC__/js/swfupload.cookies.js"></script>
+<script>
+	
+	
+			
+			
+	var swfu;
+		window.onload = function() {
+			var settings = {
+				flash_url : "__PUBLIC__/images/swfupload.swf",
+				upload_url: "{:U('Admin/Product/swfupload')}",	
+				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
+				file_size_limit : "2 MB",
+				file_types : "*.jpg;*.gif;*.png;*.jpeg",
+				file_types_description : "选择图片",
+				file_upload_limit : 30,  //配置上传个数
+				file_queue_limit : 0,
+				custom_settings : {
+					progressTarget : "fsUploadProgress",
+					cancelButtonId : "btnCancel"
+				},
+				debug: false,
+
+				// Button settings
+				button_image_url: "__PUBLIC__/images/TestImageNoText_65x29.png",
+				button_width: "65",
+				button_height: "29",
+				button_placeholder_id: "selectbutton",
+				button_text: '<span class="theFont">浏览</span>',
+				button_text_style: ".theFont { font-size: 16; }",
+				button_text_left_padding: 12,
+				button_text_top_padding: 3,
+				
+				file_queued_handler : fileQueued,
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				upload_start_handler : uploadStart,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess,
+				upload_complete_handler : uploadComplete,
+				queue_complete_handler : queueComplete	
+			};
+
+			swfu = new SWFUpload(settings);
+	     }
+		 
+function submitCheck(){
+	
+			$('#f_submit').attr('disabled','disabled');
+			$('#f_submit').attr('value','正在保存...');
+			if($('input[name="title"]').val()=='') {
+				art.dialog.alert('题目不能为空！');
+				$('#f_submit').attr('disabled','');
+				$('#f_submit').attr('value','保存');
+				return false;
+				}
+		
+			
+			if(editor.isEmpty()){
+				art.dialog.alert('内容不能为空！');
+				$('#f_submit').attr('disabled','');
+				$('#f_submit').attr('value','保存');
+				return false;
+			}
+			
+			
+			<if condition="$space['uid']!=1">
+			if(checkword()==0){
+				
+				art.dialog.alert('为了搜索引擎能够抓取,网站的优化效果更好,让请填写50字以上的产品文字介绍,可以是产品参数,功能,用途,颜色等！');
+				$('#f_submit').attr('disabled','');
+				$('#f_submit').attr('value','保存');
+				return false;
+			}
+			</if>
+			
+			
+			
+			
+			return true;
+}
+	
+function checkword(){
+		var re_rs=1;
+		var etext=editor.text();
+		$.ajax({
+		   type: "POST",
+		   async:false,
+		   url: "{:U('Admin/Product/checkWord')}",
+		   data: "text="+etext,
+		   success: function(msg){
+		   
+		   		if(msg=='0'){
+					re_rs=0;
+				}
+				
+		   }
+		});
+		
+		return re_rs;
+}	
+	
+	///删除上传图片
+function deleteimage(id){
+			
+	art.dialog({
+    title: '提示框',
+	content:'确定删除吗?',
+	icon:'question',
+	ok:function(){
+	$('#pic_'+id).remove();
+	
+	$.ajax({	
+    	beforeSend:function(XMLHttpRequest){
+	    	$("#codetips").text('正在提...请稍后')	
+	    	},	
+			url:"{:U('Admin/Product/deleteImage')}",
+			type:"post",
+			dataType:'json',
+			data:{'id':id},
+			success:function(msg){
+
+				if(msg.status==0){
+					alert(msg.info);
+				}
+
+			}	
+		})
+
+	
+	
+	},
+	cancel:true,
+	lock:true
+});
+			
+	}	
+
+function feng(imgid){
+	$('.warpper').css('border','none');
+	$('#pic_'+imgid).css('border','1px solid red');
+	$('input[name="feng"]').val(imgid);
+}	
+	
+	
+</script>
+<script>
+
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]', {
+					uploadJson : '{:U('Admin/Product/uploadEditerImg')}',
+					allowFileManager : false,
+					items:[
+        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+        'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+        'anchor', 'link', 'unlink', '|', 'about'
+]
+				});
+				
+			});
+	
+		</script>
+
+<!--右边开始-->
+   <div class="rightCon1 fl">
+     <div class="conTitle">产品管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	 <div id="menu_tab">
+		<ul>
+		<li><span <if condition="ACTION_NAME=='productlist'">class="active"</if>><a href="{:U('Admin/Product/productList')}" >产品列表</a></span></li>
+		<li><span <if condition="ACTION_NAME=='bat'">class="active"</if>><a href="{:U('Admin/Product/bat')}" >产品批量上传</a></span> </li> 
+		<li><span <if condition="ACTION_NAME=='addproduct'">class="active"</if>><a href="{:U('Admin/Product/addProduct')}" >添加产品</a></span></li>
+		
+		</ul>
+	</div>
+	 <div>
+	 	<form action="{:U('Admin/Product/doAddProduct')}" method="post" onsubmit="return submitCheck()">
+<table width="100%" height="816" border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table">
+  
+  <tr>
+    <td width="220" class="title_text"><span class="span_title">{$Think.lang.sort}:</span></td>
+    <td width="869" class="spacing3">
+	<select name="sort">
+	{$html}
+	</select></td>
+   </tr>
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">{$Think.lang.atitle}:</span></td>
+    <td width="869" class="spacing3"><input class="input_middle" name="title" value="{$title|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="220" height="50" class="title_text"><span class="span_title">{$Think.lang.pic}:</span></td>
+    <td width="869" class="spacing3">
+	<span id="uploadspan">
+	
+	<div id="uploaddiv">
+          <div style="float:left;" id="selectbutton"></div>
+		  <input id="btnCancel"  type="button" value="取消全部" onClick="swfu.cancelQueue();" disabled="disabled" style=" position:relative; top:-7px;margin-left: 2px; font-size: 8pt; height: 26px;" />
+          <div style="float:right; font-size:12px; line-height:35px; margin:0 15px; color: #9F9F9F;"></div>
+          <div style="clear:both;"></div>
+        </div>
+        <div id="fsUploadProgress"></div>
+		
+		<div id="pic_list" style="display:inline;">
+        	<if condition="!empty($pics)">
+				
+					<volist name="pics" id="pic">
+						<div class="warpper"  <if condition="$pic['feng']">style="border:1px solid red;"</if> id="pic_{$pic.id}"><img width="100" height="100" src="__ROOT__/{$pic.filepath}"><textarea name="imagedes[{$pic.id}]">{$pic.desc}</textarea><a class="opimg" href="javascript:feng({$pic.id})">设置为封面</a><a class="delete"  href="#" onclick="deleteimage({$pic.id});return false;">remove</a></div>
+					</volist>
+				
+			</if>
+
+        </div>
+	</span>	</td>
+   </tr>
+  
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">设为栏目:</span></td>
+    <td width="869" class="spacing3"><input type="radio" value="1"  name="show_pid" <if condition="!empty($show_pid)&&$show_pid==$id">checked="checked"</if> />是 <input type="radio" value="0" name="show_pid" <if condition="empty($show_pid)||$show_pid!=$id">checked="checked"</if> />否 (常用于栏目分类中只有一个产品)</td>
+   </tr>
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">{$Think.lang.attribute}:</span></td>
+    <td width="869" class="spacing3">
+	
+	<input type="checkbox" value="1" name="home_show" 
+      <eq name="home_show" value="1">checked="checked"</eq> />首页显示
+	
+	<input type="checkbox" value="1" name="top" 
+      <eq name="top" value="1">checked="checked"</eq> />置顶推荐 (被置顶的产品列表页会靠前)</td>
+   </tr>
+   
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">{$Think.lang.order}:</span></td>
+    <td width="869" class="spacing3"><input type="text" value="{$p_order|default=0}" name="order" /></td>
+   </tr>
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">{$Think.lang.eiditor}:</span></td>
+    <td width="869" class="spacing3"><input class="input_middle" name="user" value="{$user|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">{$Think.lang.date}:</span></td>
+    <td width="869" class="spacing3"><input class="input_middle" name="dateline" value="<php>if(empty($dateline)){echo date('Y-m-d H:i:s',time());}else{echo date('Y-m-d H:i:s',$dateline);}</php>" /></td>
+   </tr>
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">价格:</span></td>
+    <td width="869" class="spacing3"><input class="input_middle" name="price" value="{$price|default=0}" /></td>
+   </tr>
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">型号/规格:</span></td>
+    <td width="869" class="spacing3"><input class="input_middle" name="model" value="{$model|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">用途:</span></td>
+    <td width="869" class="spacing3"><input class="input_middle" name="purpose" value="{$purpose|default=''}" /></td>
+   </tr>
+
+   <tr>
+    <td width="220" class="title_text"><span class="span_title">相关标签:</span></td>
+    <td width="869" class="spacing3"><input class="input_middle" name="seokeyword" value="{$seokeyword|default=''}" /> (可自动根据关键词模糊查询内页相关产品、相关新闻</td>
+   </tr>
+	
+    <volist name="p_field" id="f">
+    <tr>
+		<td width="18%" height="37" class="title_text"><span class="span_title">{$f.name}:</span></td>
+		<td width="82%" class="spacing3"><input type="text" name="field{$f.fid}" value="<php>echo ${field.$f['fid']}</php>" />  调用方法 列表调用: <php>echo '{'.'$item.field'.$f["fid"].'}';</php> 内页调用: <php>echo '{'.'$field'.$f["fid"].'}';</php></td>
+    </tr>
+   </volist>
+   <tr>
+    <td width="220" height="300" class="title_text"><span class="span_title">{$Think.lang.contant}:</span></td>
+    <td width="869" class="spacingtext3"><a href="{:U('Admin/Config/pic')}" style="color:#0F03E9; text-decoration:underline;">编辑器内图片大小在这里设置</a> <font color="red">小提示：编辑器内的外链图片保存后将自动下载到网站服务器</font><textarea name="content" id="content" style="width:700px; height:300px;">{$content}</textarea></td>
+   </tr>
+   <tr>
+    <td width="220"><span class="span_title"></span></td>
+    <td width="869"><input class="form-text" type="submit"  id="f_submit"value="{$Think.lang.save}" /></td>
+   </tr>
+ 	<input type="hidden" value="{$id|default=0}"  name="id"/>
+	<input type="hidden" value=""  name="feng"/>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+   <!--右边结束-->
+
+<include file="./Public/Admin/Public/footer.html" />

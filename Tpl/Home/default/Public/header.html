@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+
+<title>{$webtitle}</title>
+<php>
+if((strtolower(MODULE_NAME)=='product'&&$pdescription)||strtolower(MODULE_NAME)=='index'):
+</php>
+<meta name="keywords" content="{$keyword}" />
+<meta name="description" content="{$desc}" />
+
+<php>
+endif;
+</php>
+<link rel="stylesheet" type="text/css" href="../Public/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../Public/css/bootstrap-responsive.css"/>
+
+<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />
+<!--
+你的样式写到oneself.css里
+-->
+<link href="../Public/css/oneself.css" rel="stylesheet" type="text/css" />
+<link href="../Public/css/slideshow.css" rel="stylesheet" type="text/css" />
+
+<script>
+var site_url='{:U('/')}';
+var tpl_path='{$Think.APP_TMPL_PATH}';
+var public = '__PUBLIC__';
+var mobile = '{$wapon}';
+var root_path='{$Think.__ROOT__}';
+</script>
+<script type="text/javascript" src="../Public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../Public/js/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="../Public/js/ddsmoothmenu.js"></script>
+<script type="text/javascript">
+ddsmoothmenu.init({
+	mainmenuid: "MainMenu", //menu DIV id
+	orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+	classname: 'ddsmoothmenu', //class added to menu's outer DIV
+	//customtheme: ["#1c5a80", "#18374a"],
+	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+})
+</script>
+<script type="text/javascript" src="../Public/js/superslide.2.1.js"></script>
+</head>
+<body>
+
+<div class="header">
+ <div class="header_nr gg">
+ <div class="logo fl"><img src="../Public/images/index_03.jpg" /></div>
+<div class="daohang fr">
+<div class="nav-pc">
+     
+  
+  <div class="mobile_nav " id="mnav">
+  {$menu}
+   </div>
+  
+    </div>
+</div>
+ <br class="clear" />
+ </div>
+</div>
+ 
+</div>
+
+  	
+
+ 

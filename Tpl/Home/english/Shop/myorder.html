@@ -1,0 +1,153 @@
+<style>
+#btn_order{
+margin-top:50px;
+}
+#title_ul{
+height: 25px;
+margin: 15px 10px 25px;
+list-style:none;
+padding:0px;
+}
+#title_ul li{
+float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+}
+#title_ul span{
+    display: block;
+    height: 25px;
+}
+#title_ul .one{
+background: url(../Public/images/tab.gif) repeat scroll 0 -200px transparent;
+}
+#title_ul .one span{
+background: url(../Public/images/tab.gif) repeat scroll right -175px transparent;
+    color: #FFFFFF;
+    margin-left: 12px;
+}
+#title_ul .two{
+ background: url(../Public/images/tab.gif) repeat scroll 0 -100px transparent;
+    margin-left: -8px;
+}
+#title_ul .two span{
+   background: url(../Public/images/tab.gif) repeat scroll right -75px transparent;
+    margin-left: 12px;
+    padding-left: 10px;
+}
+#title_ul .three{
+  background: url(../Public/images/tab.gif) repeat scroll 0 -100px transparent;
+    margin-left: -8px;
+}
+#title_ul .three span{
+      background: url(../Public/images/tab.gif) repeat scroll right -125px transparent;
+    margin-left: 12px;
+    padding-left: 10px;
+}
+.qing_title{
+border-bottom: 2px solid #D9D9D9;
+    height: 22px;
+    margin: 0 10px 10px;
+}
+.qing_title span{
+    background: url(../Public/images/ico.gif) no-repeat scroll 0 1px transparent;
+    color: #E95925;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 8px;
+    vertical-align: middle;
+}
+.list td{
+border: 1px solid #D9D9D9;
+    height: 30px;
+}
+.list_title{
+ color: #666666;
+ font-weight:bold;
+ background: url(../Public/images/bg_2.gif) repeat scroll 0 0 transparent;
+ text-align:center;
+   
+}
+.ttable{
+border-collapse: collapse;
+    border-spacing: 0;
+	font-size: 12px;
+}
+#total_order{
+text-align:right;
+}
+#total_order span{
+font-size:12px;
+}
+#total_order b{
+
+    color: #E02C2C;
+    font-size: 24px;
+    margin: 0 5px;
+	}
+.Order_jian{
+    background: url(../Public/images/ico_4.gif) repeat scroll 0 -13px transparent;
+    cursor: pointer;
+    font-size: 0;
+    height: 13px;
+    width: 13px;
+	display: inline-block;
+    vertical-align: middle;
+}
+.num_input{
+    border: 1px solid #8AB5E0;
+    color: #666666;
+    font-weight: bold;
+    height: 17px;
+    margin: 0 2px;
+    text-align: center;
+    width: 34px;
+}
+
+.Order_jia {
+	display: inline-block;
+    vertical-align: middle;
+    background: url(../Public/images/ico_4.gif) repeat scroll 0 0 transparent;
+    cursor: pointer;
+    font-size: 0;
+    height: 13px;
+    width: 13px;
+}
+
+	
+</style>
+
+ <form action="{:U('Public/doOrder')}" method="post">
+<div id="shopwapper" style="width:680px; height:350px;">
+
+  <h2 class="qing_title"><span>商品清单</span></h2>
+  <table class="ttable">
+    <tbody  class="list">
+      <tr class="list_title">
+        <td>商品信息</td>
+        <td width="75">单价(元)</td>
+        <td width="95">数量</td>
+        <td width="75">小计(元)</td>
+        
+      </tr>
+	  
+	  <volist name="detail" id="order">
+	  <tr>
+        <td><div  style="width:250px" class="Order_a">{$order.pname}</div></td>
+        <td width="75" ><div id="price" style="text-align:center;">{$order.perprice}</div></td>
+        <td width="95" >
+		<div style="text-align:center;"> 
+			{$order.pcount}
+		</div></td>
+        <td width="75" id="" class="fontcolor2"><div style="text-align:center;"> <strong> <span class="item_total">{$order.price}</span> </strong> </div></td>
+        
+      </tr>
+	  </volist>
+	  
+    </tbody>
+  </table>
+  {__TOKEN__}
+ </form>
+  </div>

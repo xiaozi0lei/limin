@@ -1,0 +1,44 @@
+<include file="Public:header" />
+
+
+<div class="nyabout">
+	<if condition="$current_sort['id'] eq 537 || $current_sort['id'] eq 605 || $current_sort['id'] eq 645">
+	<img src="../Public/images/nylx.jpg" />
+	<else/>
+<img src="../Public/images/about.jpg" />
+    		 </if>
+</div>
+ <div class="nyk gg">
+<div class="nynr"><p>{$current_sort['name']}</p></div></div>
+           
+<div class="main">
+
+
+<div id="page_main" class="clearfix">
+    <div class="container">
+
+          <div class="page-right">
+          <div class="lanmu">
+          <div class="lmdh fl"><include file="Public:left" /></div>
+      <div class="site-nav fr"><span>当前位置 : </span>
+	  
+		{$location}
+	  
+	  </div>
+      <br class="clear" />
+      </div>
+      <div class="page-news">
+	
+      	{$sort_content['extend']['content']}
+      </div>
+    </div>
+    
+
+    <br class="clear" />
+    </div>
+    
+
+	
+  </div>
+  </div>
+<include file="Public:footer" />

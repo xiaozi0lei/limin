@@ -1,0 +1,104 @@
+<include file="Public:header" />
+<div class="nymes">
+<img src="../Public/images/mes.jpg" />    		
+</div>
+ <div class="nyk gg"><div class="nynr"><p>{$current_sort['name']}</p></div></div>
+<div class="main">
+<div class="gao"></div>
+<div id="page_main" class="clearfix">
+    <div class="container">
+    <div class="page-right">
+      <div class="lanmu">
+          <div class="lmdh fl"><include file="Public:left" /></div>
+      <div class="site-nav fr"><span>当前位置 : </span>
+	  
+		{$location}
+	  
+	  </div>
+      <br class="clear" />
+      </div>
+      <div class="page-guestbook">
+<script type="text/javascript">
+function check()
+{
+	if(document.guestbook.Guest_Name.value=="")
+	{
+		alert("请填写您的姓名");
+		document.guestbook.Guest_Name.focus();
+		return false
+	}
+
+	if(document.guestbook.Guest_Email.value=="")
+	{
+		alert("请填写邮件地址");
+		document.guestbook.Guest_Email.focus();
+		return false
+	}
+	if(document.guestbook.Content.value=="")
+	{
+		alert("请填写反馈内容");
+		document.guestbook.Content.focus();
+		return false
+	}
+	if(document.guestbook.checkcode.value=="")
+	{
+		alert("请填写验证码");
+		document.guestbook.checkcode.focus();
+		return false
+	}
+	if(document.guestbook.checkcode.value.length<4)
+	{
+		alert("验证码必须为4位");
+		document.guestbook.checkcode.focus();
+		return false;
+	}
+	//var re = /^[0-9]+.?[0-9]*$/;//判断字符串是否为数字
+	var re = /^[1-9]+[0-9]*]*$/;//判断字符串是否为正整数
+	if (!re.test(document.guestbook.checkcode.value))
+	{
+		alert("验证码必须是数字");
+		document.guestbook.checkcode.focus();
+		return false;
+	}
+	 
+	return true;
+}
+</script>
+      <form class="clearfix" onsubmit="return check()" action="{:U('Message/doSaveMessage')}" id="guestbook" name="guestbook" method="post">
+      <dl class="lhbd clearfix lhbdfl">
+      <dt><label>您的姓名：</label>
+      <input type="text" id="Guest_Name" name="Guest_Name"><span style="color:#F00;">&nbsp;&nbsp;*</span></dt>
+      <dt><label>联系邮件：</label>
+      <input type="text" id="Guest_Email" name="Guest_Email"><span style="color:#F00;">&nbsp;&nbsp;*</span></dt>
+      <dt><label>联系电话：</label>
+      <input type="text" id="Guest_TEL" name="Guest_TEL"></dt>
+      <dt><label>联系地址：</label>
+      <input type="text" id="Guest_ADD" name="Guest_ADD"></dt>
+      <!--<dt><label>传真：</label>
+      <input type="text" id="Guest_FAX" name="Guest_FAX"></dt>
+      
+      <dt><label>邮编：</label>
+      <input type="text" id="Guest_ZIP" name="Guest_ZIP"></dt>
+      -->
+      </dl>
+      <dl class="lhbd clearfix lhbdfr">
+      	<dt ><label>留言内容：</label>
+      <textarea id="Content" class="Content" rows="" cols="" name="Content"></textarea></dt>
+      <dt class="yzm" sty><label>验证码：</label>
+      
+        <input type="text" autocomplete="off" maxlength="4" id="checkcode" name="checkcode">
+        <img  src='__APP__/Public/verify/' />
+        <span>&nbsp;&nbsp;*点击图片刷新</span>
+      </dt>
+      </dl>
+      <div class="clear"></div>
+      <p style=" text-align: center;"><input type="submit" class="submit" value="提交" id="submit" name="submit" style=" width: 110px; display: inline-block;"><input type="reset" class="lh615" name="button" id="button" value="重置"  style="display: inline-block; width: 110px;"/></p>
+      </form>
+      </div></div>
+      
+    </div>
+    
+
+	
+  </div></div>
+<include file="Public:footer" />

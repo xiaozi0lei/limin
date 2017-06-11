@@ -1,0 +1,123 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+   
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+<script src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+<script>
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]', {
+				    noDisableItems:['anchor','source'],
+					uploadJson : '{:U('Admin/Article/uploadArticleImg')}',
+					allowFileManager : false,
+					items:[
+        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+        'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+        'anchor', 'link', 'unlink', '|', 'about'
+]
+				});
+				
+			});
+			
+			
+			function editimg(){
+				
+				$('#file_span').html("<input type='file' name='pic' />")
+			}	
+				
+		</script>
+
+   
+   
+   <!--右边开始-->
+   <div class="rightCon1 fl">
+     <div class="conTitle">内容管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	 <div id="menu_tab">
+		<ul>
+		<li><span <if condition="ACTION_NAME=='articlelist'">class="active"</if>><a href="{:U('Admin/Article/articleList')}" >文章列表</a></span></li>
+		<li><span <if condition="ACTION_NAME=='addarticle'">class="active"</if>><a href="{:U('Admin/Article/addArticle')}" >添加文章</a></span></li>
+		
+		</ul>
+	</div>
+	
+	
+	 <div>
+	 	<form action="{:U('Admin/Article/doAddArticle')}" method="post" enctype="multipart/form-data">
+<table width="100%" height="732" border="0" cellpadding="0" cellspacing="1"  bgcolor="#dedfe1" class="list_table">
+
+  <tr>
+    <td width="18%" class="title_text"><span class="span_title">{$Think.lang.sort}:</span></td>
+    <td width="82%" class="spacing3" style="border-bottom:1px solid #dadada;">
+	<select name="sort">
+	{$html}
+	</select></td>
+   </tr>
+   <tr>
+    <td width="18%" class="title_text"><span class="span_title">{$Think.lang.atitle}:</span></td>
+    <td width="82%" class="spacing3" style="border-bottom:1px solid #dadada;"><input class="input_middle" name="title" value="{$title|default=''}" /></td>
+   </tr>
+      <tr>
+    <td width="18%" class="title_text"><span class="span_title">缩略图:</span></td>
+    <td width="82%" class="spacing3" style="border-bottom:1px solid #dadada;" id="file_span"><if condition="!empty($pic)"><img src="{$site_url}/{$pic}" width="200" height="150" /><a href="javascript:editimg()">修改</a><else/><input type="file" name="pic" /></if></td>
+   </tr>
+      <tr>
+    <td width="220" class="title_text"><span class="span_title">{$Think.lang.attribute}:</span></td>
+    <td width="869" class="spacing3">
+	
+	<input type="checkbox" value="1" name="home_show" 
+      <eq name="home_show" value="1">checked="checked"</eq> />首页显示
+	
+	<input type="checkbox" value="1" name="top" 
+      <eq name="top" value="1">checked="checked"</eq> />置顶推荐 (被置顶的新闻列表页会靠前)</td>
+   </tr>
+   <tr>
+    <td width="18%" class="title_text"><span class="span_title">{$Think.lang.order}:</span></td>
+    <td width="82%" class="spacing3"><input type="text" value="{$a_order|default=0}" name="order" /></td>
+   </tr>
+   <tr>
+    <td width="18%" class="title_text"><span class="span_title">{$Think.lang.eiditor}:</span></td>
+    <td width="82%" class="spacing3"><input class="input_middle" name="user" value="{$user|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="18%" class="title_text"><span class="span_title">{$Think.lang.date}:</span></td>
+    <td width="82%" class="spacing3"><input class="input_middle" name="dateline" value="<php>if(empty($dateline)){echo date('Y-m-d H:i:s',time());}else{echo date('Y-m-d H:i:s',$dateline);}</php>" /></td>
+   </tr>
+   <tr>
+    <td width="18%" class="title_text"><span class="span_title">相关标签:</span></td>
+    <td width="82%" class="spacing3"><input class="input_middle" name="seokeyword" value="{$seokeyword|default=''}" /> (可自动根据关键词模糊查询内页相关产品、相关新闻)</td>
+   </tr>
+
+   
+   <volist name="field" id="field">
+    <tr>
+		<td width="18%" height="37" class="title_text"><span class="span_title">{$field.title}:</span></td>
+		<td width="82%" class="spacing3"><input type="text" name="field[{$field.id}]" value="{$field.value|default=''}" /></td>
+    </tr>
+   </volist>
+   
+   <tr>
+    <td width="18%" height="333" class="title_text"><span class="span_title">{$Think.lang.contant}:</span></td>
+    <td width="82%" class="spacingtext3" valign="top"><a href="{:U('Admin/Config/pic')}" style="color:#0F03E9; text-decoration:underline;">编辑器内图片大小在这里设置</a> <font color="red">小提示：编辑器内的外链图片保存后将自动下载到网站服务器</font><textarea name="content" style="width:700px; height:300px;">{$content}</textarea></td>
+   </tr>
+   <tr>
+    <td width="18%"><span class="span_title"></span></td>
+    <td width="82%"><input type="submit"  class="form-text" value="{$Think.lang.save}" onclick="art.dialog.tips('正在保存,请稍后...');" /></td>
+   </tr>
+ 	<input type="hidden" value="{$id|default=0}"  name="aid"/>
+</table>
+</form>
+	 
+	 </div>
+	 
+   </div>
+   <!--右边结束-->
+   
+<include file="./Public/Admin/Public/footer.html" />

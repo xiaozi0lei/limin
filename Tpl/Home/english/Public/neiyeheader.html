@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$webtitle}</title>
+<php>
+if((strtolower(MODULE_NAME)=='product'||strtolower(MODULE_NAME)=='index')&&$pdescription):
+</php>
+<meta name="keywords" content="{$keyword}" />
+<meta name="description" content="{$desc}" />
+<php>
+endif;
+</php>
+<link href="../Public/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="../Public/css/webmain.css" rel="stylesheet" type="text/css" />
+<link href="../Public/css/ddsmoothmenu.css" rel="stylesheet" type="text/css" />
+<script>
+var site_url='{:U('/')}';
+var public = '__PUBLIC__';
+</script>
+<script type="text/javascript" src="../Public/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="../Public/js/jquery.KinSlideshow-1.2.1.js"></script>
+<script type="text/javascript" src="../Public/js/webtry_roll.js"></script>
+<script type="text/javascript" src="../Public/js/ddsmoothmenu.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/plugin-cookie.js"></script>
+<script type="text/javascript">
+ddsmoothmenu.init({
+	mainmenuid: "MainMenu", //menu DIV id
+	orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+	classname: 'ddsmoothmenu', //class added to menu's outer DIV
+	//customtheme: ["#1c5a80", "#18374a"],
+	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+})
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div class="top"> <img src="../Public/images/logo.gif" width="650" height="90" alt="上海网聚化工有限公司" />
+	<div id="lang"><a href="{:U('Home/index/index')}?l=en-us"><img src="../Public/images/gb.gif" width="16" height="11" alt="English" />English</a> 
+    <if condition="$waplink==1">
+    | <a href="{:U('Wap/index/index')}">WAP</a></div>
+	</if>
+  </div>
+  
+  <div id="MainMenu" class="ddsmoothmenu">
+  	
+    {$menu}
+  </div>
+  

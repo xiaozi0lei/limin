@@ -1,0 +1,34 @@
+<include file="Public:header" />
+
+
+<div>
+      <div class="news_list" id="news-list"> 
+
+        <ul id="listtable" class="news-lists">
+
+		 <items sortid="427" limit="8">
+          <li class="ali"> <a class="ui-link" target="_blank" href="{$item.url}">
+            <h3> <cite></cite><span style="color:">{$item.title}</span></h3>
+            <p>{$item.dateline}</p>
+			</a></li>
+			
+		  </items>
+        </ul>
+		
+		<ul id="listtable" class="news-lists exhibit-lists">
+          
+		  <items sortid="429" limit="8">
+          <li class="ali"> <a class="ui-link" target="_blank" href="{$item.url}">
+            <h3> <cite></cite> <img src="{$item.pic}"> <span style="color:">{$item.title}</span></h3>
+            </a> </li>
+           </items>
+        </ul>
+
+      </div>
+ </div>
+
+
+
+
+
+<include file="Public:footer" />

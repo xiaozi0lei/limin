@@ -1,0 +1,182 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+<style>
+#container{ height:400px; width:100%; float:left; margin-top:20px;}
+
+.mapTel {
+    height: 30px;
+    line-height: 30px;
+    width: 208px;
+	background:url(__PUBLIC__/images/bbg_line.png)
+}
+.mapTel .mapNumber {
+    height:30px;
+    display: block;
+    padding: 0 0 0 10px;
+	background:url(__PUBLIC__/images/bphone.png) no-repeat 10px;
+}
+.mapTel .mapNumber a {
+	
+  color: #FFFFFF;
+  display: block;
+  font-size: 17px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  padding: 0 0 0 30px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 150px;
+}    
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=71de10dc4d8972f7efb90faa1514d931"></script>
+<script type="text/javascript" charset="utf-8" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">百度地图</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	 
+	 <div>
+	 <style>
+	 	#container{
+		margin-top:0px;
+		}
+	 </style>
+	 	<div id="container"></div>
+<div id="container"  class="list_table">
+
+<form action="{:U('Admin/Map/search')}" method="post">
+<table width="100%" height="40" border="0" cellpadding="0" cellspacing="1"  >
+  
+   <tr>
+    <td width="" class="title_text"><span class="span_title" style="padding-left:19px;">搜素城市:</span></td>
+    <td width="" class="spacing3"><input type="text" name="searchname" value="{$searchname|default=""}" /> <input type="submit" value="搜索" /></td>
+   </tr>
+
+
+</table>
+</form>
+
+<form action="{:U('Admin/Map/saveform')}" method="post">
+<table width="100%" height="302" border="0" cellpadding="0" cellspacing="1"  >
+  
+  
+   <tr>
+    <td width="" class="title_text"><span class="span_title">公司名称:</span></td>
+    <td width="" class="spacing3"><input type="text" name="cname" value="{$cname|default=""}" /> </td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">公司地址:</span></td>
+    <td width="" class="spacing3"><input type="text" name="add" value="{$add|default=""}" /> </td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">电话:</span></td>
+    <td width="" class="spacing3"><input type="text" name="phone" value="{$phone|default=""}" /> </td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">传真:</span></td>
+    <td width="" class="spacing3"><input type="text" name="fax" value="{$fax|default=""}" /> </td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">客服:</span></td>
+    <td width="" class="spacing3"><input type="text" name="customer" value="{$customer|default=""}" /> </td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">email:</span></td>
+    <td width="" class="spacing3"><input type="text" name="email" value="{$email|default=""}" /> </td>
+   </tr>
+
+   <tr>
+    <td width="" class="title_text">&nbsp;</td>
+    <td width="" class="spacing3"><input  type="submit" class="form-text" value="保存" /></td>
+   </tr>
+</table>
+</form>
+
+<script type="text/javascript"> 
+    var map = new BMap.Map("container");          // 创建地图实例
+	
+	<if condition="!empty($lng)&&!empty($lat)">
+		 var point = new BMap.Point({$lng},{$lat});
+		 map.centerAndZoom(point, 9);                 // 初始化地图，设置中心点坐标和地图级别
+		 var marker = new BMap.Marker(point);
+		 map.addOverlay(marker);
+	<else/>
+		  map.centerAndZoom('山东', 8);                 // 初始化地图，设置中心点坐标和地图级别  	 
+	</if>
+	    
+   
+	map.enableScrollWheelZoom();
+	map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+    map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+	
+    map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+    map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+    map.enableKeyboard();//启用键盘上下左右键移动地图
+	map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮	
+	map.addEventListener("click", function(e){
+			map.clearOverlays(); 
+			var point = new BMap.Point(e.point.lng, e.point.lat);
+			var marker = new BMap.Marker(point);
+			
+			
+			map.addOverlay(marker);
+			
+			$.ajax({
+			   type: "POST",
+			   url: "{:U('Admin/Map/savePosition')}",
+			   data: 'lng='+e.point.lng+'&lat='+e.point.lat,
+			   success: function(msg){
+				 
+			   }
+			});
+			     
+	});
+	
+	                                 // 开启标注工具     
+	<if condition="!empty($searchname)">
+	var local = new BMap.LocalSearch(map, {
+	  renderOptions:{map: map}
+	});
+	local.search("{$searchname}");
+	</if>
+	
+	
+	
+	var content = '<div style="margin:0;line-height:20px;padding:2px;">'  +
+                    ' 地址：{$add}'
+					+'<p class="mapTel"><span class="mapNumber"><a href="tel:{$phone}">'+'{$phone}'+'</a></span></p>传真：{$fax}<br>QQ客服：{$customer}<br>E-mail：{$email}　' +
+                  '</div>';
+	//创建检索信息窗口对象
+    var searchInfoWindow = null;
+	searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+			title  : "{$cname}",      //标题
+			width  : 290,             //宽度
+			height : 150,              //高度
+			panel  : "panel",         //检索结果面板
+			enableAutoPan : true,     //自动平移
+			searchTypes   :[
+				BMAPLIB_TAB_SEARCH,   //周边检索
+				BMAPLIB_TAB_TO_HERE,  //到这里去
+				BMAPLIB_TAB_FROM_HERE //从这里出发
+			]
+		});
+	
+	 searchInfoWindow.open(marker); //在marker上打开检索信息串口
+	
+</script>
+</div>
+	 </div>
+	 
+   </div>
+
+
+
+
+<include file="./Public/Admin/Public/footer.html" />

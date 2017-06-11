@@ -1,0 +1,35 @@
+<include file="Public:header" />
+<style>
+.page-guestbook dl dd input{
+width:auto;
+vertical-align:middle;
+}
+</style>
+<div id="page_main" class="clearfix">
+ <div class="container">
+  <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+  <div class="page-news">
+   <div id="shownews">
+    <h1 class="title">在线应聘</h1>
+    <div class="page-guestbook">
+      <form method="post" name="guestbook" id="guestbook" action="{:U('Job/submitJob')}" enctype="multipart/form-data" >
+      <dl class="clearfix">
+        <dt><b>职位名称：</b><span>{$title}</span></dt>
+      	 
+	    <volist name="field" id="field">
+         <dt><b>{$field.title}：</b><span>{$field.html} <if condition="$field['required']==1"><i>*</i></if></span></dt>
+      	 
+	    </volist>
+     </dl>
+	  <input type="hidden" name="jid" value="{$id}" />
+	  <p style=" text-align: center;"><input type="submit"  class="submit" name="submit" id="submit" style="display: inline-block; width: 110px;" value="提交"><input type="reset" class="lh615" name="button" id="button" value="重置"  style="display: inline-block; width: 110px;"/>
+      </p>
+      </form>
+    </div>
+	<div class="clear"></div>
+  </div>
+ </div>
+ </div>
+
+</div>
+<include file="Public:footer" />   

@@ -1,0 +1,52 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+<div class="rightCon1 fl">
+     <div class="conTitle">内容页</div>
+       <div class="conNav">
+       <ul>
+
+		  <eq name="style_lists" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="lists">class="active"</eq>><a href="{:U('Admin/Style/lists')}{$language}"><span>列表页</span></a></li>
+		 </eq>
+		  <eq name="style_details" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="detail">class="active"</eq>><a href="{:U('Admin/Style/detail')}{$language}"><span>内容页</span></a></li>
+		 </eq>
+		  <eq name="style_customer" value="1">
+        <li <eq name="Think.const.ACTION_NAME" value="customer">class="active"</eq>><a href="{:U('Admin/Style/customer')}{$language}"><span>客服管理</span></a></li>
+		 </eq>
+        <li <eq name="Think.const.ACTION_NAME" value="tmpl">class="active"</eq>><a href="{:U('Admin/Style/tmpl')}{$language}"><span>模板设置</span></a></li>
+       </ul>
+     </div>
+	 
+	
+	 <div>
+	 	<form action="{:U('Admin/Style/doSaveStyleDetail')}" method="post">
+		<table width="100%" height="204" border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+		  <tr>
+			<td width="20%" class="title_textx"><span class="span_title">{$Think.lang.share}:</span></td>
+			<td width="80%"><input type="radio" value="1" <eq name="share_button" value="1">checked="checked"</eq>  name="share_button">{$Think.lang.share_on} <input type="radio" value="0" <eq name="share_button" value="0">checked="checked"</eq> name="share_button">{$Think.lang.share_off} </td>
+	      </tr>
+		   <tr>
+			<td class="title_textx"><span class="span_title">{$Think.lang.buttons}:</span></td>
+			<td>
+					<label><input name="click_num" class="radio" value="1" <eq name="click_num" value="1">checked="checked"</eq> type="checkbox">&nbsp;{$Think.lang.hitnum}</label>&nbsp;&nbsp;
+					<label><input name="add_time" class="radio" value="1" <eq name="add_time" value="1">checked="checked"</eq> type="checkbox">&nbsp;{$Think.lang.uptime}</label>&nbsp;&nbsp;
+					<label><input name="print_page" class="radio" value="1" <eq name="print_page" value="1">checked="checked"</eq> type="checkbox">&nbsp;{$Think.lang.print}</label>&nbsp;&nbsp;
+					<label><input name="page_close" class="radio" value="1" <eq name="page_close" value="1">checked="checked"</eq> type="checkbox">&nbsp;{$Think.lang.close}</label>
+			</td>
+		   </tr>
+		   <tr>
+			<td class="title_text">&nbsp;</td>
+			<td class="spacing3"><input class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+		   </tr>
+		 
+		</table>
+		</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

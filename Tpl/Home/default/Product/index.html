@@ -1,0 +1,51 @@
+<include file="Public:header" />
+<if condition="$current_sort['id'] eq 644 ">
+<img src="../Public/images/nypro.jpg" />
+  <elseif condition="$current_sort['id']==643"/>
+  <img src="../Public/images/nypro1.jpg" />
+<else/>
+<img src="../Public/images/nypro2.jpg" />
+</if>
+ <div class="nyk gg">
+<div class="nynr"><p>{$current_sort['name']}</p></div></div>
+<div class="main">
+
+<div id="page_main" class="clearfix">
+
+  <div class="container">
+   
+     <div class="page-right">
+<div class="lanmu">
+          <div class="lmdh fl"><include file="Public:left" /></div>
+      <div class="site-nav fr"><span>当前位置 : </span>
+	  
+		{$location}
+	  
+	  </div>
+      <br class="clear" />
+      </div>
+   <h2 class="heatop"><span></span><b>{$name}</b><span></span></h2>
+<!--   <ul class="lher">
+		   <sorts sortid="532">
+			  <li><a href="{$sort.url}">{$sort.name}</a></li>
+		   </sorts>
+		</ul>-->
+   <div class="page-products">
+   <div class="flwz">{$sort_desc}</div>
+   
+     <ul class="clearfix proNav" id="ShowImages" >
+      <volist name="list" id="item">
+      <li><a href="{$item.url}" title="{$item.title}"><span><b class="lhsp"></b><img src="{$site_url}/{$item.pic}" alt="{$item.title}" /></span><label>{$item.title}</label></a></li>
+
+	  </volist>
+
+	</ul>
+    <div class="page_list">{$page}</div>
+   </div>
+  </div>
+  
+    <br class="clear" />
+    </div>
+</div>
+</div>
+<include file="Public:footer" />

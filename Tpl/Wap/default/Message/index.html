@@ -1,0 +1,84 @@
+<include file="Public:header" />
+<script type="text/javascript">
+function check()
+{
+
+	
+	if(document.guestbook.tel.value=="")
+	{
+		alert("请填写您的电话");
+		document.guestbook.tel.focus();
+		return false
+	}
+
+	if(document.guestbook.message.value=="")
+	{
+		alert("内容不能为空");
+		document.guestbook.tel.focus();
+		return false
+	}
+
+	 if(document.guestbook.name.value=="")
+	{
+		alert("名字不能为空");
+		document.guestbook.tel.focus();
+		return false
+	}
+	 
+	
+	 if(document.guestbook.email.value=="")
+	{
+		alert("邮箱不能为空");
+		document.guestbook.tel.focus();
+		return false
+	} 
+	
+	if(document.guestbook.checkcode.value=="")
+	{
+		alert("验证码为空");
+		document.guestbook.tel.focus();
+		return false
+	} 
+	 
+	 
+	return true;
+}
+</script>
+<style>
+#guestbook ul li{
+margin-bottom:10px;
+margin-top:10px;
+}
+</style>
+<section>
+     <div id="sendcomment">
+        <form id="guestbook" name="guestbook"  action="{:U('Message/doSaveMessage')}" onsubmit="return check()" method="post">
+	         <div class="ContEdit">
+	            <ul>
+	            <li class="tel">
+	            <input id="tel" class="fd-input" type="tel" placeholder="您的电话"  maxlength="32" name="tel">
+	            </li>
+	            <li class="cont">
+	            <textarea id="message" class="fd-textarea" placeholder="输入您的评论内容" name="message"></textarea>
+	            </li>
+	            <li class="name">
+	            <input id="name" class="fd-input" type="text" placeholder="您的姓名" maxlength="20" name="name">
+	            </li>
+	            <li class="email">
+	            <input id="email" class="fd-input" type="email" placeholder="输入您的邮箱" maxlength="50" name="email">
+	            </li>
+				<li class="email">
+	            <input type="text"class="fd-input" type="text" placeholder="输入验证码" id="checkcode" name="checkcode"/><img src='__APP__/Public/verify/' />
+	            </li>
+	            <li class="submitBtn">
+	            <input type="submit" value="发表留言"  class="fd-button active" />
+	          
+	            </li>
+	            </ul>
+	          </div>
+            </form>
+          </div>
+    </section>
+
+
+<include file="Public:footer" />

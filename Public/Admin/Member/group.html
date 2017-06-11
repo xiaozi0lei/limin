@@ -1,0 +1,57 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">用户组</div>
+     <div class="conNav">
+        <ul>
+        <li <if condition="ACTION_NAME=='listmember'">class="active"</if> ><a href="{:U('Admin/Member/listMember')}{$language}"><span>用户管理</span></a></li>
+       <eq name="member_group" value="1">
+	    <li <if condition="ACTION_NAME=='group'">class="active"</if>><a href="{:U('Admin/Member/group')}{$language}"><span>用户组管理</span></a></li>
+       </eq>
+	    <li <if condition="ACTION_NAME=='myinfo'">class="active"</if>><a href="{:U('Admin/Member/myInfo')}{$language}"><span>我的信息</span></a></li>
+
+       </ul>
+     </div>
+	 
+	 
+	 <div>
+	 	<form id="form_id" action="" method="post">
+<table width="100%"  border="0" cellpadding="0" cellspacing="1"  class="list_table">
+  <tr>
+    <th width="12%" height="" scope="col">{$Think.lang.select}</th>
+    <th width="32%" scope="col">{$Think.lang.pname}</th>
+ 
+    <th width="56%" scope="col">{$Think.lang.op}</th>
+  </tr>
+  
+  
+  <volist name="list" id="li">
+  <tr class="list_tr">
+    <td class="list_td "><input class="check_all" type="checkbox" value="{$li.gid}" name="check[{$li.gid}]"  /></td>
+    <td class="list_td ">{$li.gname}</td>
+
+    <td class="list_td"><a href="javascript:void(0)" onclick="del_one(this,'{:U('Admin/Member/doDelGroup')}')">{$Think.lang.del}</a> <a href="{:U('Admin/Member/groupEdit',array('gid'=>$li['gid']))}">{$Think.lang.editper}</a></td>
+  </tr>
+  </volist>
+  <tr>
+    <td height="" class="list_td">&nbsp;</td>
+    <td colspan="3" > </td>
+    </tr>
+  <tr>
+    <td height="" class="list_td">&nbsp;</td>
+    <td colspan="3"><input name="button"  class="form-text" type="button" onclick="del('{:U('Admin/Message/doDelGroup')}')" value="{$Think.lang.del}" /> <input type="button" class="form-text" onclick="window.location.href='{:U('Admin/Member/groupAdd')}'" value="添加管理组" /></td>
+    </tr>
+</table>
+
+
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

@@ -1,0 +1,96 @@
+<style>
+
+#shop_wapper{
+cursor: pointer;
+display: block;
+background:url(__PUBLIC__/images/moban_bottom.png) repeat scroll 0 0 transparent;
+bottom: 10px;
+height: 134px;
+position: fixed;
+right: 10px;
+width: 192px;
+z-index: 999999;
+}
+#cart{
+display:block;
+width:48px;
+height:48px;
+background: url(__PUBLIC__/images/moban_ico1.gif) no-repeat scroll 10px;
+}
+#jie{
+background: url(__PUBLIC__/images/moban_ico2.gif) no-repeat scroll 7px 8px transparent;
+display: block;
+height: 35px;
+margin: 6px 0 0 13px;
+position: relative;
+width: 35px;
+}
+
+#search{
+background: url(__PUBLIC__/images/moban_ico3.gif) no-repeat scroll 7px 8px transparent;
+display: block;
+height: 35px;
+ margin: 1px 0 0 34px;
+position: relative;
+width: 35px;
+}
+
+#num{
+	color: #FFFFFF;
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 14px;
+    margin: 2px 0 0 35px;
+    text-align: center;
+    width: 13px;
+
+}
+#btton_buy{
+ 	float: left;
+    height: 110px;
+    margin: 10px 0 0 2px;
+    position: relative;
+	height: 110px;
+    width: 110px;
+}
+</style>
+
+<script>
+var site_url='{:U('/')}';
+var tpl_path='{$Think.APP_TMPL_PATH}';
+var public = '__PUBLIC__';
+var mobile = '{$wapon}';
+</script>
+<script src="__PUBLIC__/js/jquery-1.4.4.min.js"></script>
+<script src="__PUBLIC__/js/common.js"></script>
+
+<!--底部-->
+<div id="shop_wapper">
+<div style="float:left;">
+<a href="javascript:void(0);" id="cart" onclick="show_checkout()"><b id="num">0</b></a>
+<a href="javascript:void(0);" id="jie" onclick="show_checkout()"></a>
+<a href="javascript:void(0);" id="search" onclick="show_search()"></a>
+</div>
+
+<div id="btton_buy" onclick="show_card()">
+
+</div>
+</div>
+<script>
+$(function(){
+	   
+		var countstr=$.cookie('count');
+		var count=0
+		
+		if(typeof(countstr)=='object'||countstr==''){
+			count=0;
+		}else{
+			count=countstr.split('|').length;
+		}
+
+		$('#num').text(count);
+})
+
+</script>

@@ -1,0 +1,43 @@
+<include file="Public:header" />
+<div class="ny">
+ <div class="n_content">
+ <div class="neiye"> 
+	 <div class="n_contentl fl">    </div>
+  <div class="n_contentm fl">   
+        <include file="Public:left_cp" />
+       <div class="n_contentm_r fr"> 
+         <div class="n_content_right_s"><p><span>当前位置：</span>网站地图</p></div>
+        <div class="n_content_right_x">
+		<p>分类:</p>
+     	<ul style="margin-left:20px;">
+			<volist name="sort" id="s">
+			<li><A href="{$s.url}">{$s.name}</A></li>
+			</volist>
+		</ul>
+		
+		<p>产品:</p>
+     	<ul style="margin-left:20px;">
+			<volist name="product" id="p">
+			<li><A href="{$p.url}">{$p.title}</A></li>
+			</volist>
+		</ul>
+		
+		<p>文章:</p>
+     	<ul style="margin-left:20px;">
+			<volist name="article" id="a">
+			<li><A href="{$a.url}">{$a.title}</A></li>
+			</volist>
+		</ul>
+		
+		
+        </div>
+       </div>
+       <div class="clear"></div>   
+     </div>
+	  <div class="n_contentr fr">    </div>
+    
+    <div class="clear"></div>  
+      </div>
+   </div>
+</div>
+<include file="Public:footer" />

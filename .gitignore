@@ -1,0 +1,7 @@
+.buildpath
+.externalToolBuilders
+.htaccess*
+.project
+.settings
+Upload
+*.bak

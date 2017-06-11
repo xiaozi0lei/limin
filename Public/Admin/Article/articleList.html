@@ -1,0 +1,123 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+   
+   
+   <script>
+   	
+	function importdata(form_url){
+
+	art.dialog({
+		title: '分类导入',
+		content: '正在导入，请稍后...！',
+		lock: true
+	});
+		
+		$('#form_id').attr('action',form_url);
+		$('#form_id').submit(); 
+	
+	
+	}
+   
+   </script>
+   
+   <!--右边开始-->
+   <div class="rightCon1 fl">
+     <div class="conTitle">内容管理</div>
+     <include file="./Public/Admin/Public/content_nav.html" />
+	 
+	 <div id="menu_tab">
+		<ul>
+		<li><span <if condition="ACTION_NAME=='articlelist'">class="active"</if>><a href="{:U('Admin/Article/articleList')}" >文章列表</a></span></li>
+		<li><span <if condition="ACTION_NAME=='addarticle'">class="active"</if>><a href="{:U('Admin/Article/addArticle')}" >添加文章</a></span></li>
+		
+		</ul>
+	</div>
+	 
+	 <div id="searchdiv">
+	 <form  action="{:U('Admin/Article/articleList')}" method="get" style="float:left; padding-left:27px;">
+	 <table  height="39" >
+	  <tr>
+		<td>分类:</td>
+		<td ><select name="sortid">
+		<option>所有分类</option>
+		{$html}
+		
+		</select></td>
+		<td >题目:</td>
+		<td><input type="text" name="keywords" value="{$keywords|default=''}" /></td>
+		<td >首页显示</td>
+		<td ><select name="home_show"><option value="0">否</option><option value="1" <if condition="$home_show==1">selected="selected"</if> >是</option></select></td>
+		<td >推荐</td>
+		<td ><select name="top"><option value="0">否</option><option value="1" <if condition="$top==1">selected="selected"</if> >是</option></select></td>
+		<td width="72" ><input  type="submit" value="搜索"/></td>
+	  </tr>
+	</table>
+
+	 </form>
+	 </div>
+	 
+	 
+	 
+	 
+	 <div>
+	 	<form id="form_id" action="" method="post">
+		<table width="100%" height="139" border="0" cellpadding="0" cellspacing="0" class="list_table">
+		  <tr>
+			<th height="23" scope="col">选择</th>
+			<th scope="col">id</th>
+			<th scope="col">{$Think.lang.order}</th>
+			<th scope="col">分类</th>
+			<th scope="col">{$Think.lang.atitle}</th>
+			<th scope="col">首页显示</th>
+			<th scope="col">推荐</th>
+			<th scope="col">{$Think.lang.date}</th>
+			<th scope="col">{$Think.lang.op}</th>
+		  </tr>
+		  
+		  
+		  <volist name="list" id="li">
+		  <tr class="list_tr">
+			<td class="list_td"><input class="check_all" type="checkbox" value="{$li.id}" name="check[{$li.id}]"  /></td>
+			<td class="list_td">{$li.id}</td>
+			<td class="list_td"><input type="text"  name="order[{$li.id}]" value="{$li.a_order}"  class="bind_change" /></td>
+			<td class="list_td" style="text-align:center; "><a href="{:U('Admin/Article/articleList',array('sortid'=>$li['sort']))}">{$li.sortname}</a></td>
+			<td class="list_td" style="text-align:center;"><a href="{:U('Home/Article/show',array('id'=>$li['id']))}" target="_blank">{$li.title}</a></td>
+			<td class="list_td"><eq name="li.home_show" value="1"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Article/doHome')}')" class="access_allow"></a></eq><eq name="li.home_show" value="0"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Article/doHome')}')" class="access_disallow"></a></eq></td>
+			<td class="list_td"><eq name="li.top" value="1"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Article/doTop')}')" class="access_allow"></a></eq><eq name="li.top" value="0"><a href="javascript:void(0)" onclick="op_one(this,'{:U('Admin/Article/doTop')}')" class="access_disallow"></a></eq></td>
+			<td class="list_td"><php>echo date('Y-m-d H:i',$li['dateline']);</php></td>
+			<td class="list_td"> <if condition="in_array($space['groupid'],array(9,10))"><a href="{:U('Admin/Article/editArticle',array('aid'=>$li['id']))}">{$Think.lang.edit}</a></if> <if condition="in_array($space['groupid'],array(9,10))"><a href="javascript:void(0)" onclick="del_one(this,'{:U('Admin/Article/doDelArticle')}')">{$Think.lang.del}</a></if> <a target="_blank" href="{:listurl('Home/Article/show',array('id'=>$li['id'],'sid'=>$li['sort']))}">预览</a></td>
+		  </tr>
+		  </volist>
+		  
+		  
+		 <tr class="list_tr" height="60px;">
+			<td class="list_td"><input type="checkbox" onclick="select_all()" id="checkbox_all"/></td>
+			<td colspan="6"><span style=" margin-top:5px; margin-right:20px;float:left ; display:block;">全选</span> <input  type="button"class="form-text" value="{$Think.lang.saveorder}" onclick="submit_form('{:U('Admin/Article/doSaveOrder')}')"/>
+			  <input name="button" class="form-text" type="button" onclick="del('{:U('Admin/Article/doDelArticle')}')" value="{$Think.lang.del}" />	
+			  
+			  <if condition="$_COOKIE['think_language']=='en-us'">
+				<input type="button" onclick="javascript:if(confirm('是否已经导入文章分类，否则无法自动分类!!'))importdata('{:U('Admin/Article/improtArticle')}')" value="导入中文站文章">
+			  </if>				  
+			  	    </td>
+            <td colspan="7" align="center" class="list_td">&nbsp;</td>
+		  </tr>
+		  <tr class="list_tr">
+			
+			
+			<td colspan="7" align="center" class="list_td" style="padding-left: 110px;"><span class="page_span">{$page}</span></td>
+            <td colspan="7" align="center" class="list_td">&nbsp;</td>
+		  </tr>
+		</table>
+		
+		
+		</form>
+	 
+	 </div>
+	 
+   </div>
+   <!--右边结束-->
+   
+   
+   
+   
+   <include file="./Public/Admin/Public/footer.html" />

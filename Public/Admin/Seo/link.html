@@ -1,0 +1,56 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">链接管理</div>
+     <include file="./Public/Admin/Seo/nav.html" />
+	 
+	 <div>
+	 	<form id="form_id" action="{:U('Admin/Style/doSaveStyleCustomer')}" method="post">
+<table width="100%" border="0" cellpadding="0" cellspacing="1"  class="list_table" >
+  <tr>
+    <th height="" scope="col">{$Think.lang.select}</th>
+    <th scope="col">{$Think.lang.order}</th>
+    <th scope="col">{$Think.lang.atitle}</th>
+	<th scope="col">url</th>
+    <th scope="col">{$Think.lang.keyword}</th>
+	<th scope="col">添加时间</th>
+    <th scope="col">{$Think.lang.op}</th>
+  </tr>
+  
+  
+  <volist name="list" id="li">
+  <tr class="list_tr">
+    <td class="list_td"><input class="check_all" type="checkbox" value="{$li.id}" name="check[{$li.id}]"  /></td>
+    <td class="list_td"><input type="text" name="order[{$li.id}]" value="{$li.l_order}" class="bind_change" /></td>
+    <td class="list_td">{$li.name}</td>
+	<td class="list_td">{$li.url}</td>
+    <td class="list_td">{$li.linkkeyword}</td>
+	<td class="list_td">{:date('Y-m-d',$li['dateline'])}</td>
+    <td class="list_td"><a href="javascript:void(0)" onclick="del_one(this,'{:U('Admin/Seo/doDelLink')}')">{$Think.lang.del}</a> <a href="{:U('Admin/Seo/editLink',array('id'=>$li['id']))}">{$Think.lang.edit}</a></td>
+  </tr>
+  </volist>
+
+  <tr>
+    <td class="list_td">&nbsp;</td>
+    <td colspan="5" class="list_td">{$page}</td>
+    </tr>
+  <tr>
+    <td  class="list_td"><input type="checkbox" onclick="select_all()" id="checkbox_all"/></td>
+    <td colspan="5"><input class="form-text" type="button" value="{$Think.lang.saveorder}" onclick="submit_form('{:U('Admin/Seo/doSaveLinkOrder')}')"/>
+      <input name="button"  class="form-text" type="button" onclick="del('{:U('Admin/Seo/doDelLink')}')" value="{$Think.lang.del}" />
+	   <input type="button"  class="form-text" value="{$Think.lang.addlink}" onclick="window.location.href='{:U('Admin/Seo/addLink')}'" />
+	  </td>
+    </tr>
+</table>
+
+
+</form>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

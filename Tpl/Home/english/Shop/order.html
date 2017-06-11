@@ -1,0 +1,89 @@
+<style>
+.order_ul{
+clear: both;
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+	padding: 15px 0 0 115px;
+	list-style: none outside none;
+	font-size:12px;
+
+}
+.order_ul li{
+ float: left;
+    text-align: center;
+    width: 130px;
+}
+.order_ul .huang b{
+ display: inline-block;
+    height: 79px;
+    width: 79px;
+	background: url(../public/images/ico_2.png) repeat scroll 0 0 transparent;
+}
+.order_ul .huang p{
+	margin: 9px 0 3px;
+	color: #936C1A;
+}
+
+.order_ul .huang .huang_note_leftbg{
+	display: inline-block;
+    height: 17px;
+    line-height: 17px;
+	background: url(../public/images/ico_2.png) repeat scroll 0 -257px transparent;
+}
+.order_ul .huang .huang_note_rightbg{
+	display: inline-block;
+    height: 17px;
+    line-height: 17px;
+	background: url(../public/images/ico_2.png) repeat scroll right -274px transparent;
+    color: #936C1A;
+    margin-left: 2px;
+    padding: 0 6px 0 4px;
+}
+.order_ul .flow_ico_li{
+float: left;
+    text-align: center;
+width: 45px;
+}
+.huang_arrow {
+    background: url("../images/ico_2.png") repeat scroll 0 -237px transparent;
+}
+.hui_arrow, .huang_arrow {
+    height: 20px;
+    margin: 31px auto;
+    width: 31px;
+}
+	
+</style>
+
+ <form action="{:U('Public/doOrder')}" method="post">
+<div id="shopwapper" style="width:680px; height:450px;">
+  <ul class="order_ul">
+			<li class="huang">
+				<b></b>
+				<p class="font936">下单</p>
+				<span class="huang_note_leftbg"><span class="huang_note_rightbg">2013-08-16 08:52:04</span></span>
+			</li>
+			<li class="flow_ico_li">
+				<div class="huang_arrow"></div>
+			</li>
+			<li>
+				<b class="three_flow_ico3"></b>
+				<p class="font936">发货</p>
+				<span class="huang_note_leftbg"><span class="huang_note_rightbg">2013-08-16 08:52:49</span></span>
+				
+			</li>
+			<li class="flow_ico_li">
+				<div class="huang_arrow"></div>
+			</li>
+			<li>
+				<b class="four_flow_ico2"></b>
+				<p class="fontC23">收货</p>
+				<span class="hong_note_leftbg"><span class="hong_note_rightbg">等待确认收货</span></span>
+			</li>
+		</ul>
+  
+  
+</div>
+</form>

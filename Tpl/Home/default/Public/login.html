@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script src="__PUBLIC__/js/jquery-1.4.4.min.js"></script>
+<script src="__PUBLIC__/js/artDialog/jquery.artDialog.js?skin={$shop}"></script>
+<script src="__PUBLIC__/js/artDialog/iframeTools.js"></script>
+<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<eq name="Login" value="1">
+<script>
+	art.dialog.alert('用户名或密码错误！');
+</script>
+<else />
+<script>
+	art.dialog.alert('请登录后再继续购物！');
+</script>
+</eq>
+<body>
+<div>
+	
+	<if condition="!empty($islogin)">
+	<div>
+	用户名 : {$space['username']} <input type="button" value="退出" onClick="window.location.href='{:U('Public/logout')}'" />
+	</div>	
+	<else/>
+
+	<form  action="{:U('Public/loginsubmit?jump=1')}" method="post">
+    <table style="margin-left:15px; margin-top:20px;">
+    <tbody>
+    <tr >
+    <th width="81" scope="row" style="margin-top:10px;">用户名</th>
+	<td width="210" style="margin-top:10px;"><input name="username" type="text"  style="margin-top:5px;" class="ntes-loginframe-label-n" size="20"  placeholder="请输入用户名" /></td>
+    </tr> 
+   <tr >
+    <th width="81" scope="row" style="margin-top:10px;">密&nbsp;&nbsp;码</th>
+	<td width="210" style="margin-top:15px;"><input name="password" type="password"  style="margin-top:5px;" class="ntes-loginframe-label-n" size="20"  placeholder="请输入密码" /></td>
+    </tr>
+     
+     <tr>
+	<td></td>
+	 <td><input type="submit" class="submit"  value="登录" style=" margin-left:1px; margin-top:10px; " /></td>
+     </tr>
+     </tbody>
+     </table>
+	</form>
+  
+	</if>
+</div>
+<script>
+var api = art.dialog.open.api;	// 			art.dialog.open扩展方法
+if (!api) return;
+// 操作对话框
+api.title('会员登录');
+api.width('100px');
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">会员添加</div>
+     <div class="conNav">
+       <ul>
+        <li <if condition="ACTION_NAME=='listmember'">class="active"</if> ><a href="{:U('Admin/Member/listMember')}{$language}"><span>用户管理</span></a></li>
+        <li <if condition="ACTION_NAME=='group'">class="active"</if>><a href="{:U('Admin/Member/group')}{$language}"><span>用户组管理</span></a></li>
+        <li <if condition="ACTION_NAME=='myinfo'">class="active"</if>><a href="{:U('Admin/Member/myInfo')}{$language}"><span>我的信息</span></a></li>
+
+       </ul>
+     </div>
+	 
+	 
+	
+	 	<form action="{:U('Admin/Member/doSaveMember')}" method="post">
+<table width="100%" height="347" border="0" cellpadding="0" cellspacing="1"  class="list_table">
+  <tr>
+    <td width="20%" class="title_text"><span class="span_title">{$Think.lang.pname}:</span></td>
+    <td width="80%" class="spacing3"><if condition="empty($uid)"><input class="input_middle" name="username" value="" /><else/>{$username}</if></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.password}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="pwd" value="" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.repassword}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="pwdconfirm" value="" /></td>
+   </tr>
+   
+   <!-- 用户权限更改 开始-->
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.group}:</span></td>
+    <td width="" class="spacing3"><select name="powerGroup">
+	
+		
+	  <if condition="$space['groupid']==8">
+	  <option <selected="selected" value="8">内容管理员</option>
+	  <elseif condition="$space['groupid']==10"/>
+	  <option <selected="selected" value="10">优化推广员</option>
+	  <else/>
+	    <volist name="UserGroup" id="UGshow">
+			<option <eq name="UGshow.gid" value="$groupid">selected="selected"</eq> value="{$UGshow.gid}">{$UGshow.gname}</option>
+    	</volist>
+	  
+	  </if>
+	  
+	
+    	
+    </select></td>
+   </tr>
+ <!-- 用户权限更改 结束-->
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.realname}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="realname" value="{$realname|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.sex}:</span></td>
+    <td width="" class="spacing3"><input type="radio" name="sex" value="1" <if condition="empty($sex)||$sex==1">checked="checked"</if>/>{$Think.lang.nan} <input type="radio"  value="2" name="sex" <eq name="sex" value="2">checked="checked"</eq>/>{$Think.lang.nv}</td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.phone}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="phone" value="{$phone|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.mobile}:</span></td>
+    <td width="" class="spacing3"><input class="input_middle" name="mobile" value="{$mobile|default=''}" /></td>
+   </tr>
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.qq}:</span></td>
+    <td width="" class="spacing3"><input  class="input_middle"  name="qq" value="{$qq|default=''}" /> </td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text"><span class="span_title">{$Think.lang.email}:</span></td>
+    <td width="" class="spacing3"><input  class="input_middle"  name="email" value="{$email|default=''}" /> </td>
+   </tr>
+   
+   <tr>
+    <td width="" class="title_text">&nbsp;</td>
+    <td width="" class="spacing3"><input class="form-text" type="submit" value="{$Think.lang.save}" /></td>
+   </tr>
+   <input type="hidden" name="uid" value="{$uid}" />
+ 
+</table>
+</form>
+ </div>
+<include file="./Public/Admin/Public/footer.html" />

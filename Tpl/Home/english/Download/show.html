@@ -1,0 +1,28 @@
+<include file="Public:header" />
+<div id="page_main" class="clearfix">
+ <div class="page-right">
+   <div class="site-nav"><span>当前位置 : </span>{$location}</div>
+   <div class="page-news">
+    <div id="shownews">
+      <h1 class="title">{$title}</h1>
+	  
+      <div class="text editor">
+		<ul class="download clearfix">
+          <li class="downloadLeft" style="line-height:76px;">二维码： </li>
+          <li class="downloadRight" >{$qrcode}</li>
+          <li class="downloadLeft">文件名称： </li>
+          <li class="downloadRight">{$title}</li>
+          <li class="downloadLeft">上传时间： </li>
+          <li class="downloadRight">{$dateline|date="y/m/d",###}</li>
+          <li class="downloadLeft">下载地址： </li>
+          <li class="downloadRight"><a href="{:U('Download/doDownload',array('id'=>$id))}">下载</a></li>
+        </ul>	
+		{$content}
+	  </div>
+	  <div class="clear"></div>
+     </div>
+   </div>
+ </div>
+<include file="Public:left" />
+</div>
+<include file="Public:footer" />   

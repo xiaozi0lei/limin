@@ -1,0 +1,94 @@
+   <include file="./Public/Admin/Public/header.html" />
+   <include file="./Public/Admin/Public/left.html" />
+
+
+
+<div class="rightCon1 fl">
+     <div class="conTitle">流量概况</div>
+     <div class="conNav">
+       <ul>
+        <li <if condition="ACTION_NAME=='summary'">class="active"</if>><a href="{:U('Admin/Alexa/summary')}{$language}"><span>流量概况</span></a></li>
+        <li <if condition="ACTION_NAME=='eng'">class="active"</if>><a href="{:U('Admin/Alexa/eng',array('tab'=>1))}{$language}"><span>搜索引擎概况</span></a></li>
+        <li <if condition="ACTION_NAME=='access'">class="active"</if>><a href="{:U('Admin/Alexa/access',array('tab'=>1))}{$language}"><span>访问分析</span></a></li>
+        <li <if condition="ACTION_NAME=='referer'">class="active"</if>><a href="{:U('Admin/Alexa/referer',array('tab'=>1))}{$language}"><span>来源分析</span></a></li>
+		</ul>
+     </div>
+
+	 <style>
+	 .list_table tr td{
+	 text-align:center;
+	 }
+	 </style>	
+	 <div style="margin-left:100px;">
+	<table width="704" height="280" cellpadding="0" cellspacing="1" class="list_table" style="margin-top:20px; margin-bottom:20px;" >
+		  <tr class="list_tr">
+			<td colspan="5"  bgcolor="#1F75B7"  style="text-align:center;"scope="row"><strong style="color:#FFFFFF">访问统计</strong></th>
+	  	  </tr>
+		  <tr class="list_tr">
+			<td width="117"  scope="row">&nbsp;</th>
+			<td width="151">PV</td>
+			<td width="134">独立访客</td>
+			<td width="134">IP</td>
+			<td width="134">人均浏览次数</td>
+		  </tr>
+		  <tr class="list_tr">
+			<td scope="row">今日</th>
+			<td>{$visit_summary[pv]}</td>
+			<td>{$visit_summary[alone]}</td>
+			<td>{$visit_summary[ip]}</td>
+			<td>{$per_visit}</td>
+		  </tr>
+		  <tr class="list_tr">
+			<td  scope="row">昨日</th>
+			<td>{$visit_summaryz[pv]}</td>
+			<td>{$visit_summaryz[alone]}</td>
+			<td>{$visit_summaryz[ip]}</td>
+			<td>{$per_visitz}</td>
+		  </tr>
+			<tr class="list_tr">
+			<td  scope="row">平均每日</th>
+			<td>{$pvaver}</td>
+			<td>{$alaver}</td>
+			<td>{$ipaver}</td>
+			<td>&nbsp;</td>
+		  </tr>
+			<tr class="list_tr">
+			<td  scope="row">历史最高</th>
+			  <td>{$maxpv}</td>
+				<td>{$maxal}</td>
+				<td>{$maxip}</td>
+				<td>&nbsp;</td>
+		  </tr>
+		  <tr class="list_tr">
+			<td  scope="row">历史累计</th>
+			<td>{$pvaccum}</td>
+				<td>{$alaccum}</td>
+				<td>{$ipaccum}</td>
+				<td>&nbsp;</td>
+		  </tr>
+	   </table>
+		
+		<table width="704" height="106" class="list_table" cellpadding="0" cellspacing="1">
+		  <tr>
+			<th height="30" colspan="5" bgcolor="#1F75B7" scope="row"><strong style="color:#FFFFFF">流量图</strong></th>
+		  </tr>
+		  <tr>
+			<th colspan="5" scope="row"><div style="height:270px;" id="charttd"><div id='chartContainer'></div></div></th>
+		  </tr>
+		</table>
+		
+		<script language="JavaScript" src="__PUBLIC__/Chart/js/FusionCharts.js"></script>
+		<script type="text/javascript">
+			var wdth = $('#charttd').width()-20;
+			var heth = '270';
+		   var chart = new FusionCharts("__PUBLIC__/Chart/swf/FCF_MSLine.swf", "ChartId", wdth, heth);
+		   chart.setDataURL("{:U('Admin/Alexa/summaydata',array('st'=>$dtime,'et'=>$dtime))}");		   
+		   chart.render("chartContainer");
+		</script>
+	 
+	 </div>
+	 
+   </div>
+
+
+<include file="./Public/Admin/Public/footer.html" />

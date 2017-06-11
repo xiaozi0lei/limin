@@ -1,0 +1,102 @@
+<include file="Public:header" />
+<link href="../Public/js/zoom/phzoom.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/js/zoom/phzoom.js"></script>
+<script>
+$(function(){
+
+$(".piczoom").phzoom({
+
+        prevText:'上一张',         // 上一张按钮的显示文本, 需要引号
+        nextText:'下一张',         // 下一张按钮的显示文本, 需要引号
+        navColor:'#FFFFFF',         // 上/下一张按钮的文本颜色, 需要引号
+        capColor:'#FFFFFF'         // 大图底部标题与索引的文本颜色, 需要引号
+        
+  });
+
+
+
+});
+</script>
+<style>
+ #piclist li{
+ float:left;
+ margin-right:10px;
+ }
+</style>
+<div id="page_main" class="clearfix">
+    <div class="page-right">
+    <header class="headerNews"> <span class="return fl" onClick="javascript:history.go(-1);">
+      <div class="btn"> <b> <em></em> </b> <span> 返回 </span> </div>
+      </span> <span class="BigclassName">{$current_sort['name']}</span> <span class="rightButton fr"> <span class="titleBar fr" role="Bar_Left"> <em class="kinds"> 导航 </em> <em class="icon"></em> </span> <span class="textSizeBtn" style="position: relative;"> <em class="title">字<sup> + </sup></em>
+      <div class="textSize" style="display: none;">
+        <div class="contArrow"> <em>◆</em> <i>◆</i> </div>
+        <ul class="cont">
+          <li style="font-size:12px;"> 小 </li>
+          <li style="font-size:14px;" class="current"> 中 </li>
+          <li style="font-size:16px;"> 大 </li>
+        </ul>
+      </div>
+      </span> </span>
+      <div class="clear"></div>
+    </header>
+      <div class="page-news">
+        <div id="shownews">
+            <h3 class="title">{$title}</h1>
+            <div class="text editor" style="text-align:center;">
+			  <div id="piclist">
+			  		<ul>
+					    <volist name="plist" id="pic">
+						<li><a href="{$site_url}/{$pic.org}" title="" class="piczoom"><img width="200" height="150" src="{$site_url}/{$pic.filepath}" /></a></li>
+						
+						</volist>
+					</ul>
+					<div style="clear:both;"></div>
+			  </div>
+			 
+
+			
+			{$content}
+			</div>
+			<div class="hits">点击次数：<span>{$hit}</span>&nbsp;&nbsp;更新时间：{$dateline|date="y/m/d H:i:m",###}&nbsp;&nbsp;【<a href="javascript:window.print()">打印此页</a>】&nbsp;&nbsp;【<a href="javascript:self.close()">关闭</a>】</div>
+            
+			<div class="pageControlBar">
+			
+	  <section class='active pagePrev'>
+         上一条 
+        <if condition="!empty($pre)"><a href="{$pre['url']}">{$pre['title']}</a><else/>没有了</if>
+        <p class='arrow'></p>
+        </a>
+	</section>		
+      <section class='active pageNext'>
+       下一条 
+        <if condition="!empty($next)"><a href="{$next['url']}">{$next['title']}</a><else/>没有了</if>
+        <p class='arrow'></p>
+        </a>
+	</section>
+      
+    </div>
+            
+            
+            
+            
+            
+
+			<h4 class="related" style="padding-top:10px; text-align:center;">相关图片</h4>
+			    <ul class="related-list">
+
+					<volist name="relate" id="relate">
+                    <li>•&nbsp;<a target="_blank" title="{$relate.title}" href="{$relate['url']}">{$relate['title']}</a></li>
+					</volist>
+                    
+
+                </ul>
+				<div class="clear"></div>
+
+        </div>
+      </div>
+    </div>
+    
+	<include file="Public:left" />
+	
+  </div>
+ <include file="Public:footer" />   

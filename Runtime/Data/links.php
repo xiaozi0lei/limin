@@ -1,0 +1,1 @@
+<?php	return array ( 0 => array ( 'id' => '6', 'url' => 'http://www.baidu.com', 'name' => '111', 'keyword' => '哈哈', 'l_order' => '0', 'lang' => 'zh-cn', ), 1 => array ( 'id' => '7', 'url' => 'www.haha.com', 'name' => '转盘', 'keyword' => '啦啦', 'l_order' => '3', 'lang' => 'zh-cn', ), );?>

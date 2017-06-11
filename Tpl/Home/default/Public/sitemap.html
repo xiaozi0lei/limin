@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>网站地图-{$sitename}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div class="n_content_right_x">
+<p>网站地图</p>
+  <p>分类:</p>
+  <ul style="margin-left:20px;">
+    <volist name="sort" id="s">
+      <li><A href="{$s.url}">{$s.name}</A></li>
+    </volist>
+  </ul>
+  <p>产品:</p>
+  <ul style="margin-left:20px;">
+    <volist name="product" id="p">
+      <li><A href="{$p.url}">{$p.title}</A></li>
+    </volist>
+  </ul>
+  <p>文章:</p>
+  <ul style="margin-left:20px;">
+    <volist name="article" id="a">
+      <li><A href="{$a.url}">{$a.title}</A></li>
+    </volist>
+  </ul>
+</div>
+</body>
+</html>

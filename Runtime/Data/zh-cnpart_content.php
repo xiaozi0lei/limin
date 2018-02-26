@@ -3,7 +3,12 @@
 </p>', 'lang' => 'zh-cn', ), 4 => array ( 'id' => '4', 'contant' => '<p>
 	<span style="line-height:2.5;">电话/传真：0535-4326056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 客服QQ：653392968</span><br />
 <span style="line-height:2.5;">厂址：山东省烟台市牟平区立民街158号（S207牟乳公路北首）</span> 
-</p>', 'lang' => 'zh-cn', ), 5 => array ( 'id' => '5', 'contant' => '<p>
+</p>
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021202000370 &#13;&#10;" target="_blank"><img src="http://www.beian.gov.cn/img/ghs.png" style="float: left"/> 
+<p style="float:left; color:#939393;">
+	鲁公网安备 37021202000370号
+</p>
+</a>', 'lang' => 'zh-cn', ), 5 => array ( 'id' => '5', 'contant' => '<p>
 	<br />
 </p>
 <div style="text-align:center;">
